@@ -21,7 +21,7 @@ namespace Students.Domain.Entities
 
         public virtual ICollection<HousingComment> HousingComments { get; set; }
 
-        public HousingAnnouncment()
+        public HousingAnnouncment() : base()
         {
             this.HousingComments = new List<HousingComment>();
         }

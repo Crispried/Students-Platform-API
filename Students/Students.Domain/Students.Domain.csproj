@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IAnnouncmentRepository.cs" />
     <Compile Include="Abstract\ICommentRepository.cs" />
     <Compile Include="Abstract\IGroupRepository.cs" />
     <Compile Include="Abstract\IHousingAnnouncmentRepository.cs" />

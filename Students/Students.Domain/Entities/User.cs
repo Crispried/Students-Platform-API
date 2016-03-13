@@ -8,6 +8,25 @@ using System.Threading.Tasks;
 
 namespace Students.Domain.Entities
 {
+    public enum RateAction
+    {
+        Increase,
+        Decrease
+    }
+
+    public enum UserRole
+    {
+        Admin,
+        Moderator,
+        User
+    }
+
+    public enum UserStatus
+    {
+        Normal,
+        ReadOnly,
+        Blocked
+    }
     public class User
     {
         [Key]
@@ -100,6 +119,8 @@ namespace Students.Domain.Entities
         {
             this.Rate = 0; // default value for user rate is 0
             this.RegisterDate = DateTime.Now; // default value for register date is the date when register
+            this.Role = UserRole.User; // default role is user
+            this.Status = UserStatus.Normal; // default status is normal
 
             this.PrivateMessages = new List<PrivateMessage>();
 
@@ -112,20 +133,6 @@ namespace Students.Domain.Entities
             this.TravelComments = new List<TravelComment>();
             this.MarketComments = new List<MarketComment>();
             this.ServiceComments = new List<ServiceComment>();
-        }
-
-        public enum UserRole
-        {
-            Admin,
-            Moderator,
-            User
-        }
-
-        public enum UserStatus
-        {
-            Normal,
-            ReadOnly,
-            Blocked
         }
     }
 }

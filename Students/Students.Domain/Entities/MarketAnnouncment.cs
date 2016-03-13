@@ -21,7 +21,7 @@ namespace Students.Domain.Entities
 
         public virtual ICollection<MarketComment> MarketComments { get; set; }
 
-        public MarketAnnouncment()
+        public MarketAnnouncment() : base()
         {
             this.MarketComments = new List<MarketComment>();
         }

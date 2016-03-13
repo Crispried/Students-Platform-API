@@ -21,7 +21,7 @@ namespace Students.Domain.Entities
 
         public virtual ICollection<TravelComment> TravelComments { get; set; }
 
-        public TravelAnnouncment()
+        public TravelAnnouncment() : base()
         {
             this.TravelComments = new List<TravelComment>();
         }

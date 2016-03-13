@@ -8,5 +8,6 @@ namespace Students.Domain.Abstract
 {
     public interface ICommentRepository
     {
+
     }
 }

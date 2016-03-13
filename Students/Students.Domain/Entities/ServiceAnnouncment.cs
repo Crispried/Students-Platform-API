@@ -21,7 +21,7 @@ namespace Students.Domain.Entities
 
         public virtual ICollection<ServiceComment> ServiceComments { get; set; }
 
-        public ServiceAnnouncment()
+        public ServiceAnnouncment() : base()
         {
             this.ServiceComments = new List<ServiceComment>();
         }
