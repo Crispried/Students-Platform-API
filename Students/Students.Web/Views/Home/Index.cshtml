@@ -1,5 +1,18 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<h1>Show how it works</h1>
 
-<h1>Hello World</h1>
+<ul>
+    @foreach (var user in Model)
+    {        
+        <li>
+            <h3>Username: @user.UserName</h3>
+            <p>Email: @user.Email</p>
+            <p>Role: @user.Role</p>
+            <p>Status: @user.Status</p>
+            <p>Register date: @user.RegisterDate</p>
+        </li>
+    }
+</ul>
+

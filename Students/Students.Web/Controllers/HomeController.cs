@@ -23,7 +23,8 @@ namespace Students.Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var Users = userRepository.Users;
+            return View(Users);
         }
 
         public ActionResult About()

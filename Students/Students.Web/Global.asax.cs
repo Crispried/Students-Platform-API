@@ -14,7 +14,7 @@ namespace Students.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            DependencyResolver.SetResolver(new NinjectControllerFactory());
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

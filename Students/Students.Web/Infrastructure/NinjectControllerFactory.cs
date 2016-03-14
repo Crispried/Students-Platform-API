@@ -35,6 +35,6 @@ namespace Students.Web.Infrastructure
             ninjectKernel.Bind<IServiceAnnouncmentRepository>().To<EFServiceAnnouncmentRepository>();
             ninjectKernel.Bind<IPrivateMessageRepository>().To<EFPrivateMessageRepository>();
             ninjectKernel.Bind<ICommentRepository>().To<EFCommentRepository>();
-
         }
     }
+}
