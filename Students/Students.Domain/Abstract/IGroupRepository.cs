@@ -10,7 +10,7 @@ namespace Students.Domain.Abstract
     public interface IGroupRepository
     {
         /// <summary>
-        /// get all groups from database
+        /// gets all groups from database
         /// </summary>
         IQueryable<Group> Groups { get; }
 

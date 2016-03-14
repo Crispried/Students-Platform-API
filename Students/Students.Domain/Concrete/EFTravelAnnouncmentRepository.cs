@@ -10,22 +10,42 @@ namespace Students.Domain.Concrete
 {
     public class EFTravelAnnouncmentRepository : ITravelAnnouncmentRepository
     {
+        private EFDbContext context = new EFDbContext();
         public IQueryable<TravelAnnouncment> TravelAnnouncments
         {
             get
             {
-                throw new NotImplementedException();
+                return context.TravelAnnouncments;
             }
         }
 
         public void DeleteTravelAnnouncment(int travelAnnouncmentId)
         {
-            throw new NotImplementedException();
+            TravelAnnouncment dbEntry = context.TravelAnnouncments.Find(travelAnnouncmentId);
+            if (dbEntry != null)
+            {
+                context.TravelAnnouncments.Remove(dbEntry);
+                context.SaveChanges();
+            }
         }
 
         public void SaveTravelAnnouncment(TravelAnnouncment travelAnnouncment)
         {
-            throw new NotImplementedException();
+            if (travelAnnouncment.TravelAnnouncmentId == 0)
+            {
+                context.TravelAnnouncments.Add(travelAnnouncment);
+            }
+            else
+            {
+                TravelAnnouncment dbEntry = context.TravelAnnouncments.Find(travelAnnouncment.TravelAnnouncmentId);
+                if (dbEntry != null)
+                {
+                    dbEntry.Title = travelAnnouncment.Title;
+                    dbEntry.Bulletin = travelAnnouncment.Bulletin;
+                    dbEntry.AuthorId = travelAnnouncment.AuthorId;  
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

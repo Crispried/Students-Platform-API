@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace Students.Domain.Entities
 {
+    public enum CommentType
+    {
+        Housing,
+        Market,
+        Travel,
+        Service
+    }
     public abstract class Comment
     {
         [Required]
