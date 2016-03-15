@@ -29,7 +29,6 @@ namespace Helper
                 Group1.Users.Add(User1);
                 Group1.Users.Add(User2);
                 db.Groups.Add(Group1);
-
                 db.SaveChanges();
 
                 var PM1 = new PrivateMessage() { Title = "Test", Message = "I am testing you", AuthorId = User1.UserId, RecieverId = User2.UserId };
@@ -45,9 +44,7 @@ namespace Helper
                 db.ServiceAnnouncments.Add(bulletin2);
                 db.TravelAnnouncments.Add(bulletin3);
                 db.HousingAnnouncments.Add(bulletin4);
-
                 db.SaveChanges();
-
             }
         }
     }
