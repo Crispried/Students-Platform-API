@@ -18,12 +18,12 @@ namespace Students.Domain.Abstract
         /// saves market announcment in database
         /// </summary>
         /// <param name="marketAnnouncment"></param>
-        void SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment);
+        bool SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment);
 
         /// <summary>
         /// deletes market announcment which id = marketAnnouncmentId from database
         /// </summary>
         /// <param name="marketAnnouncmentId"></param>
-        void DeleteMarketAnnouncment(int marketAnnouncmentId);
+        bool DeleteMarketAnnouncment(int marketAnnouncmentId);
     }
 }

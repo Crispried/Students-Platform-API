@@ -31,6 +31,7 @@ namespace Students.Domain.Concrete
         public DbSet<ServiceComment> ServiceComments { get; set; }
 
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
+        public object ObjectStateManager { get; internal set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -73,6 +74,17 @@ namespace Students.Domain.Concrete
                 .HasRequired(sc => sc.ServiceAnnouncment)
                 .WithMany(sa => sa.ServiceComments)
                 .WillCascadeOnDelete(false);
+        }
+
+        /// <summary>
+        /// test speed with this method and without it
+        /// </summary>
+        /// <returns></returns>
+        public static bool HasUnsavedChanges(EFDbContext context)
+        {
+            return context.ChangeTracker.Entries().Any(e => e.State == EntityState.Added
+                                                      || e.State == EntityState.Modified
+                                                      || e.State == EntityState.Deleted);
         }
     }
 }

@@ -3,11 +3,12 @@
 }
 <h1>Show how it works</h1>
 
-<ul>
+<ul id="users">
     @foreach (var user in Model)
     {        
         <li>
             <h3>Username: @user.UserName</h3>
+            <p>Id: @user.UserId</p>
             <p>Email: @user.Email</p>
             <p>Role: @user.Role</p>
             <p>Status: @user.Status</p>
@@ -15,4 +16,3 @@
         </li>
     }
 </ul>
-

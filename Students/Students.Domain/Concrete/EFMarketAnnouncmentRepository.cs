@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
+using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace Students.Domain.Concrete
 {
@@ -19,17 +21,21 @@ namespace Students.Domain.Concrete
             }
         }
 
-        public void DeleteMarketAnnouncment(int marketAnnouncmentId)
+        public bool DeleteMarketAnnouncment(int marketAnnouncmentId)
         {
             MarketAnnouncment dbEntry = context.MarketAnnouncments.Find(marketAnnouncmentId);
             if (dbEntry != null)
             {
                 context.MarketAnnouncments.Remove(dbEntry);
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment)
+        public bool SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment)
         {
             if (marketAnnouncment.MarketAnnouncmentId == 0)
             {
@@ -45,7 +51,38 @@ namespace Students.Domain.Concrete
                     dbEntry.AuthorId = marketAnnouncment.AuthorId;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ContextWasSaved()
+        {
+            if (EFDbContext.HasUnsavedChanges(context))
+            {
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException marketAnnouncmentUpdateException)
+                {
+                    marketAnnouncmentUpdateException = new DbUpdateException("Problems with market announcment update.");
+                    return false;
+                }
+                catch (DbEntityValidationException marketAnnouncmentValidationException)
+                {
+                    marketAnnouncmentValidationException = new DbEntityValidationException("Problems with market announcment validation.");
+                    return false;
+                }
+                catch (ObjectDisposedException contextDisposedException)
+                {
+                    contextDisposedException = new ObjectDisposedException("Context was disposed.");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

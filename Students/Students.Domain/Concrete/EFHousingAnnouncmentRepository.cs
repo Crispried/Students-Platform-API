@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Students.Domain.Entities;
 using Students.Domain.Abstract;
+using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace Students.Domain.Concrete
 {
@@ -19,17 +21,21 @@ namespace Students.Domain.Concrete
             }
         }
 
-        public void DeleteHousingAnnouncment(int housingAnnouncmentId)
+        public bool DeleteHousingAnnouncment(int housingAnnouncmentId)
         {
             HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncmentId);
             if (dbEntry != null)
             {
                 context.HousingAnnouncments.Remove(dbEntry);
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveTravelAnnouncment(HousingAnnouncment housingAnnouncment)
+        public bool SaveTravelAnnouncment(HousingAnnouncment housingAnnouncment)
         {
             if (housingAnnouncment.HousingAnnouncmentId == 0)
             {
@@ -45,7 +51,38 @@ namespace Students.Domain.Concrete
                     dbEntry.AuthorId = housingAnnouncment.AuthorId;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ContextWasSaved()
+        {
+            if (EFDbContext.HasUnsavedChanges(context))
+            {
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException housingAnnouncmentUpdateException)
+                {
+                    housingAnnouncmentUpdateException = new DbUpdateException("Problems with housing announcment update.");
+                    return false;
+                }
+                catch (DbEntityValidationException housingAnnouncmentValidationException)
+                {
+                    housingAnnouncmentValidationException = new DbEntityValidationException("Problems with housing announcment validation.");
+                    return false;
+                }
+                catch (ObjectDisposedException contextDisposedException)
+                {
+                    contextDisposedException = new ObjectDisposedException("Context was disposed.");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

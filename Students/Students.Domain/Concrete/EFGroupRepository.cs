@@ -5,6 +5,8 @@ using System.Text;
 using Students.Domain.Entities;
 using Students.Domain.Abstract;
 using System.Threading.Tasks;
+using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace Students.Domain.Concrete
 {
@@ -19,27 +21,35 @@ namespace Students.Domain.Concrete
             }
         }
 
-        public void ChangeAdmin(Group groupId, int newAdminId)
+        public bool ChangeAdmin(Group groupId, int newAdminId)
         {
             Group dbEntry = context.Groups.Find(groupId);
             if (dbEntry != null)
             {
                 dbEntry.AdminId = newAdminId;
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void DeleteGroup(int groupId)
+        public bool DeleteGroup(int groupId)
         {
             User dbEntry = context.Users.Find(groupId);
             if (dbEntry != null)
             {
                 context.Users.Remove(dbEntry);
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveGroup(Group group)
+        public bool SaveGroup(Group group)
         {
             if (group.GroupId == 0)
             {
@@ -58,7 +68,38 @@ namespace Students.Domain.Concrete
                     dbEntry.AdminId = group.AdminId;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ContextWasSaved()
+        {
+            if (EFDbContext.HasUnsavedChanges(context))
+            {
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException groupUpdateException)
+                {
+                    groupUpdateException = new DbUpdateException("Problems with group update.");
+                    return false;
+                }
+                catch (DbEntityValidationException groupValidationException)
+                {
+                    groupValidationException = new DbEntityValidationException("Problems with group validation.");
+                    return false;
+                }
+                catch (ObjectDisposedException contextDisposedException)
+                {
+                    contextDisposedException = new ObjectDisposedException("Context was disposed.");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

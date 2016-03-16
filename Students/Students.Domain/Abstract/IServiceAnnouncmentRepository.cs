@@ -18,12 +18,12 @@ namespace Students.Domain.Abstract
         /// saves service announcment in database
         /// </summary>
         /// <param name="serviceAnnouncment"></param>
-        void SaveServiceAnnouncment(ServiceAnnouncment serviceAnnouncment);
+        bool SaveServiceAnnouncment(ServiceAnnouncment serviceAnnouncment);
 
         /// <summary>
         /// deletes service announcment which id = serviceAnnouncmentId from database
         /// </summary>
         /// <param name="serviceAnnouncmentId"></param>
-        void DeleteServiceAnnouncment(int serviceAnnouncmentId);
+        bool DeleteServiceAnnouncment(int serviceAnnouncmentId);
     }
 }

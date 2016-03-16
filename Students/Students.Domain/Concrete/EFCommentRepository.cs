@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
+using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace Students.Domain.Concrete
 {
@@ -28,17 +30,17 @@ namespace Students.Domain.Concrete
             return null;
         }
 
-        public void DeleteComment(int commentId, CommentType commentType)
+        public bool DeleteComment(int commentId, CommentType commentType)
         {
-            Comment dbEntry;
+
+            Comment dbEntry = null;
             switch (commentType)
             {
                 case CommentType.Housing:
                     dbEntry = context.HousingComments.Find(commentId);
-                    if(dbEntry != null)
+                    if (dbEntry != null)
                     {
                         context.HousingComments.Remove((HousingComment)dbEntry);
-                        context.SaveChanges();
                     }
                     break;
                 case CommentType.Travel:
@@ -46,7 +48,6 @@ namespace Students.Domain.Concrete
                     if (dbEntry != null)
                     {
                         context.TravelComments.Remove((TravelComment)dbEntry);
-                        context.SaveChanges();
                     }
                     break;
                 case CommentType.Market:
@@ -54,7 +55,6 @@ namespace Students.Domain.Concrete
                     if (dbEntry != null)
                     {
                         context.MarketComments.Remove((MarketComment)dbEntry);
-                        context.SaveChanges();
                     }
                     break;
                 case CommentType.Service:
@@ -62,13 +62,18 @@ namespace Students.Domain.Concrete
                     if (dbEntry != null)
                     {
                         context.ServiceComments.Remove((ServiceComment)dbEntry);
-                        context.SaveChanges();
                     }
                     break;
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
+        
 
-        public void SaveComment(ServiceComment serviceComment)
+        public bool SaveComment(ServiceComment serviceComment)
         {
             if (serviceComment.ServiceCommentId == 0)
             {
@@ -82,10 +87,14 @@ namespace Students.Domain.Concrete
                     dbEntry.Body = serviceComment.Body;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveComment(MarketComment marketComment)
+        public bool SaveComment(MarketComment marketComment)
         {
             if (marketComment.MarketCommentId == 0)
             {
@@ -99,10 +108,14 @@ namespace Students.Domain.Concrete
                     dbEntry.Body = marketComment.Body;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveComment(TravelComment travelComment)
+        public bool SaveComment(TravelComment travelComment)
         {
             if (travelComment.TravelCommentId == 0)
             {
@@ -116,10 +129,14 @@ namespace Students.Domain.Concrete
                     dbEntry.Body = travelComment.Body;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveComment(HousingComment housingComment)
+        public bool SaveComment(HousingComment housingComment)
         {
             if (housingComment.HousingCommentId == 0)
             {
@@ -133,7 +150,38 @@ namespace Students.Domain.Concrete
                     dbEntry.Body = housingComment.Body;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ContextWasSaved()
+        {
+            if (EFDbContext.HasUnsavedChanges(context))
+            {
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException commentUpdateException)
+                {
+                    commentUpdateException = new DbUpdateException("Problems with comment update.");
+                    return false;
+                }
+                catch (DbEntityValidationException commentValidationException)
+                {
+                    commentValidationException = new DbEntityValidationException("Problems with comment validation.");
+                    return false;
+                }
+                catch (ObjectDisposedException contextDisposedException)
+                {
+                    contextDisposedException = new ObjectDisposedException("Context was disposed.");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

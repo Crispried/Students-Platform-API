@@ -20,31 +20,31 @@ namespace Students.Domain.Abstract
         /// saves housing comment in database
         /// </summary>
         /// <param name="housingComment"></param>
-        void SaveComment(HousingComment housingComment);
+        bool SaveComment(HousingComment housingComment);
 
         /// <summary>
         /// saves travel comment in database
         /// </summary>
         /// <param name="travelComment"></param>
-        void SaveComment(TravelComment travelComment);
+        bool SaveComment(TravelComment travelComment);
 
         /// <summary>
         /// saves market comment in database
         /// </summary>
         /// <param name="marketComment"></param>
-        void SaveComment(MarketComment marketComment);
+        bool SaveComment(MarketComment marketComment);
 
         /// <summary>
         /// saves service comment in database
         /// </summary>
         /// <param name="serviceComment"></param>
-        void SaveComment(ServiceComment serviceComment);
+        bool SaveComment(ServiceComment serviceComment);
 
         /// <summary>
         /// deletes comment (depending on commentType) which id = commentId from database
         /// </summary>
         /// <param name="commentId"></param>
         /// <param name="commentType"></param>
-        void DeleteComment(int commentId, CommentType commentType);
+        bool DeleteComment(int commentId, CommentType commentType);
     }
 }

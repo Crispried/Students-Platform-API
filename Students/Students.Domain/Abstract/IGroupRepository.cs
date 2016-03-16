@@ -18,19 +18,19 @@ namespace Students.Domain.Abstract
         /// saves group in database
         /// </summary>
         /// <param name="group"></param>
-        void SaveGroup(Group group);
+        bool SaveGroup(Group group);
 
         /// <summary>
         /// deletes group which id = groupId from database
         /// </summary>
         /// <param name="group"></param>
-        void DeleteGroup(int groupId);
+        bool DeleteGroup(int groupId);
 
         /// <summary>
         /// changes admin of the group
         /// </summary>
         /// <param name="groupId"></param>
         /// <param name="newAdminId"></param>
-        void ChangeAdmin(Group groupId, int newAdminId);
+        bool ChangeAdmin(Group groupId, int newAdminId);
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
+using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace Students.Domain.Concrete
 {
@@ -19,17 +21,21 @@ namespace Students.Domain.Concrete
             }
         }
 
-        public void DeletePrivateMessage(int privateMessageId)
+        public bool DeletePrivateMessage(int privateMessageId)
         {
             PrivateMessage dbEntry = context.PrivateMessages.Find(privateMessageId);
             if (dbEntry != null)
             {
                 context.PrivateMessages.Remove(dbEntry);
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SavePrivateMessage(PrivateMessage privateMessage)
+        public bool SavePrivateMessage(PrivateMessage privateMessage)
         {
             if (privateMessage.PrivateMessageId == 0)
             {
@@ -46,7 +52,38 @@ namespace Students.Domain.Concrete
                     dbEntry.RecieverId = privateMessage.RecieverId;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ContextWasSaved()
+        {
+            if (EFDbContext.HasUnsavedChanges(context))
+            {
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException privateMessageUpdateException)
+                {
+                    privateMessageUpdateException = new DbUpdateException("Problems with private message update.");
+                    return false;
+                }
+                catch (DbEntityValidationException privateMessageValidationException)
+                {
+                    privateMessageValidationException = new DbEntityValidationException("Problems with private message validation.");
+                    return false;
+                }
+                catch (ObjectDisposedException contextDisposedException)
+                {
+                    contextDisposedException = new ObjectDisposedException("Context was disposed.");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

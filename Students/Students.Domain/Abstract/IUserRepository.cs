@@ -18,13 +18,13 @@ namespace Students.Domain.Abstract
         /// saves user in database
         /// </summary>
         /// <param name="user"></param>
-        void SaveUser(User user);
+        bool SaveUser(User user);
 
         /// <summary>
         /// deletes user which id = userId from database
         /// </summary>
         /// <param name="userId"></param>
-        void DeleteUser(int userId);
+        bool DeleteUser(int userId);
 
         /// <summary>
         /// returns user by username
@@ -46,34 +46,34 @@ namespace Students.Domain.Abstract
         /// <param name="userId"></param>
         /// <param name="newPassword"></param>
         /// <param name="oldPassword"></param>
-        void ChangePassword(int userId, string newPassword, string oldPassword);
+        bool ChangePassword(int userId, string newPassword, string oldPassword);
 
         /// <summary>
         /// depending on newUserRole changes role of the user
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="newUserRole"></param>
-        void ChangeRole(int userId, UserRole newUserRole);
+        bool ChangeRole(int userId, UserRole newUserRole);
 
         /// <summary>
         /// depending on newUserStatus changes status of the user
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="newUserStatus"></param>
-        void ChangeStatus(int userId, UserStatus newUserStatus);
+        bool ChangeStatus(int userId, UserStatus newUserStatus);
 
         /// <summary>
         /// depending on rateAction increases or decreases user rate by one
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="rateAction"></param>
-        void ChangeRate(int userId, RateAction rateAction);
+        bool ChangeRate(int userId, RateAction rateAction);
 
         /// <summary>
         /// Sets the LastVisit field to current time of server
         /// </summary>
         /// <param name="userId"></param>
-        void SetLastVisit(int userId);
+        bool SetLastVisit(int userId);
 
         /// <summary>
         ///     if user is admin of group - group will be destroyed,
@@ -83,6 +83,6 @@ namespace Students.Domain.Abstract
         /// will be equals null
         /// </summary>
         /// <param name="userId"></param>
-        void LeaveGroup(int userId);
+        bool LeaveGroup(int userId);
     }
 }

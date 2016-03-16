@@ -27,6 +27,36 @@ namespace Students.Web.Controllers
             return View(Users);
         }
 
+        [HttpGet]
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddUser(User user)
+        {
+            if (userRepository.SaveUser(user))
+            {
+                return View("Index", userRepository.Users); // smth like return Json(new { result = "success" });
+            }
+            return View(); // smth like return Json(new { result = "error" });
+        }
+
+        [HttpGet]
+        public ActionResult DeleteUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DeleteUser(int userId)
+        {
+            if (userRepository.DeleteUser(userId))
+            {
+                return View("Index", userRepository.Users); // smth like return Json(new { result = "success" });
+            }
+            return View(); // smth like return Json(new { result = "error" });
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

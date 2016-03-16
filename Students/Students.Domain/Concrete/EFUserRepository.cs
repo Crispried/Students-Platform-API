@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
+using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace Students.Domain.Concrete
 {
@@ -20,7 +22,7 @@ namespace Students.Domain.Concrete
             }
         }
 
-        public void ChangePassword(int userId, string newPassword, string oldPassword)
+        public bool ChangePassword(int userId, string newPassword, string oldPassword)
         {
             User dbEntry = context.Users.Find(userId);
             if (dbEntry != null)
@@ -29,12 +31,15 @@ namespace Students.Domain.Concrete
                 {
                     dbEntry.Password = newPassword;
                 }
-                context.SaveChanges();
-
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void ChangeRate(int userId, RateAction rateAction)
+        public bool ChangeRate(int userId, RateAction rateAction)
         {
             User dbEntry = context.Users.Find(userId);
             if (dbEntry != null)
@@ -48,38 +53,54 @@ namespace Students.Domain.Concrete
                         dbEntry.Rate--;
                         break;
                 }
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void ChangeRole(int userId, UserRole newUserRole)
+        public bool ChangeRole(int userId, UserRole newUserRole)
         {
             User dbEntry = context.Users.Find(userId);
             if (dbEntry != null)
             {
                 dbEntry.Role = newUserRole;
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void ChangeStatus(int userId, UserStatus newUserStatus)
+        public bool ChangeStatus(int userId, UserStatus newUserStatus)
         {
             User dbEntry = context.Users.Find(userId);
             if (dbEntry != null)
             {
                 dbEntry.Status = newUserStatus;
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void DeleteUser(int userId)
+        public bool DeleteUser(int userId)
         {
             User dbEntry = context.Users.Find(userId);
             if (dbEntry != null)
             {
                 context.Users.Remove(dbEntry);
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
         public User GetUserByEmail(string email)
@@ -94,7 +115,7 @@ namespace Students.Domain.Concrete
             return dbEntry;
         }
 
-        public void LeaveGroup(int userId)
+        public bool LeaveGroup(int userId)
         {
             User dbEntry = context.Users.Find(userId);
             if(dbEntry.GroupId != null)
@@ -112,10 +133,14 @@ namespace Students.Domain.Concrete
                     dbEntry.GroupId = null;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SaveUser(User user)
+        public bool SaveUser(User user)
         {
             if (user.UserId == 0)
             {
@@ -142,17 +167,25 @@ namespace Students.Domain.Concrete
                     dbEntry.GroupId = user.GroupId;
                 }
             }
-            context.SaveChanges();
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void SetLastVisit(int userId)
+        public bool SetLastVisit(int userId)
         {
             User dbEntry = context.Users.Find(userId);
             if (dbEntry != null)
             {
                 dbEntry.LastVisit = DateTime.Now;
-                context.SaveChanges();
             }
+            if (ContextWasSaved())
+            {
+                return true;
+            }
+            return false;
         }
 
         private static bool CheckPassword(User user, string oldPassword)
@@ -162,6 +195,33 @@ namespace Students.Domain.Concrete
                 return true;
             }
             return false;
+        }
+
+        public bool ContextWasSaved()
+        {
+            if (EFDbContext.HasUnsavedChanges(context))
+            {
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException userUpdateException)
+                {
+                    userUpdateException = new DbUpdateException("Problems with user update.");
+                    return false;
+                }
+                catch (DbEntityValidationException userValidationException)
+                {
+                    userValidationException = new DbEntityValidationException("Problems with user validation.");
+                    return false;
+                }
+                catch (ObjectDisposedException contextDisposedException)
+                {
+                    contextDisposedException = new ObjectDisposedException("Context was disposed.");
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -18,12 +18,12 @@ namespace Students.Domain.Abstract
         /// saves private message in database
         /// </summary>
         /// <param name="privateMessage"></param>
-        void SavePrivateMessage(PrivateMessage privateMessage);
+        bool SavePrivateMessage(PrivateMessage privateMessage);
 
         /// <summary>
         /// deletes private message which id = privateMessageId from database
         /// </summary>
         /// <param name="privateMessageId"></param>
-        void DeletePrivateMessage(int privateMessageId);
+        bool DeletePrivateMessage(int privateMessageId);
     }
 }
