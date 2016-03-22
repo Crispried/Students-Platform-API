@@ -11,27 +11,41 @@ namespace Students.Web.Controllers
     public class HomeController : Controller
     {
         /// <summary>
-        /// DI using example. After creating constructor for repository
-        /// you can use all methods in EFRepository
+        /// Initializing repositories for working with context
         /// </summary>
         private IUserRepository userRepository;
+        private IHousingAnnouncmentRepository housingAnnouncmentRepository;
+        private ITravelAnnouncmentRepository travelAnnouncmentRepository;
+        private IMarketAnnouncmentRepository marketAnnouncmentRepository;
+        private IServiceAnnouncmentRepository serviceAnnouncmentRepository;     
 
-        public HomeController(IUserRepository userRepository)
+        public HomeController(IUserRepository userRepository,
+            IHousingAnnouncmentRepository housingAnnouncmentRepository,
+            ITravelAnnouncmentRepository travelAnnouncmentRepository,
+            IMarketAnnouncmentRepository marketAnnouncmentRepository,
+            IServiceAnnouncmentRepository serviceAnnouncmentRepository)
         {
             this.userRepository = userRepository;
+            this.housingAnnouncmentRepository = housingAnnouncmentRepository;
+            this.travelAnnouncmentRepository = travelAnnouncmentRepository;
+            this.marketAnnouncmentRepository = marketAnnouncmentRepository;
+            this.serviceAnnouncmentRepository = serviceAnnouncmentRepository;
         }
-
+        
+        [HttpGet]
         public ActionResult Index()
-        {
+        {            
             var Users = userRepository.Users;
             return View(Users);
         }
 
+        #region demo part
         [HttpGet]
         public ActionResult AddUser()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult AddUser(User user)
         {
@@ -47,6 +61,7 @@ namespace Students.Web.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult DeleteUser(int userId)
         {
@@ -56,19 +71,8 @@ namespace Students.Web.Controllers
             }
             return View(); // smth like return Json(new { result = "error" });
         }
+        #endregion
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

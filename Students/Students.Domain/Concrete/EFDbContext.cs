@@ -31,7 +31,6 @@ namespace Students.Domain.Concrete
         public DbSet<ServiceComment> ServiceComments { get; set; }
 
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
-        public object ObjectStateManager { get; internal set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
