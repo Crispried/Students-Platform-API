@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Students.Domain.ViewModels;
 
 namespace Students.Web.Abstract
 {
@@ -10,10 +11,10 @@ namespace Students.Web.Abstract
     {
         ActionResult GetAnnouncments();
 
-        ActionResult AddAnnouncment();
+        ActionResult AddAnnouncment(AnnouncmentVM announcment);
 
         ActionResult DeleteAnnouncment(int announcmentId);
 
-        ActionResult EditAnnouncment(int announcmentId);
+        ActionResult EditAnnouncment(AnnouncmentVM announcment);
     }
 }

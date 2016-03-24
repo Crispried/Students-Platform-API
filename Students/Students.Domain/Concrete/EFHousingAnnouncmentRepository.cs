@@ -35,7 +35,7 @@ namespace Students.Domain.Concrete
             return false;
         }
 
-        public bool SaveTravelAnnouncment(HousingAnnouncment housingAnnouncment)
+        public bool SaveHousingAnnouncment(HousingAnnouncment housingAnnouncment)
         {
             if (housingAnnouncment.HousingAnnouncmentId == 0)
             {

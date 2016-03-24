@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Students.Domain.ViewModels;
 
 namespace Students.Web.Abstract
 {
@@ -11,10 +12,10 @@ namespace Students.Web.Abstract
     {
         ActionResult GetComments();
 
-        ActionResult AddComment();
+        ActionResult AddComment(CommentVM comment);
 
         ActionResult DeleteComment(int commentId);
 
-        ActionResult EditComment(int commentId);
+        ActionResult EditComment(CommentVM comment);
     }
 }

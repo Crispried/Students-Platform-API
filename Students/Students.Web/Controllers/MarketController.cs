@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Students.Domain.Entities;
+using Students.Domain.ViewModels;
 using Students.Domain.Abstract;
 using Students.Web.Abstract;
 
@@ -22,51 +22,75 @@ namespace Students.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAnnouncment()
+        public ActionResult AddAnnouncment(AnnouncmentVM announcment)
         {
-            throw new NotImplementedException();
+            if (announcmentRepository.SaveMarketAnnouncment(announcment.MarketAnnouncment))
+            {
+                return Json(new { result = "" });
+            }
+            return Json(new { result = "" });
         }
 
         [HttpPost]
-        public ActionResult AddComment()
+        public ActionResult AddComment(CommentVM comment)
         {
-            throw new NotImplementedException();
+            if (commentRepository.SaveComment(comment.MarketComment))
+            {
+                return Json(new { result = "" });
+            }
+            return Json(new { result = "" });
         }
 
         [HttpPost]
         public ActionResult DeleteAnnouncment(int announcmentId)
         {
-            throw new NotImplementedException();
+            if (announcmentRepository.DeleteMarketAnnouncment(announcmentId))
+            {
+                return Json(new { result = "" });
+            }
+            return Json(new { result = "" });
         }
 
         [HttpPost]
         public ActionResult DeleteComment(int commentId)
         {
-            throw new NotImplementedException();
+            if (commentRepository.DeleteComment(commentId, Domain.Entities.CommentType.Market))
+            {
+                return Json(new { result = "" });
+            }
+            return Json(new { result = "" });
         }
 
         [HttpPost]
-        public ActionResult EditAnnouncment(int announcmentId)
+        public ActionResult EditAnnouncment(AnnouncmentVM announcment)
         {
-            throw new NotImplementedException();
+            if (announcmentRepository.SaveMarketAnnouncment(announcment.MarketAnnouncment))
+            {
+                return Json(new { result = "" });
+            }
+            return Json(new { result = "" });
         }
 
         [HttpPost]
-        public ActionResult EditComment(int commentId)
+        public ActionResult EditComment(CommentVM comment)
         {
-            throw new NotImplementedException();
+            if (commentRepository.SaveComment(comment.MarketComment))
+            {
+                return Json(new { result = "" });
+            }
+            return Json(new { result = "" });
         }
 
         [HttpPost]
         public ActionResult GetAnnouncments()
         {
-            throw new NotImplementedException();
+            return Json(new { result = announcmentRepository.MarketAnnouncments });
         }
 
         [HttpPost]
         public ActionResult GetComments()
         {
-            throw new NotImplementedException();
+            return Json(new { result = commentRepository.Comments(Domain.Entities.CommentType.Market) });
         }
     }
 }
