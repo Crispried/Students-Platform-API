@@ -219,9 +219,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\HousingController.cs" />
     <Compile Include="Abstract\IAnnouncmentController.cs" />
     <Compile Include="Abstract\ICommentController.cs" />
+    <Compile Include="Controllers\HousingController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TravelController.cs" />
