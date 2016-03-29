@@ -15,3 +15,23 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.row{
+    border: 1px solid black;
+}
+
+.tableTitle{
+    margin-bottom: 1%;
+}
+
+.actionName{
+    color:blueviolet;
+}
+
+.parameters{
+    color:green;
+}
+
+.result{
+    color:blue;
+}

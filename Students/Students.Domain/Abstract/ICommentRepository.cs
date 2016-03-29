@@ -46,5 +46,13 @@ namespace Students.Domain.Abstract
         /// <param name="commentId"></param>
         /// <param name="commentType"></param>
         bool DeleteComment(int commentId, CommentType commentType);
+
+        /// <summary>
+        /// returns comment of announcment
+        /// </summary>
+        /// <param name="commentType"></param>
+        /// <param name="announcmentId"></param>
+        /// <returns></returns>
+        IQueryable<Comment> GetCommentsToAnnouncment(CommentType commentType, int announcmentId);
     }
 }

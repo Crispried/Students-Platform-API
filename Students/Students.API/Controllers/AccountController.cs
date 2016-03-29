@@ -1,27 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Students.Domain.Abstract;
-using Students.Domain.Entities;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Students.API.Controllers
 {
-    public class AccountController : ApiController
+    public class AccountController : Controller
     {
-        private IUserRepository userRepository;
-        public AccountController(IUserRepository userRepository)
+        public ActionResult Index()
         {
-            this.userRepository = userRepository;
-        }
-
-        [HttpGet]
-        public string[] lol()
-        {
-            string[] test = { "string1", "string2", "string3" };
-            return test;
+            return View();
         }
     }
 }

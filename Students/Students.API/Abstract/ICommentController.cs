@@ -10,7 +10,7 @@ namespace Students.API.Abstract
 {
     public interface ICommentController<T> where T : Comment
     {
-        IHttpActionResult GetComments();
+        IHttpActionResult GetComments(int announcmentId);
 
         IHttpActionResult AddComment(T comment);
 

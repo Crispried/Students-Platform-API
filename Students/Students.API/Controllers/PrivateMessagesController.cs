@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Students.API.Controllers
 {
-    public class TravelController : Controller
+    public class PrivateMessagesController : Controller
     {
-        // GET: Travel
+        // GET: PrivateMessages
         public ActionResult Index()
         {
             return View();

@@ -14,5 +14,36 @@ namespace Students.API.Controllers
 
             return View();
         }
+
+        public ActionResult Documentation()
+        {
+            ViewBag.Title = "API documentation";
+            return View();
+        }
+
+        public ActionResult Housing()
+        {
+            return View();
+        }
+
+        public ActionResult Travel()
+        {
+            return View();
+        }
+
+        public ActionResult Market()
+        {
+            return View();
+        }
+
+        public ActionResult Service()
+        {
+            return View();
+        }
+
+        public ActionResult Account()
+        {
+            return View();
+        }
     }
 }

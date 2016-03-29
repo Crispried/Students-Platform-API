@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Account</h2>
+
+<div class="tableTitle">
+    <div class="row">
+        <div class="col-md-4 actionName">
+            <h4>Action name</h4>
+        </div>
+        <div class="col-md-4 parameters">
+            <h4>Parameters(Name : Type)</h4>
+        </div>
+        <div class="col-md-4 result">
+            <h4>Result(Name : Condition : Type : Data)</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>AddUser</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>user : User</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>result : Was saved : String : Success</h4>
+        <h4>result : Wasn't founds : String : Can't add</h4>
+        <h4>result : Null request : String : Request is null</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>DeleteUser</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>id : integer</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>result : Was saved : String : Success</h4>
+        <h4>result : Wasn't founds : String : Can't delete</h4>
+        <h4>result : Null request : String : Request is 0</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>EditUser</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>user : User</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>result : Was saved : String : Success</h4>
+        <h4>result : Wasn't founds : String : Can't edit</h4>
+        <h4>result : Null request : String : Request is null</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>GetUserById</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>id : integer</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>result : Was found : User : (User)fields</h4>
+        <h4>result : Wasn't founds : String : Not found</h4>
+        <h4>result : Null request : String : Request is 0</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>GetUserByUsername</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>username : string</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>result : Was found : User : (User)fields</h4>
+        <h4>result : Wasn't founds : String : Not found</h4>
+        <h4>result : Null request : String : Request is null</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>GetUserByEmail</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>email : string</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>result : Was found : User : (User)fields</h4>
+        <h4>result : Wasn't founds : String : Not found</h4>
+        <h4>result : Null request : String : Request is null</h4>
+    </div>
+</div>

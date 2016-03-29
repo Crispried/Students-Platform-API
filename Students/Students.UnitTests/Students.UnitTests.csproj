@@ -77,10 +77,6 @@
       <Project>{502baaee-1ef9-4f7c-a54b-45a46429aa2e}</Project>
       <Name>Students.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Students.Web\Students.Web.csproj">
-      <Project>{b8c7c7da-42c7-4d2b-8a75-c12ed6c733a2}</Project>
-      <Name>Students.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
