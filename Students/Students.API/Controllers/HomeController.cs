@@ -10,14 +10,11 @@ namespace Students.API.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
         }
 
         public ActionResult Documentation()
         {
-            ViewBag.Title = "API documentation";
             return View();
         }
 
