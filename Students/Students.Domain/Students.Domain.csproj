@@ -83,8 +83,12 @@
     <Compile Include="Entities\TravelComment.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AnnouncmentVM.cs" />
-    <Compile Include="ViewModels\CommentVM.cs" />
+    <Compile Include="ViewModel\CommentVM.cs" />
+    <Compile Include="ViewModel\HousingAnnouncmentVM.cs" />
+    <Compile Include="ViewModel\MarketAnnouncmentVM.cs" />
+    <Compile Include="ViewModel\ServiceAnnouncmentVM.cs" />
+    <Compile Include="ViewModel\TravelAnnouncmentVM.cs" />
+    <Compile Include="ViewModel\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

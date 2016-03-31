@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Students.Domain.Entities;
-using System.Web.Http;
+using System.Net.Http;
 
 namespace Students.API.Abstract
 {
     public interface IAnnouncmentController<T> where T : Announcment
     {
-        IHttpActionResult GetAnnouncments();
+        HttpResponseMessage GetAnnouncments();
 
-        IHttpActionResult AddAnnouncment(T announcment);
+        HttpResponseMessage AddAnnouncment(T announcment);
 
-        IHttpActionResult DeleteAnnouncment(int announcmentId);
+        HttpResponseMessage DeleteAnnouncment(int announcmentId);
 
-        IHttpActionResult EditAnnouncment(T announcment);
+        HttpResponseMessage EditAnnouncment(T announcment);
     }
 }

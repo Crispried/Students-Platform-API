@@ -7,6 +7,7 @@ using System.Web.Http;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
+using Students.API.Infrastructure;
 
 namespace Students.API.APIControllers.Controllers
 {
@@ -23,75 +24,113 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult AddAnnouncment(MarketAnnouncment announcment)
+        public HttpResponseMessage AddAnnouncment(MarketAnnouncment announcment)
         {
-            if (announcmentRepository.SaveMarketAnnouncment(announcment))
+            if (announcment != null)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.SaveMarketAnnouncment(announcment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult AddComment(MarketComment comment)
+        public HttpResponseMessage AddComment(MarketComment comment)
         {
-            if (commentRepository.SaveComment(comment))
+            if (comment != null)
             {
-                return Json(new { result = "" });
+                if (commentRepository.SaveComment(comment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteAnnouncment(int announcmentId)
+        public HttpResponseMessage DeleteAnnouncment(int announcmentId)
         {
-            if (announcmentRepository.DeleteMarketAnnouncment(announcmentId))
+            if (announcmentId != 0)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.DeleteMarketAnnouncment(announcmentId))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteComment(int commentId)
+        public HttpResponseMessage DeleteComment(int commentId)
         {
-            if (commentRepository.DeleteComment(commentId, CommentType.Market))
+            if (commentId != 0)
             {
-                return Json(new { result = "" });
+                if (commentRepository.DeleteComment(commentId, CommentType.Market))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditAnnouncment(MarketAnnouncment announcment)
+        public HttpResponseMessage EditAnnouncment(MarketAnnouncment announcment)
         {
-            if (announcmentRepository.SaveMarketAnnouncment(announcment))
+            if (announcment != null)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.SaveMarketAnnouncment(announcment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditComment(MarketComment comment)
+        public HttpResponseMessage EditComment(MarketComment comment)
         {
-            if (commentRepository.SaveComment(comment))
+            if (comment != null)
             {
-                return Json(new { result = "" });
+                if (commentRepository.SaveComment(comment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult GetAnnouncments()
+        public HttpResponseMessage GetAnnouncments()
         {
-            return Json(new { result = announcmentRepository.MarketAnnouncments });
+            ICollection<MarketAnnouncment> result = (ICollection<MarketAnnouncment>)EntitiesFactory.GetViewModel(announcmentRepository.MarketAnnouncments, EntitiesTypes.MarketAnnouncment);
+            if (result != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [HttpPost]
-        public IHttpActionResult GetComments(int announcmentId)
+        public HttpResponseMessage GetComments(int announcmentId)
         {
-            return Json(new { result = commentRepository.Comments(CommentType.Market) });
+            if (announcmentId != 0)
+            {
+                List<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Market, announcmentId).ToList();
+                if (comments != null)
+                {
+                    Request.CreateResponse(HttpStatusCode.OK, comments);
+                }
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

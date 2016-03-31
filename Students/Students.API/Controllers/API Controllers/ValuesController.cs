@@ -35,5 +35,14 @@ namespace Students.API.APIControllers.Controllers
         public void Delete(int id)
         {
         }
+        [HttpPost]
+        public HttpResponseMessage lol(int id)
+        {
+            Dictionary<string, string> t = new Dictionary<string, string>();
+            t.Add("1", "one");
+            t.Add("2", "two");
+            
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, t);
+        }
     }
 }

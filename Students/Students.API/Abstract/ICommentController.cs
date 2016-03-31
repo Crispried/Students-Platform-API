@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Students.Domain.Entities;
-using System.Web.Http;
+using System.Net.Http;
 
 namespace Students.API.Abstract
 {
     public interface ICommentController<T> where T : Comment
     {
-        IHttpActionResult GetComments(int announcmentId);
+        HttpResponseMessage GetComments(int announcmentId);
 
-        IHttpActionResult AddComment(T comment);
+        HttpResponseMessage AddComment(T comment);
 
-        IHttpActionResult DeleteComment(int commentId);
+        HttpResponseMessage DeleteComment(int commentId);
 
-        IHttpActionResult EditComment(T comment);
+        HttpResponseMessage EditComment(T comment);
     }
 }
