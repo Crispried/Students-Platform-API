@@ -27,6 +27,13 @@ namespace Students.Domain.Abstract
         bool DeleteUser(int userId);
 
         /// <summary>
+        /// returns user by id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        User GetUserById(int userId);
+
+        /// <summary>
         /// returns user by username
         /// </summary>
         /// <param name="userName"></param>

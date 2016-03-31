@@ -103,6 +103,12 @@ namespace Students.Domain.Concrete
             return false;
         }
 
+        public User GetUserById(int id)
+        {
+            User dbEntry = context.Users.Where(user => user.UserId == id).First();
+            return dbEntry;
+        }
+
         public User GetUserByEmail(string email)
         {
             User dbEntry = context.Users.Where(user => user.Email == email).First();

@@ -30,6 +30,22 @@ namespace Students.Domain.Concrete
             return null;
         }
 
+        public IQueryable<Comment> GetCommentsToAnnouncment(CommentType commentType, int announcmentId)
+        {
+            switch (commentType)
+            {
+                case CommentType.Housing:
+                    return context.HousingComments.Where(comm => comm.HousingAnnouncmentId == announcmentId);
+                case CommentType.Travel:
+                    return context.TravelComments.Where(comm => comm.TravelAnnouncmentId == announcmentId);
+                case CommentType.Market:
+                    return context.MarketComments.Where(comm => comm.MarketAnnouncmentId == announcmentId);
+                case CommentType.Service:
+                    return context.ServiceComments.Where(comm => comm.ServiceAnnouncmentId == announcmentId);
+            }
+            return null;
+        }
+
         public bool DeleteComment(int commentId, CommentType commentType)
         {
 
