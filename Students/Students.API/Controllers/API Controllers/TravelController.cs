@@ -8,10 +8,11 @@ using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
 using Students.API.Infrastructure;
+using Students.Domain.ViewModel;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class TravelController : ApiController, IAnnouncmentController<TravelAnnouncment>, ICommentController<TravelComment>
+    public class TravelController : ApiController, ICommentController<TravelComment>
     {
         private ITravelAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;

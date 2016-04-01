@@ -37,8 +37,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment)
         {
+            List<MarketAnnouncmentLang> marketAnnouncmentLangs = marketAnnouncment.MarketAnnouncmentLangs.ToList();
             if (marketAnnouncment.MarketAnnouncmentId == 0)
             {
+                foreach (var marketAnnouncmentLang in marketAnnouncmentLangs)
+                {
+                    marketAnnouncment.MarketAnnouncmentLangs.Add(marketAnnouncmentLang);
+                }
                 context.MarketAnnouncments.Add(marketAnnouncment);
             }
             else
@@ -46,9 +51,17 @@ namespace Students.Domain.Concrete
                 MarketAnnouncment dbEntry = context.MarketAnnouncments.Find(marketAnnouncment.MarketAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Title = marketAnnouncment.Title;
-                    dbEntry.Bulletin = marketAnnouncment.Bulletin;
                     dbEntry.AuthorId = marketAnnouncment.AuthorId;
+                }
+                List<MarketAnnouncmentLang> dbEntries = new List<MarketAnnouncmentLang>();
+                for (int i = 0; i < marketAnnouncmentLangs.Count; i++)
+                {
+                    dbEntries[i] = context.MarketAnnouncmentLangs.Find(marketAnnouncmentLangs[i].MarketAnnouncmentLangId);
+                    if (dbEntries[i] != null)
+                    {
+                        dbEntries[i].Title = marketAnnouncmentLangs[i].Title;
+                        dbEntries[i].Bulletin = marketAnnouncmentLangs[i].Bulletin;
+                    }
                 }
             }
             if (ContextWasSaved())

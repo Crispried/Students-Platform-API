@@ -12,7 +12,7 @@ using Students.API.Infrastructure;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class HousingController : ApiController, IAnnouncmentController<HousingAnnouncment>, ICommentController<HousingComment>
+    public class HousingController : ApiController, ICommentController<HousingComment>
     {
         private IHousingAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
@@ -111,7 +111,7 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage GetAnnouncments()
         {
-            ICollection<HousingAnnouncment> result = (ICollection<HousingAnnouncment>)EntitiesFactory.GetViewModel(announcmentRepository.HousingAnnouncments, EntitiesTypes.HousingAnnouncment);            
+            List<object> result = EntitiesFactory.GetListViewModel(announcmentRepository.HousingAnnouncments, EntitiesTypes.HousingAnnouncment);            
             if(result != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);

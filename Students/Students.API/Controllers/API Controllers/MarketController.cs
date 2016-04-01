@@ -8,10 +8,11 @@ using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
 using Students.API.Infrastructure;
+using Students.Domain.ViewModel;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class MarketController : ApiController, IAnnouncmentController<MarketAnnouncment>, ICommentController<MarketComment>
+    public class MarketController : ApiController, ICommentController<MarketComment>
     {
         private IMarketAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;

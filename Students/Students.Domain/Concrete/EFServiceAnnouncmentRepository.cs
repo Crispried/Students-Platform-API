@@ -37,8 +37,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveServiceAnnouncment(ServiceAnnouncment serviceAnnouncment)
         {
+            List<ServiceAnnouncmentLang> serviceAnnouncmentLangs = serviceAnnouncment.ServiceAnnouncmentLangs.ToList();
             if (serviceAnnouncment.ServiceAnnouncmentId == 0)
             {
+                foreach (var serviceAnnouncmentLang in serviceAnnouncmentLangs)
+                {
+                    serviceAnnouncment.ServiceAnnouncmentLangs.Add(serviceAnnouncmentLang);
+                }
                 context.ServiceAnnouncments.Add(serviceAnnouncment);
             }
             else
@@ -46,9 +51,17 @@ namespace Students.Domain.Concrete
                 ServiceAnnouncment dbEntry = context.ServiceAnnouncments.Find(serviceAnnouncment.ServiceAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Title = serviceAnnouncment.Title;
-                    dbEntry.Bulletin = serviceAnnouncment.Bulletin;
                     dbEntry.AuthorId = serviceAnnouncment.AuthorId;
+                }
+                List<ServiceAnnouncmentLang> dbEntries = new List<ServiceAnnouncmentLang>();
+                for (int i = 0; i < serviceAnnouncmentLangs.Count; i++)
+                {
+                    dbEntries[i] = context.ServiceAnnouncmentLangs.Find(serviceAnnouncmentLangs[i].ServiceAnnouncmentLangId);
+                    if (dbEntries[i] != null)
+                    {
+                        dbEntries[i].Title = serviceAnnouncmentLangs[i].Title;
+                        dbEntries[i].Bulletin = serviceAnnouncmentLangs[i].Bulletin;
+                    }
                 }
             }
             if (ContextWasSaved())

@@ -18,6 +18,7 @@ namespace Students.Domain.Abstract
         /// saves market announcment in database
         /// </summary>
         /// <param name="marketAnnouncment"></param>
+        /// <returns></returns>
         bool SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment);
 
         /// <summary>

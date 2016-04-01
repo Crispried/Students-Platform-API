@@ -7,6 +7,7 @@ using Students.Domain.Entities;
 using Students.Domain.Abstract;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Infrastructure;
+using Students.Domain.ViewModel;
 
 namespace Students.Domain.Concrete
 {
@@ -23,7 +24,7 @@ namespace Students.Domain.Concrete
 
         public bool DeleteHousingAnnouncment(int housingAnnouncmentId)
         {
-            HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncmentId);
+            HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncmentId);            
             if (dbEntry != null)
             {
                 context.HousingAnnouncments.Remove(dbEntry);
@@ -37,8 +38,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveHousingAnnouncment(HousingAnnouncment housingAnnouncment)
         {
+            List<HousingAnnouncmentLang> housingAnnouncmentLangs = housingAnnouncment.HousingAnnouncmentLangs.ToList();
             if (housingAnnouncment.HousingAnnouncmentId == 0)
             {
+                foreach(var housingAnnouncmentLang in housingAnnouncmentLangs)
+                {
+                    housingAnnouncment.HousingAnnouncmentLangs.Add(housingAnnouncmentLang);
+                }
                 context.HousingAnnouncments.Add(housingAnnouncment);
             }
             else
@@ -46,9 +52,17 @@ namespace Students.Domain.Concrete
                 HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncment.HousingAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Title = housingAnnouncment.Title;
-                    dbEntry.Bulletin = housingAnnouncment.Bulletin;
                     dbEntry.AuthorId = housingAnnouncment.AuthorId;
+                }
+                List<HousingAnnouncmentLang> dbEntries = new List<HousingAnnouncmentLang>();
+                for (int i = 0; i < housingAnnouncmentLangs.Count; i++)
+                {
+                    dbEntries[i] = context.HousingAnnouncmentLangs.Find(housingAnnouncmentLangs[i].HousingAnnouncmentLangId);
+                    if(dbEntries[i] != null)
+                    {
+                        dbEntries[i].Title = housingAnnouncmentLangs[i].Title;
+                        dbEntries[i].Bulletin = housingAnnouncmentLangs[i].Bulletin;
+                    }
                 }
             }
             if (ContextWasSaved())

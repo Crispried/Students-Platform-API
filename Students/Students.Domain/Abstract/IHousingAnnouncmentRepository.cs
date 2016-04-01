@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Students.Domain.Entities;
 using System.Threading.Tasks;
+using Students.Domain.ViewModel;
 
 namespace Students.Domain.Abstract
 {
@@ -18,6 +19,7 @@ namespace Students.Domain.Abstract
         /// saves housing announcment in database
         /// </summary>
         /// <param name="housingAnnouncment"></param>
+        /// <returns></returns>
         bool SaveHousingAnnouncment(HousingAnnouncment housingAnnouncment);
 
         /// <summary>

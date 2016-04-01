@@ -37,8 +37,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveTravelAnnouncment(TravelAnnouncment travelAnnouncment)
         {
+            List<TravelAnnouncmentLang> travelAnnouncmentLangs = travelAnnouncment.TravelAnnouncmentLangs.ToList();
             if (travelAnnouncment.TravelAnnouncmentId == 0)
             {
+                foreach (var travelAnnouncmentLang in travelAnnouncmentLangs)
+                {
+                    travelAnnouncment.TravelAnnouncmentLangs.Add(travelAnnouncmentLang);
+                }
                 context.TravelAnnouncments.Add(travelAnnouncment);
             }
             else
@@ -46,9 +51,17 @@ namespace Students.Domain.Concrete
                 TravelAnnouncment dbEntry = context.TravelAnnouncments.Find(travelAnnouncment.TravelAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Title = travelAnnouncment.Title;
-                    dbEntry.Bulletin = travelAnnouncment.Bulletin;
                     dbEntry.AuthorId = travelAnnouncment.AuthorId;  
+                }
+                List<TravelAnnouncmentLang> dbEntries = new List<TravelAnnouncmentLang>();
+                for (int i = 0; i < travelAnnouncmentLangs.Count; i++)
+                {
+                    dbEntries[i] = context.TravelAnnouncmentLangs.Find(travelAnnouncmentLangs[i].TravelAnnouncmentLangId);
+                    if (dbEntries[i] != null)
+                    {
+                        dbEntries[i].Title = travelAnnouncmentLangs[i].Title;
+                        dbEntries[i].Bulletin = travelAnnouncmentLangs[i].Bulletin;
+                    }
                 }
             }
             if (ContextWasSaved())

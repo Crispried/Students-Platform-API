@@ -12,10 +12,8 @@ namespace Students.Domain.ViewModel
 
         public int AuthorId { get; set; }
 
-        public string Title { get; set; }
-
-        public string Bulletin { get; set; }
-
         public DateTime AddedDate { get; set; }
+
+        public List<HousingAnnouncmentLangVM> HousingAnnouncmentLangsVM { get; set; }
     }
 }

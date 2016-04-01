@@ -79,32 +79,9 @@ namespace Students.API.Infrastructure
         private static List<object> DefineUserVMCollection(ICollection<object> users)
         {
             List<object> usersVM = new List<object>(users.Count);
-            UserVM tempUserVM;
             foreach(User user in users)
             {
-                tempUserVM = new UserVM()
-                {
-                    Id = user.UserId,
-                    GroupId = user.GroupId,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    Photo = user.Photo,
-                    RegisterDate = user.RegisterDate,
-                    LastVisit = user.LastVisit,
-                    Role = user.Role,
-                    Status = user.Status,
-                    Rate = user.Rate,
-                    Country = user.Country,
-                    City = user.City,
-                    Address = user.Address,
-                    University = user.University,
-                    Faculty = user.Faculty,
-                    Course = user.Course,
-                    GroupNumber = user.GroupNumber,
-                    Phone = user.Phone,
-                    About = user.About
-                };
-                usersVM.Add(tempUserVM);
+                usersVM.Add(DefineUserVM(user));
             }
             return usersVM;
         }
@@ -115,28 +92,27 @@ namespace Students.API.Infrastructure
             {
                 Id = housingAnnouncment.HousingAnnouncmentId,
                 AuthorId = housingAnnouncment.AuthorId,
-                Title = housingAnnouncment.Title,
-                Bulletin = housingAnnouncment.Bulletin,
-                AddedDate = housingAnnouncment.AddedTime
+                AddedDate = housingAnnouncment.AddedTime                
             };
+            HousingAnnouncmentLangVM tempHousingAnnouncmentLangVM;
+            foreach (var housingAnnouncmentLangs in housingAnnouncment.HousingAnnouncmentLangs)
+            {
+                tempHousingAnnouncmentLangVM = new HousingAnnouncmentLangVM()
+                {
+                    Title = housingAnnouncmentLangs.Title,
+                    Bulletin = housingAnnouncmentLangs.Bulletin
+                };
+                housingAnnouncmentVM.HousingAnnouncmentLangsVM.Add(tempHousingAnnouncmentLangVM);
+            }
             return housingAnnouncmentVM;
         }
 
         private static List<object> DefineHousingAnnouncmentVMCollection(ICollection<object> housingAnnouncments)
         {
             List<object> housingAnnouncmentsVM = new List<object>(housingAnnouncments.Count);
-            HousingAnnouncmentVM tempHousingAnnouncmentVM;
             foreach (HousingAnnouncment housingAnnouncment in housingAnnouncments)
             {
-                tempHousingAnnouncmentVM = new HousingAnnouncmentVM()
-                {
-                    Id = housingAnnouncment.HousingAnnouncmentId,
-                    AuthorId = housingAnnouncment.AuthorId,
-                    Title = housingAnnouncment.Title,
-                    Bulletin = housingAnnouncment.Bulletin,
-                    AddedDate = housingAnnouncment.AddedTime
-                };
-                housingAnnouncmentsVM.Add(tempHousingAnnouncmentVM);
+                housingAnnouncmentsVM.Add(DefineHousingAnnouncmentVM(housingAnnouncment));
             }
             return housingAnnouncmentsVM;
         }
@@ -147,28 +123,27 @@ namespace Students.API.Infrastructure
             {
                 Id = travelAnnouncment.TravelAnnouncmentId,
                 AuthorId = travelAnnouncment.AuthorId,
-                Title = travelAnnouncment.Title,
-                Bulletin = travelAnnouncment.Bulletin,
                 AddedDate = travelAnnouncment.AddedTime
             };
+            TravelAnnouncmentLangVM tempTravelAnnouncmentLangVM;
+            foreach (var travelAnnouncmentLangs in travelAnnouncment.TravelAnnouncmentLangs)
+            {
+                tempTravelAnnouncmentLangVM = new TravelAnnouncmentLangVM()
+                {
+                    Title = travelAnnouncmentLangs.Title,
+                    Bulletin = travelAnnouncmentLangs.Bulletin
+                };
+                travelAnnouncmentVM.TravelAnnouncmentLangsVM.Add(tempTravelAnnouncmentLangVM);
+            }
             return travelAnnouncmentVM;
         }
 
         private static List<object> DefineTravelAnnouncmentVMCollection(ICollection<object> travelAnnouncments)
         {
             List<object> travelAnnouncmentsVM = new List<object>(travelAnnouncments.Count);
-            TravelAnnouncmentVM tempTravelAnnouncmentVM;
             foreach (TravelAnnouncment travelAnnouncment in travelAnnouncments)
             {
-                tempTravelAnnouncmentVM = new TravelAnnouncmentVM()
-                {
-                    Id = travelAnnouncment.TravelAnnouncmentId,
-                    AuthorId = travelAnnouncment.AuthorId,
-                    Title = travelAnnouncment.Title,
-                    Bulletin = travelAnnouncment.Bulletin,
-                    AddedDate = travelAnnouncment.AddedTime
-                };
-                travelAnnouncmentsVM.Add(tempTravelAnnouncmentVM);
+                travelAnnouncmentsVM.Add(DefineTravelAnnouncmentVM(travelAnnouncment));
             }
             return travelAnnouncmentsVM;
         }
@@ -179,28 +154,27 @@ namespace Students.API.Infrastructure
             {
                 Id = marketAnnouncment.MarketAnnouncmentId,
                 AuthorId = marketAnnouncment.AuthorId,
-                Title = marketAnnouncment.Title,
-                Bulletin = marketAnnouncment.Bulletin,
                 AddedDate = marketAnnouncment.AddedTime
             };
+            MarketAnnouncmentLangVM tempMarketAnnouncmentLangVM;
+            foreach (var marketAnnouncmentLangs in marketAnnouncment.MarketAnnouncmentLangs)
+            {
+                tempMarketAnnouncmentLangVM = new MarketAnnouncmentLangVM()
+                {
+                    Title = marketAnnouncmentLangs.Title,
+                    Bulletin = marketAnnouncmentLangs.Bulletin
+                };
+                marketAnnouncmentVM.MarketAnnouncmentLangsVM.Add(tempMarketAnnouncmentLangVM);
+            }
             return marketAnnouncmentVM;
         }
 
         private static List<object> DefineMarketAnnouncmentVMCollection(ICollection<object> marketAnnouncments)
         {
             List<object> marketAnnouncmentsVM = new List<object>(marketAnnouncments.Count);
-            MarketAnnouncmentVM tempMarketAnnouncmentVM;
             foreach (MarketAnnouncment marketAnnouncment in marketAnnouncments)
             {
-                tempMarketAnnouncmentVM = new MarketAnnouncmentVM()
-                {
-                    Id = marketAnnouncment.MarketAnnouncmentId,
-                    AuthorId = marketAnnouncment.AuthorId,
-                    Title = marketAnnouncment.Title,
-                    Bulletin = marketAnnouncment.Bulletin,
-                    AddedDate = marketAnnouncment.AddedTime
-                };
-                marketAnnouncmentsVM.Add(tempMarketAnnouncmentVM);
+                marketAnnouncmentsVM.Add(DefineMarketAnnouncmentVM(marketAnnouncment));
             }
             return marketAnnouncmentsVM;
         }
@@ -211,28 +185,27 @@ namespace Students.API.Infrastructure
             {
                 Id = serviceAnnouncment.ServiceAnnouncmentId,
                 AuthorId = serviceAnnouncment.AuthorId,
-                Title = serviceAnnouncment.Title,
-                Bulletin = serviceAnnouncment.Bulletin,
                 AddedDate = serviceAnnouncment.AddedTime
             };
+            ServiceAnnouncmentLangVM tempServiceAnnouncmentLangVM;
+            foreach (var serviceAnnouncmentLangs in serviceAnnouncment.ServiceAnnouncmentLangs)
+            {
+                tempServiceAnnouncmentLangVM = new ServiceAnnouncmentLangVM()
+                {
+                    Title = serviceAnnouncmentLangs.Title,
+                    Bulletin = serviceAnnouncmentLangs.Bulletin
+                };
+                serviceAnnouncmentVM.ServiceAnnouncmentLangsVM.Add(tempServiceAnnouncmentLangVM);
+            }
             return serviceAnnouncmentVM;
         }
 
         private static List<object> DefineServiceAnnouncmentVMCollection(ICollection<object> serviceAnnouncments)
         {
             List<object> serviceAnnouncmentsVM = new List<object>(serviceAnnouncments.Count);
-            ServiceAnnouncmentVM tempServiceAnnouncmentVM;
             foreach (ServiceAnnouncment serviceAnnouncment in serviceAnnouncments)
             {
-                tempServiceAnnouncmentVM = new ServiceAnnouncmentVM()
-                {
-                    Id = serviceAnnouncment.ServiceAnnouncmentId,
-                    AuthorId = serviceAnnouncment.AuthorId,
-                    Title = serviceAnnouncment.Title,
-                    Bulletin = serviceAnnouncment.Bulletin,
-                    AddedDate = serviceAnnouncment.AddedTime
-                };
-                serviceAnnouncmentsVM.Add(tempServiceAnnouncmentVM);
+                serviceAnnouncmentsVM.Add(DefineServiceAnnouncmentVM(serviceAnnouncment));
             }
             return serviceAnnouncmentsVM;
         }

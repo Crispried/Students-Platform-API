@@ -22,6 +22,14 @@ namespace Students.Domain.Concrete
 
         public DbSet<ServiceAnnouncment> ServiceAnnouncments { get; set; }
 
+        public DbSet<HousingAnnouncmentLang> HousingAnnouncmentLangs { get; set; }
+
+        public DbSet<TravelAnnouncmentLang> TravelAnnouncmentLangs { get; set; }
+
+        public DbSet<MarketAnnouncmentLang> MarketAnnouncmentLangs { get; set; }
+
+        public DbSet<ServiceAnnouncmentLang> ServiceAnnouncmentLangs { get; set; }
+
         public DbSet<HousingComment> HousingComments { get; set; }
 
         public DbSet<TravelComment> TravelComments { get; set; }
@@ -31,6 +39,8 @@ namespace Students.Domain.Concrete
         public DbSet<ServiceComment> ServiceComments { get; set; }
 
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
+
+        public DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
