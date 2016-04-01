@@ -14,6 +14,11 @@ namespace Students.Domain.ViewModel
 
         public DateTime AddedDate { get; set; }
 
-        public List<TravelAnnouncmentLangVM> TravelAnnouncmentLangsVM { get; set; }
+        public ICollection<TravelAnnouncmentLangVM> TravelAnnouncmentLangsVM { get; set; }
+
+        public TravelAnnouncmentVM()
+        {
+            this.TravelAnnouncmentLangsVM = new List<TravelAnnouncmentLangVM>();
+        }
     }
 }
