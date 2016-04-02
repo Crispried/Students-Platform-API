@@ -113,7 +113,7 @@ namespace Students.API.APIControllers.Controllers
         {
             List<object> result = EntitiesFactory.GetListViewModel(announcmentRepository.HousingAnnouncments, EntitiesTypes.HousingAnnouncment);            
             if(result != null)
-            {
+            {                
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             return Request.CreateResponse(HttpStatusCode.NoContent);

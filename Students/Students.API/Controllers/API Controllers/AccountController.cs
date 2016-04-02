@@ -20,11 +20,11 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]       
-        public HttpResponseMessage GetUserById(int id)
+        public HttpResponseMessage GetUserById(int userId)
         {
-            if (id != 0)
+            if (userId != 0)
             {
-                User user = userRepository.GetUserById(id); 
+                User user = userRepository.GetUserById(userId); 
                 UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType); 
                 if(result != null)
                 {
@@ -68,11 +68,11 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteUser(int id)
+        public HttpResponseMessage DeleteUser(int userId)
         {
-            if (id != 0)
+            if (userId != 0)
             {
-                if (userRepository.DeleteUser(id))
+                if (userRepository.DeleteUser(userId))
                 {
                     Request.CreateResponse(HttpStatusCode.OK);
                 }
