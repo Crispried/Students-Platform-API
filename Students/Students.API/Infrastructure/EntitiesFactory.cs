@@ -115,7 +115,7 @@ namespace Students.API.Infrastructure
             HousingAnnouncmentVM housingAnnouncmentVM = new HousingAnnouncmentVM()
             {
                 Id = housingAnnouncment.HousingAnnouncmentId,
-                Author = (UserAnnouncmentVM)GetViewModel(housingAnnouncment.User, "User"),
+                Author = (UserAnnouncmentVM)GetViewModel(housingAnnouncment.User, "UserAnnouncment"),
                 AddedDate = housingAnnouncment.AddedTime                
             };
             HousingAnnouncmentLangVM tempHousingAnnouncmentLangVM;
