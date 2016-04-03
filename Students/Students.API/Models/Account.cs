@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Students.API.Models
 {
-    public class Account : //Students.Domain.Entities.User
+    public class Account //: Students.Domain.Entities.User
     {
         [Display(Name = "Username")]
         public string Username { get; set; }
