@@ -97,6 +97,7 @@
     <Compile Include="ViewModel\ServiceAnnouncmentVM.cs" />
     <Compile Include="ViewModel\TravelAnnouncmentLangVM.cs" />
     <Compile Include="ViewModel\TravelAnnouncmentVM.cs" />
+    <Compile Include="ViewModel\UserAnnouncmentVM.cs" />
     <Compile Include="ViewModel\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>

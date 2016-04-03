@@ -14,7 +14,7 @@ namespace Students.Domain.ViewModel
 
         public DateTime AddedDate { get; set; }
 
-        public UserVM Author { get; set; }
+        public UserAnnouncmentVM Author { get; set; }
 
         public ICollection<HousingAnnouncmentLangVM> HousingAnnouncmentLangsVM { get; set; }
 

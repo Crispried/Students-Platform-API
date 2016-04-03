@@ -13,8 +13,10 @@ namespace Students.API.Infrastructure
         {
             switch (objectType)
             {
-                case EntitiesTypes.UserType:                    
+                case EntitiesTypes.User:                    
                     return DefineUserVM((User)obj);
+                case EntitiesTypes.UserAnnouncment:
+                    return DefineUserAnnouncmentVM((User)obj);
                 case EntitiesTypes.HousingAnnouncment:
                     return DefineHousingAnnouncmentVM((HousingAnnouncment)obj);
                 case EntitiesTypes.TravelAnnouncment:
@@ -32,8 +34,10 @@ namespace Students.API.Infrastructure
         {
             switch (objectType)
             {
-                case EntitiesTypes.UserType:
+                case EntitiesTypes.User:
                     return DefineUserVMCollection(objects.ToList());
+                case EntitiesTypes.UserAnnouncment:
+                    return DefineUserAnnouncmentVMCollection(objects.ToList());
                 case EntitiesTypes.HousingAnnouncment:
                     return DefineHousingAnnouncmentVMCollection(objects.ToList());
                 case EntitiesTypes.TravelAnnouncment:
@@ -49,7 +53,7 @@ namespace Students.API.Infrastructure
             }
         }
 
-        private static UserVM  DefineUserVM(User user)
+        private static UserVM DefineUserVM(User user)
         {
             UserVM userVM = new UserVM()
             {
@@ -79,9 +83,29 @@ namespace Students.API.Infrastructure
         private static List<object> DefineUserVMCollection(ICollection<object> users)
         {
             List<object> usersVM = new List<object>(users.Count);
-            foreach(User user in users)
+            foreach (User user in users)
             {
                 usersVM.Add(DefineUserVM(user));
+            }
+            return usersVM;
+        }
+
+        private static UserAnnouncmentVM DefineUserAnnouncmentVM(User user)
+        {
+            UserAnnouncmentVM userVM = new UserAnnouncmentVM()
+            {
+                UserName = user.UserName,
+                Photo = user.Photo,
+            };
+            return userVM;
+        }
+
+        private static List<object> DefineUserAnnouncmentVMCollection(ICollection<object> users)
+        {
+            List<object> usersVM = new List<object>(users.Count);
+            foreach (User user in users)
+            {
+                usersVM.Add(DefineUserAnnouncmentVM(user));
             }
             return usersVM;
         }
@@ -91,8 +115,7 @@ namespace Students.API.Infrastructure
             HousingAnnouncmentVM housingAnnouncmentVM = new HousingAnnouncmentVM()
             {
                 Id = housingAnnouncment.HousingAnnouncmentId,
-                //AuthorId = housingAnnouncment.AuthorId,
-                Author = (UserVM)GetViewModel(housingAnnouncment.User, "User"),
+                Author = (UserAnnouncmentVM)GetViewModel(housingAnnouncment.User, "User"),
                 AddedDate = housingAnnouncment.AddedTime                
             };
             HousingAnnouncmentLangVM tempHousingAnnouncmentLangVM;
