@@ -7,10 +7,12 @@ using System.Web.Http;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
+using Students.API.Infrastructure;
+using Students.Domain.ViewModel;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class ServiceController : ApiController, IAnnouncmentController<ServiceAnnouncment>, ICommentController<ServiceComment>
+    public class ServiceController : ApiController, ICommentController<ServiceComment>
     {
         private IServiceAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
@@ -23,75 +25,113 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult AddAnnouncment(ServiceAnnouncment announcment)
+        public HttpResponseMessage AddAnnouncment(ServiceAnnouncment announcment)
         {
-            if (announcmentRepository.SaveServiceAnnouncment(announcment))
+            if (announcment != null)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.SaveServiceAnnouncment(announcment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult AddComment(ServiceComment comment)
+        public HttpResponseMessage AddComment(ServiceComment comment)
         {
-            if (commentRepository.SaveComment(comment))
+            if (comment != null)
             {
-                return Json(new { result = "" });
+                if (commentRepository.SaveComment(comment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteAnnouncment(int announcmentId)
+        public HttpResponseMessage DeleteAnnouncment(int announcmentId)
         {
-            if (announcmentRepository.DeleteServiceAnnouncment(announcmentId))
+            if (announcmentId != 0)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.DeleteServiceAnnouncment(announcmentId))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteComment(int commentId)
+        public HttpResponseMessage DeleteComment(int commentId)
         {
-            if (commentRepository.DeleteComment(commentId, CommentType.Service))
+            if (commentId != 0)
             {
-                return Json(new { result = "" });
+                if (commentRepository.DeleteComment(commentId, CommentType.Service))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditAnnouncment(ServiceAnnouncment announcment)
+        public HttpResponseMessage EditAnnouncment(ServiceAnnouncment announcment)
         {
-            if (announcmentRepository.SaveServiceAnnouncment(announcment))
+            if (announcment != null)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.SaveServiceAnnouncment(announcment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditComment(ServiceComment comment)
+        public HttpResponseMessage EditComment(ServiceComment comment)
         {
-            if (commentRepository.SaveComment(comment))
+            if (comment != null)
             {
-                return Json(new { result = "" });
+                if (commentRepository.SaveComment(comment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult GetAnnouncments()
+        public HttpResponseMessage GetAnnouncments()
         {
-            return Json(new { result = announcmentRepository.ServiceAnnouncments });
+            ICollection<ServiceAnnouncment> result = (ICollection<ServiceAnnouncment>)EntitiesFactory.GetViewModel(announcmentRepository.ServiceAnnouncments, EntitiesTypes.ServiceAnnouncment);
+            if (result != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [HttpPost]
-        public IHttpActionResult GetComments(int announcmentId)
+        public HttpResponseMessage GetComments(int announcmentId)
         {
-            return Json(new { result = commentRepository.Comments(CommentType.Service) });
+            if (announcmentId != 0)
+            {
+                List<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Service, announcmentId).ToList();
+                if (comments != null)
+                {
+                    Request.CreateResponse(HttpStatusCode.OK, comments);
+                }
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

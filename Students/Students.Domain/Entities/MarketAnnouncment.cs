@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Students.Domain.Entities
 {
-    public class MarketAnnouncment : Announcment
+    public class MarketAnnouncment
     {
         [Key]
         public int MarketAnnouncmentId { get; set; }
@@ -17,13 +17,20 @@ namespace Students.Domain.Entities
         [ForeignKey("User")]
         public int AuthorId { get; set; } // announcment owner
 
+        [DataType(DataType.DateTime)]
+        public DateTime AddedTime { get; set; }
+
         public virtual User User { get; set; }
+
+        public virtual ICollection<MarketAnnouncmentLang> MarketAnnouncmentLangs { get; set; }
 
         public virtual ICollection<MarketComment> MarketComments { get; set; }
 
         public MarketAnnouncment() : base()
         {
+            this.AddedTime = DateTime.Now; // default value for added time is the time when announcment was added
             this.MarketComments = new List<MarketComment>();
+            this.MarketAnnouncmentLangs = new List<MarketAnnouncmentLang>();
         }
     }
 }

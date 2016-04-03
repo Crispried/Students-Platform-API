@@ -7,10 +7,12 @@ using System.Web.Http;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
+using Students.Domain.ViewModel;
+using Students.API.Infrastructure;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class HousingController : ApiController, IAnnouncmentController<HousingAnnouncment>, ICommentController<HousingComment>
+    public class HousingController : ApiController, ICommentController<HousingComment>
     {
         private IHousingAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
@@ -23,113 +25,114 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult AddAnnouncment(HousingAnnouncment announcment)
+        public HttpResponseMessage AddAnnouncment(HousingAnnouncment announcment)
         {
             if(announcment != null)
             {
                 if (announcmentRepository.SaveHousingAnnouncment(announcment))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't add" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult AddComment(HousingComment comment)
+        public HttpResponseMessage AddComment(HousingComment comment)
         {
             if(comment != null)
             {
                 if (commentRepository.SaveComment(comment))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't add" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteAnnouncment(int announcmentId)
+        public HttpResponseMessage DeleteAnnouncment(int announcmentId)
         {
             if (announcmentId != 0)
             {
                 if (announcmentRepository.DeleteHousingAnnouncment(announcmentId))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't delete" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is 0" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteComment(int commentId)
+        public HttpResponseMessage DeleteComment(int commentId)
         {
             if(commentId != 0)
             {
                 if (commentRepository.DeleteComment(commentId, CommentType.Housing))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't delete" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is 0" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditAnnouncment(HousingAnnouncment announcment)
+        public HttpResponseMessage EditAnnouncment(HousingAnnouncment announcment)
         {
             if(announcment != null)
             {
                 if (announcmentRepository.SaveHousingAnnouncment(announcment))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't edit" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditComment(HousingComment comment)
+        public HttpResponseMessage EditComment(HousingComment comment)
         {
             if(comment != null)
             {
                 if (commentRepository.SaveComment(comment))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't edit" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult GetAnnouncments()
+        public HttpResponseMessage GetAnnouncments()
         {
-            List<HousingAnnouncment> announcments = announcmentRepository.HousingAnnouncments.ToList();
-            if(announcments != null)
-            {
-                return Json(new { result = announcments });
+            List<object> result = EntitiesFactory.GetListViewModel(announcmentRepository.HousingAnnouncments, EntitiesTypes.HousingAnnouncment);            
+            if(result != null)
+            {                
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
-            return Json(new { result = "Not found" });
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [HttpPost]
-        public IHttpActionResult GetComments(int announcmentId)
+        public HttpResponseMessage GetComments(int announcmentId)
         {
             if(announcmentId != 0)
             {
-                List<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Housing, announcmentId).ToList();
+                IQueryable<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Housing, announcmentId);
+                List<object> result = EntitiesFactory.GetListViewModel(comments, EntitiesTypes.Comment);
                 if (comments != null)
                 {
-                    return Json(new { result = comments });
+                    Request.CreateResponse(HttpStatusCode.OK, comments);
                 }
-                return Json(new { result = "Not found" });
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
-            return Json(new { result = "Request is 0" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

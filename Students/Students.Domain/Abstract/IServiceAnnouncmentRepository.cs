@@ -18,6 +18,7 @@ namespace Students.Domain.Abstract
         /// saves service announcment in database
         /// </summary>
         /// <param name="serviceAnnouncment"></param>
+        /// <returns></returns>
         bool SaveServiceAnnouncment(ServiceAnnouncment serviceAnnouncment);
 
         /// <summary>

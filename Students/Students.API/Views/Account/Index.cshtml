@@ -30,9 +30,9 @@
         </div>
     </div>
     <div class="col-md-4 result">
-        <h4>result : Was saved : String : Success</h4>
-        <h4>result : Wasn't founds : String : Can't add</h4>
-        <h4>result : Null request : String : Request is null</h4>
+        <h4>Was saved : 200(OK)</h4>
+        <h4>Wasn't saved : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
     </div>
 </div>
 
@@ -42,13 +42,13 @@
     </div>
     <div class="col-md-4 parameters">
         <div class="raw">
-            <h4>id : integer</h4>
+            <h4>userId : integer</h4>
         </div>
     </div>
     <div class="col-md-4 result">
-        <h4>result : Was saved : String : Success</h4>
-        <h4>result : Wasn't founds : String : Can't delete</h4>
-        <h4>result : Null request : String : Request is 0</h4>
+        <h4>Was deleted : 200(OK)</h4>
+        <h4>Wasn't deleted : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
     </div>
 </div>
 
@@ -62,9 +62,9 @@
         </div>
     </div>
     <div class="col-md-4 result">
-        <h4>result : Was saved : String : Success</h4>
-        <h4>result : Wasn't founds : String : Can't edit</h4>
-        <h4>result : Null request : String : Request is null</h4>
+        <h4>Was edited : 200(OK)</h4>
+        <h4>Wasn't edited : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
     </div>
 </div>
 
@@ -74,13 +74,13 @@
     </div>
     <div class="col-md-4 parameters">
         <div class="raw">
-            <h4>id : integer</h4>
+            <h4>userId : integer</h4>
         </div>
     </div>
     <div class="col-md-4 result">
-        <h4>result : Was found : User : (User)fields</h4>
-        <h4>result : Wasn't founds : String : Not found</h4>
-        <h4>result : Null request : String : Request is 0</h4>
+        <h4>Success : 200(OK) : object array</h4>
+        <h4>DB error : 204(NoContent)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
     </div>
 </div>
 
@@ -94,9 +94,9 @@
         </div>
     </div>
     <div class="col-md-4 result">
-        <h4>result : Was found : User : (User)fields</h4>
-        <h4>result : Wasn't founds : String : Not found</h4>
-        <h4>result : Null request : String : Request is null</h4>
+        <h4>Success : 200(OK) : object array</h4>
+        <h4>DB error : 204(NoContent)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
     </div>
 </div>
 
@@ -110,8 +110,8 @@
         </div>
     </div>
     <div class="col-md-4 result">
-        <h4>result : Was found : User : (User)fields</h4>
-        <h4>result : Wasn't founds : String : Not found</h4>
-        <h4>result : Null request : String : Request is null</h4>
+        <h4>Success : 200(OK) : object array</h4>
+        <h4>DB error : 204(NoContent)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
     </div>
 </div>

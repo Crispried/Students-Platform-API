@@ -6,102 +6,107 @@ using System.Net.Http;
 using System.Web.Http;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
+using Students.Domain.ViewModel;
+using Students.API.Infrastructure;
 
 namespace Students.API.APIControllers.Controllers
 {
     public class AccountController : ApiController
-    {
+    {        
         private IUserRepository userRepository;
         public AccountController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
 
-        [HttpPost]
-        public IHttpActionResult GetUserById(int id)
+        [HttpPost]       
+        public HttpResponseMessage GetUserById(int userId)
         {
-            if (id != 0)
+            if (userId != 0)
             {
-                User result = userRepository.GetUserById(id);
+                User user = userRepository.GetUserById(userId); 
+                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType); 
                 if(result != null)
                 {
-                    return Json(new { result = result });
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
-                return Json(new { result = "Not found" });
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
-            return Json(new { result = "Request is 0" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult GetUserByUsername(string username)
+        public HttpResponseMessage GetUserByUsername(string username)
         {
             if (username != null)
             {
-                User result = userRepository.GetUserByUserName(username);
+                User user = userRepository.GetUserByUserName(username);
+                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType);
                 if (result != null)
                 {
-                    return Json(new { result = result });
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
-                return Json(new { result = "Not found" });
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult GetUserByEmail(string email)
+        public HttpResponseMessage GetUserByEmail(string email)
         {
             if (email != null)
             {
-                User result = userRepository.GetUserByEmail(email);
+                User user = userRepository.GetUserByEmail(email);
+                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType);
                 if (result != null)
                 {
-                    return Json(new { result = result });
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
-                return Json(new { result = "Not found" });
+                return Request.CreateResponse(HttpStatusCode.NoContent);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteUser(int id)
+        public HttpResponseMessage DeleteUser(int userId)
         {
-            if (id != 0)
+            if (userId != 0)
             {
-                if (userRepository.DeleteUser(id))
+                if (userRepository.DeleteUser(userId))
                 {
-                    return Json(new { result = "Success" });
+                    Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't delete" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is 0" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult AddUser(User user)
-        {
-            if (user != null)
-            {
-                if (userRepository.SaveUser(user))
-                {
-                    return Json(new { result = "Success" });
-                }
-                return Json(new { result = "Can't add" });
-            }
-            return Json(new { result = "Request is null" });
-        }
-
-        [HttpPost]
-        public IHttpActionResult EditUser(User user)
+        public HttpResponseMessage AddUser(User user)
         {
             if (user != null)
             {
                 if (userRepository.SaveUser(user))
                 {
-                    return Json(new { result = "Success" });
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
-                return Json(new { result = "Can't edit" });
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "Request is null" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage EditUser(User user)
+        {
+            if (user != null)
+            {
+                if (userRepository.SaveUser(user))
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Students.Domain.Abstract
         /// saves travel announcment in database
         /// </summary>
         /// <param name="travelAnnouncment"></param>
+        /// <returns></returns>
         bool SaveTravelAnnouncment(TravelAnnouncment travelAnnouncment);
 
         /// <summary>

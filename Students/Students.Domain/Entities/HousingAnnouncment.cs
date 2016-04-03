@@ -8,22 +8,29 @@ using System.Threading.Tasks;
 
 namespace Students.Domain.Entities
 { 
-    public class HousingAnnouncment : Announcment
+    public class HousingAnnouncment
     {
         [Key]
         public int HousingAnnouncmentId { get; set; }
 
         [Required]
         [ForeignKey("User")]
-        public int AuthorId { get; set; } // announcment owner
+        public int AuthorId { get; set; } // announcment owners
+
+        [DataType(DataType.DateTime)]
+        public DateTime AddedTime { get; set; }
 
         public virtual User User { get; set; }
+
+        public virtual ICollection<HousingAnnouncmentLang> HousingAnnouncmentLangs { get; set; }
 
         public virtual ICollection<HousingComment> HousingComments { get; set; }
 
         public HousingAnnouncment() : base()
         {
+            this.AddedTime = DateTime.Now; // default value for added time is the time when announcment was added
             this.HousingComments = new List<HousingComment>();
+            this.HousingAnnouncmentLangs = new List<HousingAnnouncmentLang>();
         }
     }
 }

@@ -7,10 +7,12 @@ using System.Web.Http;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
+using Students.API.Infrastructure;
+using Students.Domain.ViewModel;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class TravelController : ApiController, IAnnouncmentController<TravelAnnouncment>, ICommentController<TravelComment>
+    public class TravelController : ApiController, ICommentController<TravelComment>
     {
         private ITravelAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
@@ -23,75 +25,113 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult AddAnnouncment(TravelAnnouncment announcment)
+        public HttpResponseMessage AddAnnouncment(TravelAnnouncment announcment)
         {
-            if (announcmentRepository.SaveTravelAnnouncment(announcment))
+            if (announcment != null)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.SaveTravelAnnouncment(announcment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult AddComment(TravelComment comment)
+        public HttpResponseMessage AddComment(TravelComment comment)
         {
-            if (commentRepository.SaveComment(comment))
+            if (comment != null)
             {
-                return Json(new { result = "" });
+                if (commentRepository.SaveComment(comment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteAnnouncment(int announcmentId)
+        public HttpResponseMessage DeleteAnnouncment(int announcmentId)
         {
-            if (announcmentRepository.DeleteTravelAnnouncment(announcmentId))
+            if (announcmentId != 0)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.DeleteTravelAnnouncment(announcmentId))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult DeleteComment(int commentId)
+        public HttpResponseMessage DeleteComment(int commentId)
         {
-            if (commentRepository.DeleteComment(commentId, CommentType.Travel))
+            if (commentId != 0)
             {
-                return Json(new { result = "" });
+                if (commentRepository.DeleteComment(commentId, CommentType.Travel))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditAnnouncment(TravelAnnouncment announcment)
+        public HttpResponseMessage EditAnnouncment(TravelAnnouncment announcment)
         {
-            if (announcmentRepository.SaveTravelAnnouncment(announcment))
+            if (announcment != null)
             {
-                return Json(new { result = "" });
+                if (announcmentRepository.SaveTravelAnnouncment(announcment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult EditComment(TravelComment comment)
+        public HttpResponseMessage EditComment(TravelComment comment)
         {
-            if (commentRepository.SaveComment(comment))
+            if (comment != null)
             {
-                return Json(new { result = "" });
+                if (commentRepository.SaveComment(comment))
+                {
+                    Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Json(new { result = "" });
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public IHttpActionResult GetAnnouncments()
+        public HttpResponseMessage GetAnnouncments()
         {
-            return Json(new { result = announcmentRepository.TravelAnnouncments });
+            ICollection<TravelAnnouncment> result = (ICollection<TravelAnnouncment>)EntitiesFactory.GetViewModel(announcmentRepository.TravelAnnouncments, EntitiesTypes.TravelAnnouncment);
+            if (result != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [HttpPost]
-        public IHttpActionResult GetComments(int announcmentId)
+        public HttpResponseMessage GetComments(int announcmentId)
         {
-            return Json(new { result = commentRepository.Comments(CommentType.Travel) });
+            if (announcmentId != 0)
+            {
+                List<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Travel, announcmentId).ToList();
+                if (comments != null)
+                {
+                    Request.CreateResponse(HttpStatusCode.OK, comments);
+                }
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
     }
 }

@@ -4,5 +4,145 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Travel</h2>
 
+<div class="tableTitle">
+    <div class="row">
+        <div class="col-md-4 actionName">
+            <h4>Action name</h4>
+        </div>
+        <div class="col-md-4 parameters">
+            <h4>Parameters(Name : Type)</h4>
+        </div>
+        <div class="col-md-4 result">
+            <h4>Result(Condition : Code : Data(optional))</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>GetAnnouncments</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>-</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Success : 200(OK) : object array</h4>
+        <h4>DB error : 204(NoContent)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>AddAnnouncment</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>announcment : TravelAnnouncment</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Was saved : 200(OK)</h4>
+        <h4>Wasn't saved : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>DeleteAnnouncment</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>announcmentId : integer</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Was deleted : 200(OK)</h4>
+        <h4>Wasn't deleted : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>EditAnnouncment</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>announcment : TravelAnnouncment</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Was edited : 200(OK)</h4>
+        <h4>Wasn't edited : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>GetComments</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>announcmentId : integer</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Success : 200(OK) : object array</h4>
+        <h4>DB error : 204(NoContent)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>AddComment</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>comment : TravelComment</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Was saved : 200(OK)</h4>
+        <h4>Wasn't saved : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>DeleteComment</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>commentId : integer</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Was deleted : 200(OK)</h4>
+        <h4>Wasn't deleted : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 actionName">
+        <h4>EditComment</h4>
+    </div>
+    <div class="col-md-4 parameters">
+        <div class="raw">
+            <h4>comment : TravelComment</h4>
+        </div>
+    </div>
+    <div class="col-md-4 result">
+        <h4>Was edited : 200(OK)</h4>
+        <h4>Wasn't edited : 304(NotModified)</h4>
+        <h4>Null request : 400(BadRequest)</h4>
+    </div>
+</div>
