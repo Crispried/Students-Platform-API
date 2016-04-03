@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SessionSecurity.Models;
-using SessionSecurity.Security;
-using SessionSecurity.ViewModels;
+using Students.API.Models;
+using Students.API.Security;
+using Students.API.ViewModels;
 
-namespace SessionSecurity.Controllers
+namespace Students.API.Controllers
 {
     public class AccountController : Controller
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SessionSecurity.Models;
+using Students.API.Models;
 
-namespace SessionSecurity.Security
+namespace Students.API.Security
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
