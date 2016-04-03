@@ -14,7 +14,7 @@ namespace Students.API.Security
         public CustomPrincipal(Account account)
         {
             this.Account = account;
-            this.Identity = new GenericIdentity(account.Username);
+            this.Identity = new GenericIdentity(account.UserName);
         }
 
         public IIdentity Identity { get; set; }

@@ -13,7 +13,7 @@ namespace Students.API.Models
 	    {
 			_listAccounts.Add(new Account
 			{
-			    Username = "acc1",
+			    UserName = "acc1",
                 Password = "111",
                 Roles = new string[]
                 {
@@ -23,7 +23,7 @@ namespace Students.API.Models
 
             _listAccounts.Add(new Account
             {
-                Username = "acc2",
+                UserName = "acc2",
                 Password = "111",
                 Roles = new string[]
                 {
@@ -33,7 +33,7 @@ namespace Students.API.Models
 
             _listAccounts.Add(new Account
             {
-                Username = "acc3",
+                UserName = "acc3",
                 Password = "111",
                 Roles = new string[]
                 {
@@ -44,12 +44,12 @@ namespace Students.API.Models
 
 	    public Account Find(string username)
 	    {
-	        return _listAccounts.FirstOrDefault(acc => acc.Username.Equals(username));
+	        return _listAccounts.FirstOrDefault(acc => acc.UserName.Equals(username));
 	    }
 
 	    public Account Login(string username, string password)
 	    {
-	        return _listAccounts.FirstOrDefault(acc => acc.Username.Equals(username) && acc.Password.Equals(password));
+	        return _listAccounts.FirstOrDefault(acc => acc.UserName.Equals(username) && acc.Password.Equals(password));
 	    }
 	}
 }
