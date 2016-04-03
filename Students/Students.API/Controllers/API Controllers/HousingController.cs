@@ -108,7 +108,7 @@ namespace Students.API.APIControllers.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage GetAnnouncments()
         {
             List<object> result = EntitiesFactory.GetListViewModel(announcmentRepository.HousingAnnouncments, EntitiesTypes.HousingAnnouncment);            
