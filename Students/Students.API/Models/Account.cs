@@ -6,12 +6,14 @@ using System.Web;
 
 namespace Students.API.Models
 {
-    public class Account
+    public class Account : //Students.Domain.Entities.User
     {
         [Display(Name = "Username")]
         public string Username { get; set; }
+
         [Display(Name = "Password")]
         public string Password { get; set; }
+
         public string[] Roles { get; set; }
     }
 }

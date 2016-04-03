@@ -7,11 +7,11 @@ namespace Students.API.Models
 {
 	public class AccountModel
 	{
-		private List<Account> listAccounts = new List<Account>();
+		private readonly List<Account> _listAccounts = new List<Account>();
 
 	    public AccountModel()
 	    {
-			listAccounts.Add(new Account
+			_listAccounts.Add(new Account
 			{
 			    Username = "acc1",
                 Password = "111",
@@ -21,7 +21,7 @@ namespace Students.API.Models
                 }
 			});
 
-            listAccounts.Add(new Account
+            _listAccounts.Add(new Account
             {
                 Username = "acc2",
                 Password = "111",
@@ -31,7 +31,7 @@ namespace Students.API.Models
                 }
             });
 
-            listAccounts.Add(new Account
+            _listAccounts.Add(new Account
             {
                 Username = "acc3",
                 Password = "111",
@@ -44,12 +44,12 @@ namespace Students.API.Models
 
 	    public Account Find(string username)
 	    {
-	        return listAccounts.FirstOrDefault(acc => acc.Username.Equals(username));
+	        return _listAccounts.FirstOrDefault(acc => acc.Username.Equals(username));
 	    }
 
 	    public Account Login(string username, string password)
 	    {
-	        return listAccounts.FirstOrDefault(acc => acc.Username.Equals(username) && acc.Password.Equals(password));
+	        return _listAccounts.FirstOrDefault(acc => acc.Username.Equals(username) && acc.Password.Equals(password));
 	    }
 	}
 }
