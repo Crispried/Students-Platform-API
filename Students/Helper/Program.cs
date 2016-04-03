@@ -15,7 +15,6 @@ namespace Helper
         {
             using (var db = new EFDbContext())
             {
-                
                 var User1 = new User() { UserName = "user1", Email = "tes1t@gmail.com", Password = "password1", Role = UserRole.User, Status = UserStatus.Normal };
                 var User2 = new User() { UserName = "user2", Email = "test2@gmail.com", Password = "password2", Role = UserRole.Admin, Status = UserStatus.Normal };
                 db.Users.Add(User1);
