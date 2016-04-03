@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SessionSecurity.Security;
-using SessionSecurity.Models;
+using Students.API.Security;
+using Students.API.Models;
 
-namespace SessionSecurity.Controllers
+namespace Students.API.Controllers
 {
     public class DemoController : Controller
     {

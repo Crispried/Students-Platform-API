@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SessionSecurity.Security
+namespace Students.API.Security
 {
     public static class SessionPersister
     {
