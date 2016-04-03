@@ -15,6 +15,6 @@ namespace Students.API.Models
         //[Display(Name = "Password")]
         //public string Password { get; set; }
 
-        public string[] Roles { get; set; }
+        //public string[] Roles { get; set; }
     }
 }

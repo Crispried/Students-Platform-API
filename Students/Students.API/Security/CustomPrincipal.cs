@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using Students.API.Models;
+using Students.Domain.Entities;
 
 namespace Students.API.Security
 {
@@ -19,10 +20,12 @@ namespace Students.API.Security
 
         public IIdentity Identity { get; set; }
 
-        public bool IsInRole(string role)
+        public bool IsInRole(UserRole role)//was string
         {
-            var roles = role.Split(new char[] { ',' });
-            return roles.Any(r => this.Account.Roles.Contains(r));
+            //var roles = role.Split(new char[] { ',' });
+            //return roles.Any(r => this.Account.Roles.Contains(r));
+
+            return this.Account.Role.Equals(role);
         }
     }
 }
