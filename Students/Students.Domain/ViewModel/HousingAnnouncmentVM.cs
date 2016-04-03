@@ -10,9 +10,11 @@ namespace Students.Domain.ViewModel
     {
         public int Id { get; set; }
 
-        public int AuthorId { get; set; }
+        //public int AuthorId { get; set; }
 
         public DateTime AddedDate { get; set; }
+
+        public UserVM Author { get; set; }
 
         public ICollection<HousingAnnouncmentLangVM> HousingAnnouncmentLangsVM { get; set; }
 
