@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
@@ -12,6 +13,7 @@ using Students.API.Infrastructure;
 
 namespace Students.API.APIControllers.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class HousingController : ApiController, ICommentController<HousingComment>
     {
         private IHousingAnnouncmentRepository announcmentRepository;
