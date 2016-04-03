@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
-using Students.API.Models;
+using SessionSecurity.Models;
 
-namespace Students.API.Security
+namespace SessionSecurity.Security
 {
     public class CustomPrincipal : IPrincipal
     {

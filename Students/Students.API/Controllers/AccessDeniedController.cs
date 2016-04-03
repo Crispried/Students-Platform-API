@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Students.API.Controllers
+namespace SessionSecurity.Controllers
 {
     public class AccessDeniedController : Controller
     {

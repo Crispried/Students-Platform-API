@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Students.API.Models;
+using SessionSecurity.Models;
 
-namespace Students.API.ViewModels
+namespace SessionSecurity.ViewModels
 {
     public class AccountViewModel
     {

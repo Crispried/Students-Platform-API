@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Students.API.Models
+namespace SessionSecurity.Models
 {
 	public class AccountModel
 	{
