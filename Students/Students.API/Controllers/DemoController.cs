@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Students.API.Security;
 using Students.API.Models;
+using Students.Domain.Entities;
 
 namespace Students.API.Controllers
 {
@@ -16,19 +17,19 @@ namespace Students.API.Controllers
             return View();
         }
 
-        [CustomAuthorize(Roles = "superadmin")]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Work1()
         {
             return View("Work1");
         }
 
-        [CustomAuthorize(Roles = "superadmin,admin")]
+        [CustomAuthorize(Roles = "Moderator,Admin")]
         public ActionResult Work2()
         {
             return View("Work2");
         }
 
-        [CustomAuthorize(Roles = "superadmin,admin,employee")]
+        [CustomAuthorize(Roles = "Admin,Moderator,User")]
         public ActionResult Work3()
         {
             return View("Work3");

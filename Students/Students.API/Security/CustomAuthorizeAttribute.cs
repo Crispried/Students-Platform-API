@@ -15,7 +15,7 @@ namespace Students.API.Security
             if (string.IsNullOrEmpty(SessionPersister.Username))
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
-                    new { controller = "Account", action = "Index" }));
+                    new { controller = "Account", action = "Login" }));
             }
             else
             {
@@ -23,7 +23,13 @@ namespace Students.API.Security
                 CustomPrincipal mp = new CustomPrincipal(am.Find(SessionPersister.Username));
                 if (!mp.IsInRole(Roles))
                 {
-                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "AccessDenied", action = "Index" }));
+                    filterContext.Result = new RedirectToRouteResult
+                    (
+                        new RouteValueDictionary
+                        (
+                            new { controller = "AccessDenied", action = "Index" }
+                        )
+                    );
                 }
             }
         }

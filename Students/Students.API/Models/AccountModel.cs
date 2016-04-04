@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Students.Domain.Entities;
 
 namespace Students.API.Models
 {
@@ -15,30 +16,36 @@ namespace Students.API.Models
 			{
 			    UserName = "acc1",
                 Password = "111",
+                Role = UserRole.Admin
+                /*
                 Roles = new string[]
                 {
                     "superadmin", "admin", "employee"
-                }
+                }*/
 			});
 
             _listAccounts.Add(new Account
             {
                 UserName = "acc2",
                 Password = "111",
+                Role = UserRole.Moderator
+                /*
                 Roles = new string[]
                 {
                     "admin", "employee"
-                }
+                }*/
             });
 
             _listAccounts.Add(new Account
             {
                 UserName = "acc3",
                 Password = "111",
+                Role = UserRole.User
+                /*
                 Roles = new string[]
                 {
                     "employee"
-                }
+                }*/
             });
         }
 
