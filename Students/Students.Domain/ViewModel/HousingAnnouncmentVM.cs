@@ -16,11 +16,14 @@ namespace Students.Domain.ViewModel
 
         public UserAnnouncmentVM Author { get; set; }
 
+        public ICollection<ImageVM> HousingAnnouncmentImagesVM { get; set; }
+
         public ICollection<HousingAnnouncmentLangVM> HousingAnnouncmentLangsVM { get; set; }
 
         public HousingAnnouncmentVM()
         {
             this.HousingAnnouncmentLangsVM = new List<HousingAnnouncmentLangVM>();
+            this.HousingAnnouncmentImagesVM = new List<ImageVM>();
         }
     }
 }

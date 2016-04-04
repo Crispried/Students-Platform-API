@@ -128,9 +128,9 @@ namespace Students.API.APIControllers.Controllers
             {
                 IQueryable<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Housing, announcmentId);
                 List<object> result = EntitiesFactory.GetListViewModel(comments, EntitiesTypes.Comment);
-                if (comments != null)
+                if (result != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK, comments);
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

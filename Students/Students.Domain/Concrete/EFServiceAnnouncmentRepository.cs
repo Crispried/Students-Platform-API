@@ -38,11 +38,16 @@ namespace Students.Domain.Concrete
         public bool SaveServiceAnnouncment(ServiceAnnouncment serviceAnnouncment)
         {
             List<ServiceAnnouncmentLang> serviceAnnouncmentLangs = serviceAnnouncment.ServiceAnnouncmentLangs.ToList();
+            List<ServiceAnnouncmentImage> serviceAnnouncmentImages = serviceAnnouncment.ServiceAnnouncmentImages.ToList();
             if (serviceAnnouncment.ServiceAnnouncmentId == 0)
             {
                 foreach (var serviceAnnouncmentLang in serviceAnnouncmentLangs)
                 {
                     serviceAnnouncment.ServiceAnnouncmentLangs.Add(serviceAnnouncmentLang);
+                }
+                foreach (var serviceAnnouncmentImage in serviceAnnouncmentImages)
+                {
+                    serviceAnnouncment.ServiceAnnouncmentImages.Add(serviceAnnouncmentImage);
                 }
                 context.ServiceAnnouncments.Add(serviceAnnouncment);
             }
@@ -53,14 +58,50 @@ namespace Students.Domain.Concrete
                 {
                     dbEntry.AuthorId = serviceAnnouncment.AuthorId;
                 }
-                List<ServiceAnnouncmentLang> dbEntries = new List<ServiceAnnouncmentLang>();
+                List<ServiceAnnouncmentLang> dbLangEntries = new List<ServiceAnnouncmentLang>();
+                string newTitle, newBulletin;
                 for (int i = 0; i < serviceAnnouncmentLangs.Count; i++)
                 {
-                    dbEntries[i] = context.ServiceAnnouncmentLangs.Find(serviceAnnouncmentLangs[i].ServiceAnnouncmentLangId);
-                    if (dbEntries[i] != null)
+                    newTitle = serviceAnnouncmentLangs[i].Title;
+                    newBulletin = serviceAnnouncmentLangs[i].Bulletin;
+                    dbLangEntries[i] = context.ServiceAnnouncmentLangs.Find(serviceAnnouncmentLangs[i].ServiceAnnouncmentLangId);
+                    if (newTitle == null)
                     {
-                        dbEntries[i].Title = serviceAnnouncmentLangs[i].Title;
-                        dbEntries[i].Bulletin = serviceAnnouncmentLangs[i].Bulletin;
+                        context.ServiceAnnouncmentLangs.Remove(dbLangEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbLangEntries[i] != null)
+                        {
+                            dbLangEntries[i].Title = newTitle;
+                            dbLangEntries[i].Bulletin = newBulletin;
+                        }
+                        else
+                        {
+                            context.ServiceAnnouncmentLangs.Add(serviceAnnouncmentLangs[i]);
+                        }
+                    }
+                }
+                List<ServiceAnnouncmentImage> dbImageEntries = new List<ServiceAnnouncmentImage>();
+                string newUrl;
+                for (int i = 0; i < serviceAnnouncmentImages.Count; i++)
+                {
+                    newUrl = serviceAnnouncmentImages[i].Url;
+                    dbImageEntries[i] = context.ServiceAnnouncmentImages.Find(serviceAnnouncmentImages[i].ServiceAnnouncmentImageId);
+                    if (newUrl == null)
+                    {
+                        context.ServiceAnnouncmentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.ServiceAnnouncmentImages.Add(serviceAnnouncmentImages[i]);
+                        }
                     }
                 }
             }

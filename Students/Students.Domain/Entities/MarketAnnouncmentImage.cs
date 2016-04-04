@@ -8,26 +8,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Students.Domain.Entities
 {
-    public class MarketAnnouncmentLang : Announcment
+    public class MarketAnnouncmentImage : Image
     {
         [Key]
-        public int MarketAnnouncmentLangId { get; set; }
+        public int MarketAnnouncmentImageId { get; set; }
 
         [Required]
         [ForeignKey("MarketAnnouncment")]
         public int MarketAnnouncmentId { get; set; }
 
-        [Required]
-        [ForeignKey("Language")]
-        public int LanguageId { get; set; }
-
         public virtual MarketAnnouncment MarketAnnouncment { get; set; }
 
-        public virtual Language Language { get; set; }
-
-        public MarketAnnouncmentLang() : base()
-        {
-
-        }
+        public MarketAnnouncmentImage() : base() { }
     }
 }

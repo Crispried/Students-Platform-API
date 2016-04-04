@@ -124,10 +124,11 @@ namespace Students.API.APIControllers.Controllers
         {
             if (announcmentId != 0)
             {
-                List<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Market, announcmentId).ToList();
-                if (comments != null)
+                IQueryable<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Market, announcmentId);
+                List<object> result = EntitiesFactory.GetListViewModel(comments, EntitiesTypes.Comment);
+                if (result != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK, comments);
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }

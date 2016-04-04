@@ -2,32 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Threading.Tasks;
 
 namespace Students.Domain.Entities
 {
-    public class TravelAnnouncmentLang : Announcment
+    public class TravelAnnouncmentImage : Image
     {
         [Key]
-        public int TravelAnnouncmentLangId { get; set; }
+        public int TravelAnnouncmentImageId { get; set; }
 
         [Required]
         [ForeignKey("TravelAnnouncment")]
         public int TravelAnnouncmentId { get; set; }
 
-        [Required]
-        [ForeignKey("Language")]
-        public int LanguageId { get; set; }
-
         public virtual TravelAnnouncment TravelAnnouncment { get; set; }
 
-        public virtual Language Language { get; set; }
-
-        public TravelAnnouncmentLang() : base()
-        {
-
-        }
+        public TravelAnnouncmentImage() : base() { }
     }
 }

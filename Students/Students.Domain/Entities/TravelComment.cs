@@ -25,6 +25,11 @@ namespace Students.Domain.Entities
 
         public virtual TravelAnnouncment TravelAnnouncment { get; set; }
 
-        public TravelComment() { }
+        public virtual ICollection<TravelCommentImage> TravelCommentImages { get; set; }
+
+        public TravelComment()
+        {
+            this.TravelCommentImages = new List<TravelCommentImage>();
+        }
     }
 }

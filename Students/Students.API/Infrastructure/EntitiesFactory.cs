@@ -116,8 +116,8 @@ namespace Students.API.Infrastructure
             {
                 Id = housingAnnouncment.HousingAnnouncmentId,
                 Author = (UserAnnouncmentVM)GetViewModel(housingAnnouncment.User, "UserAnnouncment"),
-                AddedDate = housingAnnouncment.AddedTime                
-            };
+                AddedDate = housingAnnouncment.AddedDate                
+            };            
             HousingAnnouncmentLangVM tempHousingAnnouncmentLangVM;
             foreach (var housingAnnouncmentLangs in housingAnnouncment.HousingAnnouncmentLangs)
             {
@@ -127,6 +127,16 @@ namespace Students.API.Infrastructure
                     Bulletin = housingAnnouncmentLangs.Bulletin
                 };
                 housingAnnouncmentVM.HousingAnnouncmentLangsVM.Add(tempHousingAnnouncmentLangVM);
+            }
+            ImageVM tempImageVM;
+            foreach (HousingAnnouncmentImage image in housingAnnouncment.HousingAnnouncmentImages)
+            {
+                tempImageVM = new ImageVM()
+                {
+                    Id = image.HousingAnnouncmentImageId,
+                    Url = image.Url
+                };
+                housingAnnouncmentVM.HousingAnnouncmentImagesVM.Add(tempImageVM);
             }
             return housingAnnouncmentVM;
         }
@@ -146,8 +156,8 @@ namespace Students.API.Infrastructure
             TravelAnnouncmentVM travelAnnouncmentVM = new TravelAnnouncmentVM()
             {
                 Id = travelAnnouncment.TravelAnnouncmentId,
-                AuthorId = travelAnnouncment.AuthorId,
-                AddedDate = travelAnnouncment.AddedTime
+                Author = (UserAnnouncmentVM)GetViewModel(travelAnnouncment.User, "UserAnnouncment"),
+                AddedDate = travelAnnouncment.AddedDate
             };
             TravelAnnouncmentLangVM tempTravelAnnouncmentLangVM;
             foreach (var travelAnnouncmentLangs in travelAnnouncment.TravelAnnouncmentLangs)
@@ -158,6 +168,16 @@ namespace Students.API.Infrastructure
                     Bulletin = travelAnnouncmentLangs.Bulletin
                 };
                 travelAnnouncmentVM.TravelAnnouncmentLangsVM.Add(tempTravelAnnouncmentLangVM);
+            }
+            ImageVM tempImageVM;
+            foreach (TravelAnnouncmentImage image in travelAnnouncment.TravelAnnouncmentImages)
+            {
+                tempImageVM = new ImageVM()
+                {
+                    Id = image.TravelAnnouncmentImageId,
+                    Url = image.Url
+                };
+                travelAnnouncmentVM.TravelAnnouncmentImagesVM.Add(tempImageVM);
             }
             return travelAnnouncmentVM;
         }
@@ -177,8 +197,8 @@ namespace Students.API.Infrastructure
             MarketAnnouncmentVM marketAnnouncmentVM = new MarketAnnouncmentVM()
             {
                 Id = marketAnnouncment.MarketAnnouncmentId,
-                AuthorId = marketAnnouncment.AuthorId,
-                AddedDate = marketAnnouncment.AddedTime
+                Author = (UserAnnouncmentVM)GetViewModel(marketAnnouncment.User, "UserAnnouncment"),
+                AddedDate = marketAnnouncment.AddedDate
             };
             MarketAnnouncmentLangVM tempMarketAnnouncmentLangVM;
             foreach (var marketAnnouncmentLangs in marketAnnouncment.MarketAnnouncmentLangs)
@@ -189,6 +209,16 @@ namespace Students.API.Infrastructure
                     Bulletin = marketAnnouncmentLangs.Bulletin
                 };
                 marketAnnouncmentVM.MarketAnnouncmentLangsVM.Add(tempMarketAnnouncmentLangVM);
+            }
+            ImageVM tempImageVM;
+            foreach (MarketAnnouncmentImage image in marketAnnouncment.MarketAnnouncmentImages)
+            {
+                tempImageVM = new ImageVM()
+                {
+                    Id = image.MarketAnnouncmentImageId,
+                    Url = image.Url
+                };
+                marketAnnouncmentVM.MarketAnnouncmentImagesVM.Add(tempImageVM);
             }
             return marketAnnouncmentVM;
         }
@@ -208,8 +238,8 @@ namespace Students.API.Infrastructure
             ServiceAnnouncmentVM serviceAnnouncmentVM = new ServiceAnnouncmentVM()
             {
                 Id = serviceAnnouncment.ServiceAnnouncmentId,
-                AuthorId = serviceAnnouncment.AuthorId,
-                AddedDate = serviceAnnouncment.AddedTime
+                Author = (UserAnnouncmentVM)GetViewModel(serviceAnnouncment.User, "UserAnnouncment"),
+                AddedDate = serviceAnnouncment.AddedDate
             };
             ServiceAnnouncmentLangVM tempServiceAnnouncmentLangVM;
             foreach (var serviceAnnouncmentLangs in serviceAnnouncment.ServiceAnnouncmentLangs)
@@ -220,6 +250,16 @@ namespace Students.API.Infrastructure
                     Bulletin = serviceAnnouncmentLangs.Bulletin
                 };
                 serviceAnnouncmentVM.ServiceAnnouncmentLangsVM.Add(tempServiceAnnouncmentLangVM);
+            }
+            ImageVM tempImageVM;
+            foreach (ServiceAnnouncmentImage image in serviceAnnouncment.ServiceAnnouncmentImages)
+            {
+                tempImageVM = new ImageVM()
+                {
+                    Id = image.ServiceAnnouncmentImageId,
+                    Url = image.Url
+                };
+                serviceAnnouncmentVM.ServiceAnnouncmentImagesVM.Add(tempImageVM);
             }
             return serviceAnnouncmentVM;
         }
@@ -238,6 +278,7 @@ namespace Students.API.Infrastructure
         {
             List<object> housingCommentsVM = new List<object>(comments.Count);
             CommentVM tempCommentVM;
+            ImageVM tempImageVM;
             foreach (HousingComment comment in comments)
             {
                 tempCommentVM = new CommentVM()
@@ -245,8 +286,17 @@ namespace Students.API.Infrastructure
                     Id = comment.HousingCommentId,
                     AuthorId = comment.AuthorId,
                     Body = comment.Body,
-                    AddedDate = comment.AddedTime
+                    AddedDate = comment.AddedDate
                 };
+                foreach(HousingCommentImage image in comment.HousingCommentImages)
+                {
+                    tempImageVM = new ImageVM()
+                    {
+                        Id = image.HousingCommentImageId,
+                        Url = image.Url
+                    };
+                    tempCommentVM.CommentImagesVM.Add(tempImageVM);
+                }
                 housingCommentsVM.Add(tempCommentVM);
             }
             return housingCommentsVM;
