@@ -15,11 +15,11 @@ namespace Students.API.Security
             if (string.IsNullOrEmpty(SessionPersister.Username))
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
-                    new { controller = "Account", action = "Login" }));
+                    new { controller = "User", action = "Login" }));
             }
             else
             {
-                AccountModel am = new AccountModel();
+                UserModel am = new UserModel();
                 CustomPrincipal mp = new CustomPrincipal(am.Find(SessionPersister.Username));
                 if (!mp.IsInRole(Roles))
                 {

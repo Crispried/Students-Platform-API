@@ -6,55 +6,40 @@ using Students.Domain.Entities;
 
 namespace Students.API.Models
 {
-	public class AccountModel
+	public class UserModel
 	{
-		private readonly List<Account> _listAccounts = new List<Account>();
+		private readonly List<User> _listAccounts = new List<User>();
 
-	    public AccountModel()
+	    public UserModel()
 	    {
-			_listAccounts.Add(new Account
+			_listAccounts.Add(new User
 			{
 			    UserName = "acc1",
                 Password = "111",
                 Role = UserRole.Admin
-                /*
-                Roles = new string[]
-                {
-                    "superadmin", "admin", "employee"
-                }*/
 			});
 
-            _listAccounts.Add(new Account
+            _listAccounts.Add(new User
             {
                 UserName = "acc2",
                 Password = "111",
                 Role = UserRole.Moderator
-                /*
-                Roles = new string[]
-                {
-                    "admin", "employee"
-                }*/
             });
 
-            _listAccounts.Add(new Account
+            _listAccounts.Add(new User
             {
                 UserName = "acc3",
                 Password = "111",
                 Role = UserRole.User
-                /*
-                Roles = new string[]
-                {
-                    "employee"
-                }*/
             });
         }
 
-	    public Account Find(string username)
+	    public User Find(string username)
 	    {
 	        return _listAccounts.FirstOrDefault(acc => acc.UserName.Equals(username));
 	    }
 
-	    public Account Login(string username, string password)
+	    public User Login(string username, string password)
 	    {
 	        return _listAccounts.FirstOrDefault(acc => acc.UserName.Equals(username) && acc.Password.Equals(password));
 	    }

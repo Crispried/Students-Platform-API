@@ -19,15 +19,15 @@ namespace Students.API.Controllers
         [HttpPost]
         public ActionResult Login(AccountViewModel avm)
         {
-            AccountModel am = new AccountModel();
-            if (string.IsNullOrEmpty(avm.Account.UserName)
-             || string.IsNullOrEmpty(avm.Account.Password)
-             || am.Login(avm.Account.UserName, avm.Account.Password) == null)
+            UserModel am = new UserModel();
+            if (string.IsNullOrEmpty(avm.User.UserName)
+             || string.IsNullOrEmpty(avm.User.Password)
+             || am.Login(avm.User.UserName, avm.User.Password) == null)
             {
-                ViewBag.Error = "Account's Invalid";
+                ViewBag.Error = "User's Invalid";
                 return View("Index");
             }
-            SessionPersister.Username = avm.Account.UserName;
+            SessionPersister.Username = avm.User.UserName;
             return View("Success");
         }
 

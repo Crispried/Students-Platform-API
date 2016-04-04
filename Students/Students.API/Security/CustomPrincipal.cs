@@ -10,17 +10,17 @@ namespace Students.API.Security
 {
     public class CustomPrincipal : IPrincipal
     {
-        private readonly Account _account;
+        private readonly User _user;
 
-        public CustomPrincipal(Account account)
+        public CustomPrincipal(User user)
         {
-            this._account = account;
-            this.Identity = new GenericIdentity(account.UserName);
+            this._user = user;
+            this.Identity = new GenericIdentity(user.UserName);
         }
 
         public bool IsInRole(string role)
         {
-            return this._account.Role.ToString() == role;
+            return this._user.Role.ToString() == role;
         }
 
         public IIdentity Identity { get; set; }
