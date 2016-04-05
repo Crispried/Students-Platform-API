@@ -38,11 +38,16 @@ namespace Students.Domain.Concrete
         public bool SaveTravelAnnouncment(TravelAnnouncment travelAnnouncment)
         {
             List<TravelAnnouncmentLang> travelAnnouncmentLangs = travelAnnouncment.TravelAnnouncmentLangs.ToList();
+            List<TravelAnnouncmentImage> travelAnnouncmentImages = travelAnnouncment.TravelAnnouncmentImages.ToList();
             if (travelAnnouncment.TravelAnnouncmentId == 0)
             {
                 foreach (var travelAnnouncmentLang in travelAnnouncmentLangs)
                 {
                     travelAnnouncment.TravelAnnouncmentLangs.Add(travelAnnouncmentLang);
+                }
+                foreach (var travelAnnouncmentImage in travelAnnouncmentImages)
+                {
+                    travelAnnouncment.TravelAnnouncmentImages.Add(travelAnnouncmentImage);
                 }
                 context.TravelAnnouncments.Add(travelAnnouncment);
             }
@@ -53,14 +58,50 @@ namespace Students.Domain.Concrete
                 {
                     dbEntry.AuthorId = travelAnnouncment.AuthorId;  
                 }
-                List<TravelAnnouncmentLang> dbEntries = new List<TravelAnnouncmentLang>();
+                List<TravelAnnouncmentLang> dbLangEntries = new List<TravelAnnouncmentLang>();
+                string newTitle, newBulletin;
                 for (int i = 0; i < travelAnnouncmentLangs.Count; i++)
                 {
-                    dbEntries[i] = context.TravelAnnouncmentLangs.Find(travelAnnouncmentLangs[i].TravelAnnouncmentLangId);
-                    if (dbEntries[i] != null)
+                    newTitle = travelAnnouncmentLangs[i].Title;
+                    newBulletin = travelAnnouncmentLangs[i].Bulletin;
+                    dbLangEntries[i] = context.TravelAnnouncmentLangs.Find(travelAnnouncmentLangs[i].TravelAnnouncmentLangId);
+                    if (newTitle == null)
                     {
-                        dbEntries[i].Title = travelAnnouncmentLangs[i].Title;
-                        dbEntries[i].Bulletin = travelAnnouncmentLangs[i].Bulletin;
+                        context.TravelAnnouncmentLangs.Remove(dbLangEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbLangEntries[i] != null)
+                        {
+                            dbLangEntries[i].Title = newTitle;
+                            dbLangEntries[i].Bulletin = newBulletin;
+                        }
+                        else
+                        {
+                            context.TravelAnnouncmentLangs.Add(travelAnnouncmentLangs[i]);
+                        }
+                    }
+                }
+                List<TravelAnnouncmentImage> dbImageEntries = new List<TravelAnnouncmentImage>();
+                string newUrl;
+                for (int i = 0; i < travelAnnouncmentImages.Count; i++)
+                {
+                    newUrl = travelAnnouncmentImages[i].Url;
+                    dbImageEntries[i] = context.TravelAnnouncmentImages.Find(travelAnnouncmentImages[i].TravelAnnouncmentImageId);
+                    if (newUrl == null)
+                    {
+                        context.TravelAnnouncmentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.TravelAnnouncmentImages.Add(travelAnnouncmentImages[i]);
+                        }
                     }
                 }
             }

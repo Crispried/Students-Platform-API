@@ -7,7 +7,8 @@ namespace Students.API.Infrastructure
 {
     public static class EntitiesTypes
     {
-        public const string UserType = "User";
+        public const string User = "User";
+        public const string UserAnnouncment = "UserAnnouncment";
         public const string HousingAnnouncment = "HousingAnnouncment";
         public const string TravelAnnouncment = "TravelAnnouncment";
         public const string MarketAnnouncment = "MarketAnnouncment";

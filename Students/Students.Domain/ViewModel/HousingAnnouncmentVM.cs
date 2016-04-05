@@ -10,15 +10,20 @@ namespace Students.Domain.ViewModel
     {
         public int Id { get; set; }
 
-        public int AuthorId { get; set; }
+        //public int AuthorId { get; set; }
 
         public DateTime AddedDate { get; set; }
+
+        public UserAnnouncmentVM Author { get; set; }
+
+        public ICollection<ImageVM> HousingAnnouncmentImagesVM { get; set; }
 
         public ICollection<HousingAnnouncmentLangVM> HousingAnnouncmentLangsVM { get; set; }
 
         public HousingAnnouncmentVM()
         {
             this.HousingAnnouncmentLangsVM = new List<HousingAnnouncmentLangVM>();
+            this.HousingAnnouncmentImagesVM = new List<ImageVM>();
         }
     }
 }

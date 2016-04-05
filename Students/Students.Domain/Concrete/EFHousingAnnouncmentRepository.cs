@@ -39,11 +39,16 @@ namespace Students.Domain.Concrete
         public bool SaveHousingAnnouncment(HousingAnnouncment housingAnnouncment)
         {
             List<HousingAnnouncmentLang> housingAnnouncmentLangs = housingAnnouncment.HousingAnnouncmentLangs.ToList();
+            List<HousingAnnouncmentImage> housingAnnouncmentImages = housingAnnouncment.HousingAnnouncmentImages.ToList();
             if (housingAnnouncment.HousingAnnouncmentId == 0)
             {
                 foreach(var housingAnnouncmentLang in housingAnnouncmentLangs)
                 {
                     housingAnnouncment.HousingAnnouncmentLangs.Add(housingAnnouncmentLang);
+                }
+                foreach(var housingAnnouncmentImage in housingAnnouncmentImages)
+                {
+                    housingAnnouncment.HousingAnnouncmentImages.Add(housingAnnouncmentImage);
                 }
                 context.HousingAnnouncments.Add(housingAnnouncment);
             }
@@ -54,14 +59,50 @@ namespace Students.Domain.Concrete
                 {
                     dbEntry.AuthorId = housingAnnouncment.AuthorId;
                 }
-                List<HousingAnnouncmentLang> dbEntries = new List<HousingAnnouncmentLang>();
+                List<HousingAnnouncmentLang> dbLangEntries = new List<HousingAnnouncmentLang>();
+                string newTitle, newBulletin;
                 for (int i = 0; i < housingAnnouncmentLangs.Count; i++)
                 {
-                    dbEntries[i] = context.HousingAnnouncmentLangs.Find(housingAnnouncmentLangs[i].HousingAnnouncmentLangId);
-                    if(dbEntries[i] != null)
+                    newTitle = housingAnnouncmentLangs[i].Title;
+                    newBulletin = housingAnnouncmentLangs[i].Bulletin;
+                    dbLangEntries[i] = context.HousingAnnouncmentLangs.Find(housingAnnouncmentLangs[i].HousingAnnouncmentLangId);
+                    if(newTitle == null)
                     {
-                        dbEntries[i].Title = housingAnnouncmentLangs[i].Title;
-                        dbEntries[i].Bulletin = housingAnnouncmentLangs[i].Bulletin;
+                        context.HousingAnnouncmentLangs.Remove(dbLangEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbLangEntries[i] != null)
+                        {
+                            dbLangEntries[i].Title = newTitle;
+                            dbLangEntries[i].Bulletin = newBulletin;
+                        }
+                        else
+                        {
+                            context.HousingAnnouncmentLangs.Add(housingAnnouncmentLangs[i]);
+                        }
+                    }
+                }
+                List<HousingAnnouncmentImage> dbImageEntries = new List<HousingAnnouncmentImage>();
+                string newUrl;
+                for (int i = 0; i < housingAnnouncmentImages.Count; i++)
+                {
+                    newUrl = housingAnnouncmentImages[i].Url;
+                    dbImageEntries[i] = context.HousingAnnouncmentImages.Find(housingAnnouncmentImages[i].HousingAnnouncmentImageId);
+                    if (newUrl == null)
+                    {
+                        context.HousingAnnouncmentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.HousingAnnouncmentImages.Add(housingAnnouncmentImages[i]);
+                        }
                     }
                 }
             }

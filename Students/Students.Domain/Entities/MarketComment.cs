@@ -25,6 +25,11 @@ namespace Students.Domain.Entities
 
         public virtual MarketAnnouncment MarketAnnouncment { get; set; }
 
-        public MarketComment() { }
+        public virtual ICollection<MarketCommentImage> MarketCommentImages { get; set; }
+
+        public MarketComment()
+        {
+            this.MarketCommentImages = new List<MarketCommentImage>();
+        }
     }
 }

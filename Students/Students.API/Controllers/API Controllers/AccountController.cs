@@ -25,7 +25,7 @@ namespace Students.API.APIControllers.Controllers
             if (userId != 0)
             {
                 User user = userRepository.GetUserById(userId); 
-                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType); 
+                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.User); 
                 if(result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -41,7 +41,7 @@ namespace Students.API.APIControllers.Controllers
             if (username != null)
             {
                 User user = userRepository.GetUserByUserName(username);
-                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType);
+                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.User);
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -57,7 +57,7 @@ namespace Students.API.APIControllers.Controllers
             if (email != null)
             {
                 User user = userRepository.GetUserByEmail(email);
-                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.UserType);
+                UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.User);
                 if (result != null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, result);

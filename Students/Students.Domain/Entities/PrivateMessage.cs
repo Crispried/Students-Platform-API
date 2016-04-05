@@ -32,9 +32,12 @@ namespace Students.Domain.Entities
 
         public virtual User User { get; set; }
 
+        public virtual ICollection<PrivateMessageImage> PrivateMessageImages { get; set; }
+
         public PrivateMessage()
         {
             this.SendTime = DateTime.Now; // default value for send time is the time when message was sent
+            this.PrivateMessageImages = new List<PrivateMessageImage>();
         }
 
     }

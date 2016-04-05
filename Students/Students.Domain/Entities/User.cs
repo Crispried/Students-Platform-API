@@ -51,7 +51,7 @@ namespace Students.Domain.Entities
         [MaxLength(30), MinLength(6)]
         public string Password { get; set; }
 
-        [StringLength(200)]
+        [StringLength(300)]
         public string Photo { get; set; }
 
         [DataType(DataType.DateTime)]

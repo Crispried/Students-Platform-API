@@ -15,6 +15,13 @@ namespace Students.Domain.ViewModel
 
         public string Body { get; set; }
 
+        public ICollection<ImageVM> CommentImagesVM { get; set; }
+
         public DateTime AddedDate { get; set; }
+
+        public CommentVM()
+        {
+            this.CommentImagesVM = new List<ImageVM>();
+        }
     }
 }

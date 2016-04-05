@@ -10,15 +10,18 @@ namespace Students.Domain.ViewModel
     {
         public int Id { get; set; }
 
-        public int AuthorId { get; set; }
+        public UserAnnouncmentVM Author { get; set; }
 
         public DateTime AddedDate { get; set; }
+
+        public ICollection<ImageVM> ServiceAnnouncmentImagesVM { get; set; }
 
         public ICollection<ServiceAnnouncmentLangVM> ServiceAnnouncmentLangsVM { get; set; }
 
         public ServiceAnnouncmentVM()
         {
             this.ServiceAnnouncmentLangsVM = new List<ServiceAnnouncmentLangVM>();
+            this.ServiceAnnouncmentImagesVM = new List<ImageVM>();
         }
     }
 }

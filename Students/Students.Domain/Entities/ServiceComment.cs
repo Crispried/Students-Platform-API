@@ -25,6 +25,11 @@ namespace Students.Domain.Entities
 
         public virtual ServiceAnnouncment ServiceAnnouncment { get; set; }
 
-        public ServiceComment() { }
+        public virtual ICollection<ServiceCommentImage> ServiceCommentImages { get; set; }
+
+        public ServiceComment()
+        {
+            this.ServiceCommentImages = new List<ServiceCommentImage>();
+        }
     }
 }

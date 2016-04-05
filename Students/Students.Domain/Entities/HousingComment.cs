@@ -25,6 +25,11 @@ namespace Students.Domain.Entities
 
         public virtual HousingAnnouncment HousingAnnouncment { get; set; }
 
-        public HousingComment() { }
+        public virtual ICollection<HousingCommentImage> HousingCommentImages { get; set; }
+
+        public HousingComment()
+        {
+            this.HousingCommentImages = new List<HousingCommentImage>();
+        }
     }
 }

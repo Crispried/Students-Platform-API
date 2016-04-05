@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using Students.Domain.Entities;
 using System.Threading.Tasks;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Students.Domain.Concrete
 {
@@ -30,6 +31,14 @@ namespace Students.Domain.Concrete
 
         public DbSet<ServiceAnnouncmentLang> ServiceAnnouncmentLangs { get; set; }
 
+        public DbSet<HousingAnnouncmentImage> HousingAnnouncmentImages { get; set; }
+
+        public DbSet<TravelAnnouncmentImage> TravelAnnouncmentImages { get; set; }
+
+        public DbSet<MarketAnnouncmentImage> MarketAnnouncmentImages { get; set; }
+
+        public DbSet<ServiceAnnouncmentImage> ServiceAnnouncmentImages { get; set; }
+
         public DbSet<HousingComment> HousingComments { get; set; }
 
         public DbSet<TravelComment> TravelComments { get; set; }
@@ -38,13 +47,25 @@ namespace Students.Domain.Concrete
 
         public DbSet<ServiceComment> ServiceComments { get; set; }
 
+        public DbSet<HousingCommentImage> HousingCommentImages { get; set; }
+
+        public DbSet<TravelCommentImage> TravelCommentImages { get; set; }
+
+        public DbSet<MarketCommentImage> MarketCommentImages { get; set; }
+
+        public DbSet<ServiceCommentImage> ServiceCommentImages { get; set; }
+
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
+
+        public DbSet<PrivateMessageImage> PrivateMessageImages { get; set; }
 
         public DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HousingComment>()
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            /*modelBuilder.Entity<HousingComment>()
                 .HasRequired(hc => hc.User)
                 .WithMany(u => u.HousingComments)
                 .WillCascadeOnDelete(false);
@@ -82,7 +103,7 @@ namespace Students.Domain.Concrete
             modelBuilder.Entity<ServiceComment>()
                 .HasRequired(sc => sc.ServiceAnnouncment)
                 .WithMany(sa => sa.ServiceComments)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(false);*/
         }
 
         /// <summary>

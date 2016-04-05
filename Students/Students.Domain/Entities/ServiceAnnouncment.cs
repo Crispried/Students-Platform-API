@@ -18,7 +18,7 @@ namespace Students.Domain.Entities
         public int AuthorId { get; set; } // announcment owner
 
         [DataType(DataType.DateTime)]
-        public DateTime AddedTime { get; set; }
+        public DateTime AddedDate { get; set; }
 
         public virtual User User { get; set; }
 
@@ -26,11 +26,14 @@ namespace Students.Domain.Entities
 
         public virtual ICollection<ServiceComment> ServiceComments { get; set; }
 
+        public virtual ICollection<ServiceAnnouncmentImage> ServiceAnnouncmentImages { get; set; }
+
         public ServiceAnnouncment() : base()
         {
-            this.AddedTime = DateTime.Now; // default value for added time is the time when announcment was added
+            this.AddedDate = DateTime.Now; // default value for added time is the time when announcment was added
             this.ServiceComments = new List<ServiceComment>();
             this.ServiceAnnouncmentLangs = new List<ServiceAnnouncmentLang>();
+            this.ServiceAnnouncmentImages = new List<ServiceAnnouncmentImage>();
         }
     }
 }

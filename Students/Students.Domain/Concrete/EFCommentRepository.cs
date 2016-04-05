@@ -91,8 +91,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(ServiceComment serviceComment)
         {
+            List<ServiceCommentImage> serviceCommentImages = serviceComment.ServiceCommentImages.ToList();
             if (serviceComment.ServiceCommentId == 0)
             {
+                foreach (var serviceCommentImage in serviceCommentImages)
+                {
+                    serviceComment.ServiceCommentImages.Add(serviceCommentImage);
+                }
                 context.ServiceComments.Add(serviceComment);
             }
             else
@@ -101,6 +106,28 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     dbEntry.Body = serviceComment.Body;
+                }
+                List<ServiceCommentImage> dbImageEntries = new List<ServiceCommentImage>();
+                string newUrl;
+                for (int i = 0; i < serviceCommentImages.Count; i++)
+                {
+                    newUrl = serviceCommentImages[i].Url;
+                    dbImageEntries[i] = context.ServiceCommentImages.Find(serviceCommentImages[i].ServiceCommentImageId);
+                    if (newUrl == null)
+                    {
+                        context.ServiceCommentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.ServiceCommentImages.Add(serviceCommentImages[i]);
+                        }
+                    }
                 }
             }
             if (ContextWasSaved())
@@ -112,8 +139,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(MarketComment marketComment)
         {
+            List<MarketCommentImage> marketCommentImages = marketComment.MarketCommentImages.ToList();
             if (marketComment.MarketCommentId == 0)
             {
+                foreach (var marketCommentImage in marketCommentImages)
+                {
+                    marketComment.MarketCommentImages.Add(marketCommentImage);
+                }
                 context.MarketComments.Add(marketComment);
             }
             else
@@ -122,6 +154,28 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     dbEntry.Body = marketComment.Body;
+                }
+                List<MarketCommentImage> dbImageEntries = new List<MarketCommentImage>();
+                string newUrl;
+                for (int i = 0; i < marketCommentImages.Count; i++)
+                {
+                    newUrl = marketCommentImages[i].Url;
+                    dbImageEntries[i] = context.MarketCommentImages.Find(marketCommentImages[i].MarketCommentImageId);
+                    if (newUrl == null)
+                    {
+                        context.MarketCommentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.MarketCommentImages.Add(marketCommentImages[i]);
+                        }
+                    }
                 }
             }
             if (ContextWasSaved())
@@ -133,8 +187,13 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(TravelComment travelComment)
         {
+            List<TravelCommentImage> travelCommentImages = travelComment.TravelCommentImages.ToList();
             if (travelComment.TravelCommentId == 0)
             {
+                foreach (var travelCommentImage in travelCommentImages)
+                {
+                    travelComment.TravelCommentImages.Add(travelCommentImage);
+                }
                 context.TravelComments.Add(travelComment);
             }
             else
@@ -143,6 +202,28 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     dbEntry.Body = travelComment.Body;
+                }
+                List<TravelCommentImage> dbImageEntries = new List<TravelCommentImage>();
+                string newUrl;
+                for (int i = 0; i < travelCommentImages.Count; i++)
+                {
+                    newUrl = travelCommentImages[i].Url;
+                    dbImageEntries[i] = context.TravelCommentImages.Find(travelCommentImages[i].TravelCommentImageId);
+                    if (newUrl == null)
+                    {
+                        context.TravelCommentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.TravelCommentImages.Add(travelCommentImages[i]);
+                        }
+                    }
                 }
             }
             if (ContextWasSaved())
@@ -154,9 +235,14 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(HousingComment housingComment)
         {
+            List<HousingCommentImage> housingCommentImages = housingComment.HousingCommentImages.ToList();
             if (housingComment.HousingCommentId == 0)
             {
                 context.HousingComments.Add(housingComment);
+                foreach (var housingCommentImage in housingCommentImages)
+                {
+                    housingComment.HousingCommentImages.Add(housingCommentImage);
+                }
             }
             else
             {
@@ -164,6 +250,28 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     dbEntry.Body = housingComment.Body;
+                }
+                List<HousingCommentImage> dbImageEntries = new List<HousingCommentImage>();
+                string newUrl;
+                for (int i = 0; i < housingCommentImages.Count; i++)
+                {
+                    newUrl = housingCommentImages[i].Url;
+                    dbImageEntries[i] = context.HousingCommentImages.Find(housingCommentImages[i].HousingCommentImageId);
+                    if (newUrl == null)
+                    {
+                        context.HousingCommentImages.Remove(dbImageEntries[i]);
+                    }
+                    else
+                    {
+                        if (dbImageEntries[i] != null)
+                        {
+                            dbImageEntries[i].Url = newUrl;
+                        }
+                        else
+                        {
+                            context.HousingCommentImages.Add(housingCommentImages[i]);
+                        }
+                    }
                 }
             }
             if (ContextWasSaved())

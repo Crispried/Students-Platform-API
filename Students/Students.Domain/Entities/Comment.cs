@@ -22,11 +22,11 @@ namespace Students.Domain.Entities
         public string Body { get; set; } // comment body 
 
         [DataType(DataType.DateTime)]
-        public DateTime AddedTime { get; set; }
+        public DateTime AddedDate { get; set; }
 
         public Comment()
         {
-            this.AddedTime = DateTime.Now; // default value for added time is the time when comment was added
+            this.AddedDate = DateTime.Now; // default value for added time is the time when comment was added
         }
     }
 }
