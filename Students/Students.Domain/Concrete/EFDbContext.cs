@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.Entity;
 using Students.Domain.Entities;
 using System.Threading.Tasks;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Students.Domain.Concrete
 {
@@ -62,7 +63,9 @@ namespace Students.Domain.Concrete
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HousingComment>()
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            /*modelBuilder.Entity<HousingComment>()
                 .HasRequired(hc => hc.User)
                 .WithMany(u => u.HousingComments)
                 .WillCascadeOnDelete(false);
@@ -100,7 +103,7 @@ namespace Students.Domain.Concrete
             modelBuilder.Entity<ServiceComment>()
                 .HasRequired(sc => sc.ServiceAnnouncment)
                 .WithMany(sa => sa.ServiceComments)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(false);*/
         }
 
         /// <summary>
