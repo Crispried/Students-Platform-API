@@ -15,7 +15,7 @@ namespace Students.API.Security
             if (string.IsNullOrEmpty(SessionPersister.Username))
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
-                    new { controller = "User", action = "Login" }));
+                    new { controller = "Account", action = "Login" }));
             }
             else
             {
