@@ -20,14 +20,11 @@ namespace Students.API.Controllers
         public ActionResult Login(AccountViewModel avm)
         {
             UserModel am = new UserModel();
-            if (string.IsNullOrEmpty(avm.User.UserName)
-             || string.IsNullOrEmpty(avm.User.Password)
-             || am.Login(avm.User.UserName, avm.User.Password) == null)
+            if (am.Login(avm.Username, avm.Password) == null)
             {
-                ViewBag.Error = "User's Invalid";
                 return View("Login");
             }
-            SessionPersister.Username = avm.User.UserName;
+            SessionPersister.Username = avm.Username;
             return View("Success");
         }
 

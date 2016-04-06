@@ -9,6 +9,7 @@ namespace Students.API.ViewModels
 {
     public class AccountViewModel
     {
-        public User User { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
