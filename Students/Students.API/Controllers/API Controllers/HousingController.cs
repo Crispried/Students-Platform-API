@@ -122,7 +122,7 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetAnnouncment([FromBody] int announcmentId)
+        public HttpResponseMessage GetAnnouncment(int announcmentId)
         {            
             if (announcmentId != 0)
             {
