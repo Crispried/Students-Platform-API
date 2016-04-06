@@ -9,13 +9,11 @@ using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.Domain.ViewModel;
 using Students.API.Infrastructure;
-using Students.API.Security;
-using Students.API.ViewModels;
 
 namespace Students.API.APIControllers.Controllers
 {
     public class AccountController : ApiController
-    {        
+    {
         private IUserRepository userRepository;
         public AccountController(IUserRepository userRepository)
         {
@@ -23,29 +21,6 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Login(User user)
-        {
-            if (user != null)
-            {
-                if (userRepository.Login(user.UserName, user.Password))
-                {
-                    SessionPersister.Username = user.UserName;
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                }
-                return Request.CreateResponse(HttpStatusCode.Forbidden);
-            }
-
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
-        }
-
-        [HttpPost]
-        public HttpResponseMessage Logout()
-        {
-            SessionPersister.Username = string.Empty;
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        [HttpPost]       
         public HttpResponseMessage GetUserById(int userId)
         {
             if (userId != 0)

@@ -21,14 +21,6 @@ namespace Students.Domain.Abstract
         bool SaveUser(User user);
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        bool Login(string username, string password);
-
-        /// <summary>
         /// deletes user which id = userId from database
         /// </summary>
         /// <param name="userId"></param>
