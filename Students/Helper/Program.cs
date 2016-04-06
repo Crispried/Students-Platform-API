@@ -19,10 +19,6 @@ namespace Helper
                 var User2 = new User() { UserName = "user2", Email = "test2@gmail.com", Password = "password2", Role = UserRole.Admin, Status = UserStatus.Normal, Photo = "Students/Images/User/BigOiledAss.jpg" };
                 db.Users.Add(User1);
                 db.Users.Add(User2);
-
-                //var User3 = new User() { UserName = "justscript", Email = "justscript@justscript.com", Password = "password0", Role = UserRole.Admin, Status = UserStatus.Normal, Photo = "Students/Images/User/BigOiledAss.jpg" };
-                //db.Users.Add(User3);
-
                 db.SaveChanges();
 
                 var Group1 = new Group() { Name = "group1" };

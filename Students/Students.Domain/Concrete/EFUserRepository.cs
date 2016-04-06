@@ -22,12 +22,6 @@ namespace Students.Domain.Concrete
             }
         }
 
-        public User Login(string username, string password)
-        {
-            User user = GetUserByUserName(username);
-            return CheckPassword(user, password) ? user : null;
-        }
-
         public bool ChangePassword(int userId, string newPassword, string oldPassword)
         {
             User dbEntry = context.Users.Find(userId);

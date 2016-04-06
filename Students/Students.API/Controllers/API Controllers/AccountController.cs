@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.Domain.ViewModel;
@@ -12,14 +13,14 @@ using Students.API.Infrastructure;
 namespace Students.API.APIControllers.Controllers
 {
     public class AccountController : ApiController
-    {        
+    {
         private IUserRepository userRepository;
         public AccountController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
 
-        [HttpPost]       
+        [HttpPost]
         public HttpResponseMessage GetUserById(int userId)
         {
             if (userId != 0)
