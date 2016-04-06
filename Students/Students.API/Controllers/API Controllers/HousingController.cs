@@ -122,8 +122,8 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetAnnouncment([FromBody]int announcmentId)
-        {
+        public HttpResponseMessage GetAnnouncment([FromBody] int announcmentId)
+        {            
             if (announcmentId != 0)
             {
                 object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
