@@ -24,7 +24,8 @@ namespace Students.API
 
             config.Routes.MapHttpRoute(
                 name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}"
+                routeTemplate: "api/{controller}/{action}",
+                defaults: new { id = RouteParameter.Optional }
             );
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
