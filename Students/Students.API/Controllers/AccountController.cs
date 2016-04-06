@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Students.API.Models;
 using Students.API.Security;
 using Students.API.ViewModels;
+using Students.Domain.Concrete;
 
 namespace Students.API.Controllers
 {
@@ -19,13 +19,15 @@ namespace Students.API.Controllers
         [HttpPost]
         public ActionResult Login(AccountViewModel avm)
         {
-            UserModel am = new UserModel();
-            if (am.Login(avm.Username, avm.Password) == null)
+            var am = new EFUserRepository();
+
+            if (am.Login(avm.Username, avm.Password))
             {
-                return View("Login");
+                SessionPersister.Username = avm.Username;
+                return View("Success");
             }
-            SessionPersister.Username = avm.Username;
-            return View("Success");
+            ViewBag.Error = "User's Invalid";
+            return View("Login");
         }
 
         public ActionResult Logout()

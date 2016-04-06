@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Students.API.Security;
-using Students.API.Models;
 using Students.Domain.Entities;
 
 namespace Students.API.Controllers

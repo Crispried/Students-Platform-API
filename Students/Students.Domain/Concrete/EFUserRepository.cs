@@ -30,7 +30,7 @@ namespace Students.Domain.Concrete
             }
 
             User user = GetUserByUserName(username);
-            return CheckPassword(user, password) ? true : false;
+            return CheckPassword(user, password);
         }
 
         public bool ChangePassword(int userId, string newPassword, string oldPassword)
