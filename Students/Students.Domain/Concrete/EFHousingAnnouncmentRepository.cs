@@ -139,5 +139,11 @@ namespace Students.Domain.Concrete
             }
             return true;
         }
+
+        public HousingAnnouncment GetAnnouncmentById(int announcmentId)
+        {
+            HousingAnnouncment result = context.HousingAnnouncments.Find(announcmentId);
+            return result;
+        }
     }
 }
