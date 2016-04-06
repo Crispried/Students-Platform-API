@@ -40,7 +40,8 @@ namespace Students.API.Infrastructure
             kernel.Bind<ICommentRepository>().To<EFCommentRepository>();
         }
     }
-        public class NinjectDependencyScope : IDependencyScope
+
+    public class NinjectDependencyScope : IDependencyScope
     {
         IResolutionRoot resolver;
 
