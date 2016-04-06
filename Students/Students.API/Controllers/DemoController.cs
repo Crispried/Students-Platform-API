@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Students.API.Security;
+using Students.API.Models;
 using Students.Domain.Entities;
 
 namespace Students.API.Controllers
@@ -22,7 +23,7 @@ namespace Students.API.Controllers
             return View("Work1");
         }
 
-        [CustomAuthorize(Roles = "Admin,Moderator")]
+        [CustomAuthorize(Roles = "Moderator,Admin")]
         public ActionResult Work2()
         {
             return View("Work2");

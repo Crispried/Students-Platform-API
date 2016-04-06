@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Students.Domain.Concrete;
+using Students.API.Models;
 
 namespace Students.API.Security
 {
@@ -19,8 +19,8 @@ namespace Students.API.Security
             }
             else
             {
-                var am = new EFUserRepository();
-                CustomPrincipal mp = new CustomPrincipal(am.GetUserByUserName(SessionPersister.Username));
+                UserModel am = new UserModel();
+                CustomPrincipal mp = new CustomPrincipal(am.Find(SessionPersister.Username));
                 if (!mp.IsInRole(Roles))
                 {
                     filterContext.Result = new RedirectToRouteResult

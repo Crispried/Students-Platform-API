@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
+using Students.API.Models;
 using Students.Domain.Entities;
 
 namespace Students.API.Security
@@ -19,8 +20,7 @@ namespace Students.API.Security
 
         public bool IsInRole(string role)
         {
-            var roles = role.Split(',').ToList();
-            return roles.Contains(this._user.Role.ToString());
+            return this._user.Role.ToString() == role;
         }
 
         public IIdentity Identity { get; set; }
