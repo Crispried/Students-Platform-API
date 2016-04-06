@@ -25,7 +25,7 @@ namespace Students.API.Controllers
              || am.Login(avm.User.UserName, avm.User.Password) == null)
             {
                 ViewBag.Error = "User's Invalid";
-                return View("Index");
+                return View("Login");
             }
             SessionPersister.Username = avm.User.UserName;
             return View("Success");

@@ -25,15 +25,17 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage Login(User user)
         {
-            if (string.IsNullOrEmpty(user.UserName)
-             || string.IsNullOrEmpty(user.Password)
-             || userRepository.Login(user.UserName, user.Password) == null)
+            if (user != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK);
+                if (userRepository.Login(user.UserName, user.Password))
+                {
+                    SessionPersister.Username = user.UserName;
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
             }
-            SessionPersister.Username = user.UserName;
 
-            return Request.CreateResponse(HttpStatusCode.Forbidden);
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
