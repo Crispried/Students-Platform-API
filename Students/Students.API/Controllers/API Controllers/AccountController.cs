@@ -4,10 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.Domain.ViewModel;
 using Students.API.Infrastructure;
+using Students.API.Security;
+using Students.API.ViewModels;
 
 namespace Students.API.APIControllers.Controllers
 {
@@ -17,6 +20,27 @@ namespace Students.API.APIControllers.Controllers
         public AccountController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Login(User user)
+        {
+            if (string.IsNullOrEmpty(user.UserName)
+             || string.IsNullOrEmpty(user.Password)
+             || userRepository.Login(user.UserName, user.Password) == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            SessionPersister.Username = user.UserName;
+
+            return Request.CreateResponse(HttpStatusCode.Forbidden);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Logout()
+        {
+            SessionPersister.Username = string.Empty;
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost]       
