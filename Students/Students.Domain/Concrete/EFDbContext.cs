@@ -63,9 +63,7 @@ namespace Students.Domain.Concrete
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            /*modelBuilder.Entity<HousingComment>()
+            modelBuilder.Entity<HousingComment>()
                 .HasRequired(hc => hc.User)
                 .WithMany(u => u.HousingComments)
                 .WillCascadeOnDelete(false);
@@ -103,7 +101,7 @@ namespace Students.Domain.Concrete
             modelBuilder.Entity<ServiceComment>()
                 .HasRequired(sc => sc.ServiceAnnouncment)
                 .WithMany(sa => sa.ServiceComments)
-                .WillCascadeOnDelete(false);*/
+                .WillCascadeOnDelete(false);
         }
 
         /// <summary>
