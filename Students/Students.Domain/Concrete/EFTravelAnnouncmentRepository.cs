@@ -112,6 +112,12 @@ namespace Students.Domain.Concrete
             return false;
         }
 
+        public TravelAnnouncment GetAnnouncmentById(int announcmentId)
+        {
+            TravelAnnouncment result = context.TravelAnnouncments.Find(announcmentId);
+            return result;
+        }
+
         public bool ContextWasSaved()
         {
             if (EFDbContext.HasUnsavedChanges(context))

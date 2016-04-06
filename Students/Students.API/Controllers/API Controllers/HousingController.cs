@@ -111,21 +111,6 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetAnnouncment(int announcmentId)
-        {
-            if(announcmentId != 0)
-            {
-                object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
-                if(result != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, result);
-                }
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
-        }
-
-        [HttpPost]
         public HttpResponseMessage GetAnnouncments()
         {
             List<object> result = EntitiesFactory.GetListViewModel(announcmentRepository.HousingAnnouncments, EntitiesTypes.HousingAnnouncment);            
@@ -134,6 +119,21 @@ namespace Students.API.APIControllers.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage GetAnnouncment(int announcmentId)
+        {
+            if (announcmentId != 0)
+            {
+                object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
+                if (result != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]

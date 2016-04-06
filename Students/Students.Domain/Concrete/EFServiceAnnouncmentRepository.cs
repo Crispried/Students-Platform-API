@@ -112,6 +112,12 @@ namespace Students.Domain.Concrete
             return false;
         }
 
+        public ServiceAnnouncment GetAnnouncmentById(int announcmentId)
+        {
+            ServiceAnnouncment result = context.ServiceAnnouncments.Find(announcmentId);
+            return result;
+        }
+
         public bool ContextWasSaved()
         {
             if (EFDbContext.HasUnsavedChanges(context))

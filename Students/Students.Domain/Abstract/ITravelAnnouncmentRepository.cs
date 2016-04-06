@@ -26,5 +26,12 @@ namespace Students.Domain.Abstract
         /// </summary>
         /// <param name="travelAnnouncmentId"></param>
         bool DeleteTravelAnnouncment(int travelAnnouncmentId);
+
+        /// <summary>
+        /// get announcment by id
+        /// </summary>
+        /// <param name="announcmentId"></param>
+        /// <returns></returns>
+        TravelAnnouncment GetAnnouncmentById(int announcmentId);
     }
 }
