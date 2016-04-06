@@ -48,6 +48,14 @@ namespace Students.Domain.Abstract
         User GetUserByEmail(string email);
 
         /// <summary>
+        /// returns User object if password is correct, or null if not
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        User Login(string username, string password);
+
+        /// <summary>
         /// if oldPassword is validate (user.Password == oldPassword) changes user's password to newPassword
         /// </summary>
         /// <param name="userId"></param>

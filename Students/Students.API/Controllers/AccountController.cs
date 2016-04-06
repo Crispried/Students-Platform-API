@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Students.API.Models;
 using Students.API.Security;
 using Students.API.ViewModels;
+using Students.Domain.Concrete;
+using Students.Domain.Entities;
 
 namespace Students.API.Controllers
 {
@@ -19,7 +20,8 @@ namespace Students.API.Controllers
         [HttpPost]
         public ActionResult Login(AccountViewModel avm)
         {
-            UserModel am = new UserModel();
+            var am = new EFUserRepository();
+
             if (string.IsNullOrEmpty(avm.User.UserName)
              || string.IsNullOrEmpty(avm.User.Password)
              || am.Login(avm.User.UserName, avm.User.Password) == null)
