@@ -140,8 +140,12 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage Test([FromBody]JObject jsonData)
         {
-            string ID = jsonData.GetValue("ID").ToString();
-            return Request.CreateResponse(HttpStatusCode.OK, ID);
+            UserAnnouncmentVM test = jsonData.GetValue("UserAnnouncment").ToObject<UserAnnouncmentVM>();
+            if(test.UserName != null && test.Photo != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, test);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
