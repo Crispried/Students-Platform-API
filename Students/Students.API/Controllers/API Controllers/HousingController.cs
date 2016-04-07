@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Newtonsoft.Json.Linq;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.API.Abstract;
@@ -134,6 +135,13 @@ namespace Students.API.APIControllers.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
             return Request.CreateResponse(HttpStatusCode.BadRequest);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Test([FromBody]JObject jsonData)
+        {
+            string ID = jsonData.GetValue("ID").ToString();
+            return Request.CreateResponse(HttpStatusCode.OK, ID);
         }
 
         [HttpPost]
