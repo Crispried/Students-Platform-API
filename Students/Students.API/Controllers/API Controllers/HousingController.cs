@@ -15,7 +15,7 @@ using Students.API.Infrastructure;
 namespace Students.API.APIControllers.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class HousingController : ApiController, ICommentController<HousingComment>
+    public class HousingController : ApiController //ICommentController<HousingComment>
     {
         private IHousingAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
