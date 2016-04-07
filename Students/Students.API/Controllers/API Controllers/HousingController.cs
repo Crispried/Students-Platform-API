@@ -123,8 +123,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetAnnouncment(int announcmentId)
-        {            
+        public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
+        {
+            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId").ToString());
             if (announcmentId != 0)
             {
                 object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
@@ -141,7 +142,7 @@ namespace Students.API.APIControllers.Controllers
         public HttpResponseMessage Test([FromBody]JObject jsonData)
         {
             UserAnnouncmentVM test = jsonData.GetValue("UserAnnouncment").ToObject<UserAnnouncmentVM>();
-            if(test.UserName != null && test.Photo != null)
+            if (test.UserName != null && test.Photo != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, test);
             }
@@ -149,9 +150,10 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetComments(int announcmentId)
+        public HttpResponseMessage GetComments([FromBody]JObject jsonData)
         {
-            if(announcmentId != 0)
+            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId").ToString());
+            if (announcmentId != 0)
             {
                 IQueryable<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Housing, announcmentId);
                 List<object> result = EntitiesFactory.GetListViewModel(comments, EntitiesTypes.Comment);
