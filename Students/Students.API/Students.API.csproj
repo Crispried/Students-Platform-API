@@ -213,7 +213,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ICommentController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -228,6 +227,7 @@
     <Compile Include="Controllers\API Controllers\TravelController.cs" />
     <Compile Include="Controllers\API Controllers\ValuesController.cs" />
     <Compile Include="Controllers\HousingController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
     <Compile Include="Controllers\PrivateMessagesController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -1069,6 +1069,7 @@
     <Content Include="Views\Housing\Index.cshtml" />
     <Content Include="Views\Market\Index.cshtml" />
     <Content Include="Views\PrivateMessages\Index.cshtml" />
+    <Content Include="Views\Language\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

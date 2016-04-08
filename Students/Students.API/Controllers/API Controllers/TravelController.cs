@@ -6,13 +6,13 @@ using System.Net.Http;
 using System.Web.Http;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
-using Students.API.Abstract;
 using Students.API.Infrastructure;
 using Students.Domain.ViewModel;
+using Newtonsoft.Json.Linq;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class TravelController : ApiController, ICommentController<TravelComment>
+    public class TravelController : ApiController
     {
         private ITravelAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
@@ -25,8 +25,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddAnnouncment(TravelAnnouncment announcment)
+        public HttpResponseMessage AddAnnouncment([FromBody]JObject jsonData)
         {
+            TravelAnnouncment announcment = jsonData.GetValue("announcment").ToObject<TravelAnnouncment>();
             if (announcment != null)
             {
                 if (announcmentRepository.SaveTravelAnnouncment(announcment))
@@ -39,8 +40,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddComment(TravelComment comment)
+        public HttpResponseMessage AddComment([FromBody]JObject jsonData)
         {
+            TravelComment comment = jsonData.GetValue("comment").ToObject<TravelComment>();
             if (comment != null)
             {
                 if (commentRepository.SaveComment(comment))
@@ -53,8 +55,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteAnnouncment(int announcmentId)
+        public HttpResponseMessage DeleteAnnouncment([FromBody]JObject jsonData)
         {
+            int announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
             if (announcmentId != 0)
             {
                 if (announcmentRepository.DeleteTravelAnnouncment(announcmentId))
@@ -67,8 +70,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteComment(int commentId)
+        public HttpResponseMessage DeleteComment([FromBody]JObject jsonData)
         {
+            int commentId = Convert.ToInt32(jsonData.GetValue("commentId"));
             if (commentId != 0)
             {
                 if (commentRepository.DeleteComment(commentId, CommentType.Travel))
@@ -81,8 +85,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage EditAnnouncment(TravelAnnouncment announcment)
+        public HttpResponseMessage EditAnnouncment([FromBody]JObject jsonData)
         {
+            TravelAnnouncment announcment = jsonData.GetValue("announcment").ToObject<TravelAnnouncment>();
             if (announcment != null)
             {
                 if (announcmentRepository.SaveTravelAnnouncment(announcment))
@@ -95,8 +100,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage EditComment(TravelComment comment)
+        public HttpResponseMessage EditComment([FromBody]JObject jsonData)
         {
+            TravelComment comment = jsonData.GetValue("comment").ToObject<TravelComment>();
             if (comment != null)
             {
                 if (commentRepository.SaveComment(comment))
@@ -120,8 +126,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetAnnouncment(int announcmentId)
+        public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
         {
+            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
             if (announcmentId != 0)
             {
                 object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.TravelAnnouncment);
@@ -135,8 +142,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetComments(int announcmentId)
+        public HttpResponseMessage GetComments([FromBody]JObject jsonData)
         {
+            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
             if (announcmentId != 0)
             {
                 IQueryable<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Travel, announcmentId);

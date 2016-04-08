@@ -9,6 +9,7 @@ using Students.Domain.Abstract;
 using Students.Domain.Entities;
 using Students.Domain.ViewModel;
 using Students.API.Infrastructure;
+using Newtonsoft.Json.Linq;
 
 namespace Students.API.APIControllers.Controllers
 {
@@ -21,8 +22,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetUserById(int userId)
+        public HttpResponseMessage GetUserById([FromBody]JObject jsonData)
         {
+            var userId = Convert.ToInt32(jsonData.GetValue("userId"));
             if (userId != 0)
             {
                 User user = userRepository.GetUserById(userId); 
@@ -37,8 +39,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetUserByUsername(string username)
+        public HttpResponseMessage GetUserByUsername([FromBody]JObject jsonData)
         {
+            var username = jsonData.GetValue("username").ToString();
             if (username != null)
             {
                 User user = userRepository.GetUserByUserName(username);
@@ -53,8 +56,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetUserByEmail(string email)
+        public HttpResponseMessage GetUserByEmail([FromBody]JObject jsonData)
         {
+            var email = jsonData.GetValue("email").ToString();
             if (email != null)
             {
                 User user = userRepository.GetUserByEmail(email);
@@ -69,8 +73,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteUser(int userId)
+        public HttpResponseMessage DeleteUser([FromBody]JObject jsonData)
         {
+            var userId = Convert.ToInt32(jsonData.GetValue("userId"));
             if (userId != 0)
             {
                 if (userRepository.DeleteUser(userId))
@@ -83,8 +88,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddUser(User user)
+        public HttpResponseMessage AddUser([FromBody]JObject jsonData)
         {
+            User user = jsonData.GetValue("user").ToObject<User>();
             if (user != null)
             {
                 if (userRepository.SaveUser(user))
@@ -97,8 +103,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage EditUser(User user)
+        public HttpResponseMessage EditUser([FromBody]JObject jsonData)
         {
+            User user = jsonData.GetValue("user").ToObject<User>();
             if (user != null)
             {
                 if (userRepository.SaveUser(user))

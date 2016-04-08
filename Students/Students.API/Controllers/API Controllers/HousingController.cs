@@ -8,14 +8,13 @@ using System.Web.Http.Cors;
 using Newtonsoft.Json.Linq;
 using Students.Domain.Abstract;
 using Students.Domain.Entities;
-using Students.API.Abstract;
 using Students.Domain.ViewModel;
 using Students.API.Infrastructure;
 
 namespace Students.API.APIControllers.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class HousingController : ApiController //ICommentController<HousingComment>
+    public class HousingController : ApiController
     {
         private IHousingAnnouncmentRepository announcmentRepository;
         private ICommentRepository commentRepository;
@@ -28,9 +27,10 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddAnnouncment(HousingAnnouncment announcment)
+        public HttpResponseMessage AddAnnouncment([FromBody]JObject jsonData)
         {
-            if(announcment != null)
+            HousingAnnouncment announcment = jsonData.GetValue("announcment").ToObject<HousingAnnouncment>();
+            if (announcment != null)
             {
                 if (announcmentRepository.SaveHousingAnnouncment(announcment))
                 {
@@ -42,9 +42,10 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage AddComment(HousingComment comment)
+        public HttpResponseMessage AddComment([FromBody]JObject jsonData)
         {
-            if(comment != null)
+            HousingComment comment = jsonData.GetValue("comment").ToObject<HousingComment>();
+            if (comment != null)
             {
                 if (commentRepository.SaveComment(comment))
                 {
@@ -56,8 +57,9 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteAnnouncment(int announcmentId)
+        public HttpResponseMessage DeleteAnnouncment([FromBody]JObject jsonData)
         {
+            int announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
             if (announcmentId != 0)
             {
                 if (announcmentRepository.DeleteHousingAnnouncment(announcmentId))
@@ -70,9 +72,10 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteComment(int commentId)
+        public HttpResponseMessage DeleteComment([FromBody]JObject jsonData)
         {
-            if(commentId != 0)
+            int commentId = Convert.ToInt32(jsonData.GetValue("commentId"));
+            if (commentId != 0)
             {
                 if (commentRepository.DeleteComment(commentId, CommentType.Housing))
                 {
@@ -84,9 +87,10 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage EditAnnouncment(HousingAnnouncment announcment)
+        public HttpResponseMessage EditAnnouncment([FromBody]JObject jsonData)
         {
-            if(announcment != null)
+            HousingAnnouncment announcment = jsonData.GetValue("announcment").ToObject<HousingAnnouncment>();
+            if (announcment != null)
             {
                 if (announcmentRepository.SaveHousingAnnouncment(announcment))
                 {
@@ -98,9 +102,10 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage EditComment(HousingComment comment)
+        public HttpResponseMessage EditComment([FromBody]JObject jsonData)
         {
-            if(comment != null)
+            HousingComment comment = jsonData.GetValue("comment").ToObject<HousingComment>();
+            if (comment != null)
             {
                 if (commentRepository.SaveComment(comment))
                 {
@@ -125,7 +130,7 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
         {
-            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId").ToString());
+            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
             if (announcmentId != 0)
             {
                 object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
@@ -141,7 +146,7 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage Test([FromBody]JObject jsonData)
         {
-            UserAnnouncmentVM test = jsonData.GetValue("UserAnnouncment").ToObject<UserAnnouncmentVM>();
+            User test = jsonData.GetValue("User").ToObject<User>();
             if (test.UserName != null && test.Photo != null)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, test);
@@ -152,7 +157,7 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage GetComments([FromBody]JObject jsonData)
         {
-            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId").ToString());
+            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
             if (announcmentId != 0)
             {
                 IQueryable<Comment> comments = commentRepository.GetCommentsToAnnouncment(CommentType.Housing, announcmentId);
