@@ -27,31 +27,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage AddAnnouncment([FromBody]JObject jsonData)
         {
-            ServiceAnnouncment announcment = jsonData.GetValue("announcment").ToObject<ServiceAnnouncment>();
-            if (announcment != null)
+            try
             {
-                if (announcmentRepository.SaveServiceAnnouncment(announcment))
+                ServiceAnnouncment announcment = jsonData.GetValue("announcment").ToObject<ServiceAnnouncment>();
+                if (announcment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (announcmentRepository.SaveServiceAnnouncment(announcment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage AddComment([FromBody]JObject jsonData)
         {
-            ServiceComment comment = jsonData.GetValue("comment").ToObject<ServiceComment>();
-            if (comment != null)
+            try
             {
-                if (commentRepository.SaveComment(comment))
+                ServiceComment comment = jsonData.GetValue("comment").ToObject<ServiceComment>();
+                if (comment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (commentRepository.SaveComment(comment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
@@ -87,31 +101,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage EditAnnouncment([FromBody]JObject jsonData)
         {
-            ServiceAnnouncment announcment = jsonData.GetValue("announcment").ToObject<ServiceAnnouncment>();
-            if (announcment != null)
+            try
             {
-                if (announcmentRepository.SaveServiceAnnouncment(announcment))
+                ServiceAnnouncment announcment = jsonData.GetValue("announcment").ToObject<ServiceAnnouncment>();
+                if (announcment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (announcmentRepository.SaveServiceAnnouncment(announcment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage EditComment([FromBody]JObject jsonData)
         {
-            ServiceComment comment = jsonData.GetValue("comment").ToObject<ServiceComment>();
-            if (comment != null)
+            try
             {
-                if (commentRepository.SaveComment(comment))
+                ServiceComment comment = jsonData.GetValue("comment").ToObject<ServiceComment>();
+                if (comment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (commentRepository.SaveComment(comment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]

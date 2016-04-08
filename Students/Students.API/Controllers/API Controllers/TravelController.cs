@@ -27,31 +27,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage AddAnnouncment([FromBody]JObject jsonData)
         {
-            TravelAnnouncment announcment = jsonData.GetValue("announcment").ToObject<TravelAnnouncment>();
-            if (announcment != null)
+            try
             {
-                if (announcmentRepository.SaveTravelAnnouncment(announcment))
+                TravelAnnouncment announcment = jsonData.GetValue("announcment").ToObject<TravelAnnouncment>();
+                if (announcment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (announcmentRepository.SaveTravelAnnouncment(announcment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage AddComment([FromBody]JObject jsonData)
         {
-            TravelComment comment = jsonData.GetValue("comment").ToObject<TravelComment>();
-            if (comment != null)
+            try
             {
-                if (commentRepository.SaveComment(comment))
+                TravelComment comment = jsonData.GetValue("comment").ToObject<TravelComment>();
+                if (comment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (commentRepository.SaveComment(comment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
@@ -87,31 +101,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage EditAnnouncment([FromBody]JObject jsonData)
         {
-            TravelAnnouncment announcment = jsonData.GetValue("announcment").ToObject<TravelAnnouncment>();
-            if (announcment != null)
+            try
             {
-                if (announcmentRepository.SaveTravelAnnouncment(announcment))
+                TravelAnnouncment announcment = jsonData.GetValue("announcment").ToObject<TravelAnnouncment>();
+                if (announcment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (announcmentRepository.SaveTravelAnnouncment(announcment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage EditComment([FromBody]JObject jsonData)
         {
-            TravelComment comment = jsonData.GetValue("comment").ToObject<TravelComment>();
-            if (comment != null)
+            try
             {
-                if (commentRepository.SaveComment(comment))
+                TravelComment comment = jsonData.GetValue("comment").ToObject<TravelComment>();
+                if (comment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (commentRepository.SaveComment(comment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]

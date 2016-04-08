@@ -42,7 +42,7 @@ namespace Students.API.APIControllers.Controllers
         public HttpResponseMessage GetUserByUsername([FromBody]JObject jsonData)
         {
             var username = jsonData.GetValue("username").ToString();
-            if (username != null)
+            if (!string.IsNullOrEmpty(username))
             {
                 User user = userRepository.GetUserByUserName(username);
                 UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.User);
@@ -58,8 +58,8 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage GetUserByEmail([FromBody]JObject jsonData)
         {
-            var email = jsonData.GetValue("email").ToString();
-            if (email != null)
+            var email = Convert.ToString(jsonData.GetValue("email"));
+            if (!string.IsNullOrEmpty(email))
             {
                 User user = userRepository.GetUserByEmail(email);
                 UserVM result = (UserVM)EntitiesFactory.GetViewModel(user, EntitiesTypes.User);
@@ -90,31 +90,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage AddUser([FromBody]JObject jsonData)
         {
-            User user = jsonData.GetValue("user").ToObject<User>();
-            if (user != null)
+            try
             {
-                if (userRepository.SaveUser(user))
+                User user = jsonData.GetValue("user").ToObject<User>();
+                if (user != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    if (userRepository.SaveUser(user))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage EditUser([FromBody]JObject jsonData)
         {
-            User user = jsonData.GetValue("user").ToObject<User>();
-            if (user != null)
+            try
             {
-                if (userRepository.SaveUser(user))
+                User user = jsonData.GetValue("user").ToObject<User>();
+                if (user != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    if (userRepository.SaveUser(user))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
     }
 }

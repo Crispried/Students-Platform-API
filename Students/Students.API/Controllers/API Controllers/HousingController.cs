@@ -29,31 +29,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage AddAnnouncment([FromBody]JObject jsonData)
         {
-            HousingAnnouncment announcment = jsonData.GetValue("announcment").ToObject<HousingAnnouncment>();
-            if (announcment != null)
+            try
             {
-                if (announcmentRepository.SaveHousingAnnouncment(announcment))
+                HousingAnnouncment announcment = jsonData.GetValue("announcment").ToObject<HousingAnnouncment>();
+                if (announcment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (announcmentRepository.SaveHousingAnnouncment(announcment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage AddComment([FromBody]JObject jsonData)
         {
-            HousingComment comment = jsonData.GetValue("comment").ToObject<HousingComment>();
-            if (comment != null)
+            try
             {
-                if (commentRepository.SaveComment(comment))
+                HousingComment comment = jsonData.GetValue("comment").ToObject<HousingComment>();
+                if (comment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (commentRepository.SaveComment(comment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
@@ -89,31 +103,45 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage EditAnnouncment([FromBody]JObject jsonData)
         {
-            HousingAnnouncment announcment = jsonData.GetValue("announcment").ToObject<HousingAnnouncment>();
-            if (announcment != null)
+            try
             {
-                if (announcmentRepository.SaveHousingAnnouncment(announcment))
+                HousingAnnouncment announcment = jsonData.GetValue("announcment").ToObject<HousingAnnouncment>();
+                if (announcment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (announcmentRepository.SaveHousingAnnouncment(announcment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
         public HttpResponseMessage EditComment([FromBody]JObject jsonData)
         {
-            HousingComment comment = jsonData.GetValue("comment").ToObject<HousingComment>();
-            if (comment != null)
+            try
             {
-                if (commentRepository.SaveComment(comment))
+                HousingComment comment = jsonData.GetValue("comment").ToObject<HousingComment>();
+                if (comment != null)
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    if (commentRepository.SaveComment(comment))
+                    {
+                        Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
-                return Request.CreateResponse(HttpStatusCode.NotModified);
             }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            catch (NullReferenceException e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpPost]
@@ -139,17 +167,6 @@ namespace Students.API.APIControllers.Controllers
                     return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
                 return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
-        }
-
-        [HttpPost]
-        public HttpResponseMessage Test([FromBody]JObject jsonData)
-        {
-            User test = jsonData.GetValue("User").ToObject<User>();
-            if (test.UserName != null && test.Photo != null)
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, test);
             }
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }

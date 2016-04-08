@@ -225,7 +225,6 @@
     <Compile Include="Controllers\API Controllers\MarketController.cs" />
     <Compile Include="Controllers\API Controllers\ServiceController.cs" />
     <Compile Include="Controllers\API Controllers\TravelController.cs" />
-    <Compile Include="Controllers\API Controllers\ValuesController.cs" />
     <Compile Include="Controllers\HousingController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\MarketController.cs" />
