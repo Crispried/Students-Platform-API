@@ -123,6 +123,7 @@ namespace Students.API.Infrastructure
             {
                 tempHousingAnnouncmentLangVM = new HousingAnnouncmentLangVM()
                 {
+                    LanguageId = housingAnnouncmentLangs.LanguageId,
                     Title = housingAnnouncmentLangs.Title,
                     Bulletin = housingAnnouncmentLangs.Bulletin
                 };
@@ -164,6 +165,7 @@ namespace Students.API.Infrastructure
             {
                 tempTravelAnnouncmentLangVM = new TravelAnnouncmentLangVM()
                 {
+                    LanguageId = travelAnnouncmentLangs.LanguageId,
                     Title = travelAnnouncmentLangs.Title,
                     Bulletin = travelAnnouncmentLangs.Bulletin
                 };
@@ -205,6 +207,7 @@ namespace Students.API.Infrastructure
             {
                 tempMarketAnnouncmentLangVM = new MarketAnnouncmentLangVM()
                 {
+                    LanguageId = marketAnnouncmentLangs.LanguageId,
                     Title = marketAnnouncmentLangs.Title,
                     Bulletin = marketAnnouncmentLangs.Bulletin
                 };
@@ -246,6 +249,7 @@ namespace Students.API.Infrastructure
             {
                 tempServiceAnnouncmentLangVM = new ServiceAnnouncmentLangVM()
                 {
+                    LanguageId = serviceAnnouncmentLangs.LanguageId,
                     Title = serviceAnnouncmentLangs.Title,
                     Bulletin = serviceAnnouncmentLangs.Bulletin
                 };

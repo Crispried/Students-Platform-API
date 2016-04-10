@@ -8,6 +8,8 @@ namespace Students.Domain.ViewModel
 {
     public class HousingAnnouncmentLangVM
     {
+        public int LanguageId { get; set; }
+
         public string Title { get; set; }
 
         public string Bulletin { get; set; }

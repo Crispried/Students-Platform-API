@@ -56,52 +56,58 @@ namespace Students.Domain.Concrete
                 MarketAnnouncment dbEntry = context.MarketAnnouncments.Find(marketAnnouncment.MarketAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.AuthorId = marketAnnouncment.AuthorId;
-                }
-                List<MarketAnnouncmentLang> dbLangEntries = new List<MarketAnnouncmentLang>();
-                string newTitle, newBulletin;
-                for (int i = 0; i < marketAnnouncmentLangs.Count; i++)
-                {
-                    newTitle = marketAnnouncmentLangs[i].Title;
-                    newBulletin = marketAnnouncmentLangs[i].Bulletin;
-                    dbLangEntries[i] = context.MarketAnnouncmentLangs.Find(marketAnnouncmentLangs[i].MarketAnnouncmentLangId);
-                    if (newTitle == null)
+                    List<MarketAnnouncmentLang> oldMarketAnnouncmentLangs = dbEntry.MarketAnnouncmentLangs.ToList();
+                    List<MarketAnnouncmentLang> updatedMarketAnnouncmentLangs = new List<MarketAnnouncmentLang>();
+                    List<MarketAnnouncmentLang> newMarketAnnouncmentLangs = marketAnnouncment.MarketAnnouncmentLangs.ToList();
+                    foreach (var oldMarketAnnouncmentLang in oldMarketAnnouncmentLangs)
                     {
-                        context.MarketAnnouncmentLangs.Remove(dbLangEntries[i]);
-                    }
-                    else
-                    {
-                        if (dbLangEntries[i] != null)
+                        if (newMarketAnnouncmentLangs.Any(nmal => nmal.LanguageId == oldMarketAnnouncmentLang.LanguageId))
                         {
-                            dbLangEntries[i].Title = newTitle;
-                            dbLangEntries[i].Bulletin = newBulletin;
+                            updatedMarketAnnouncmentLangs.Add(oldMarketAnnouncmentLang);
                         }
                         else
                         {
-                            context.MarketAnnouncmentLangs.Add(marketAnnouncmentLangs[i]);
+                            context.MarketAnnouncmentLangs.Remove(oldMarketAnnouncmentLang);
                         }
                     }
-                }
-                List<MarketAnnouncmentImage> dbImageEntries = new List<MarketAnnouncmentImage>();
-                string newUrl;
-                for (int i = 0; i < marketAnnouncmentImages.Count; i++)
-                {
-                    newUrl = marketAnnouncmentImages[i].Url;
-                    dbImageEntries[i] = context.MarketAnnouncmentImages.Find(marketAnnouncmentImages[i].MarketAnnouncmentImageId);
-                    if (newUrl == null)
+                    for (int i = 0; i < updatedMarketAnnouncmentLangs.Count; i++)
                     {
-                        context.MarketAnnouncmentImages.Remove(dbImageEntries[i]);
-                    }
-                    else
-                    {
-                        if (dbImageEntries[i] != null)
+                        if (newMarketAnnouncmentLangs[i].LanguageId == updatedMarketAnnouncmentLangs[i].LanguageId)
                         {
-                            dbImageEntries[i].Url = newUrl;
+                            updatedMarketAnnouncmentLangs[i] = newMarketAnnouncmentLangs[i];
+                            newMarketAnnouncmentLangs.Remove(newMarketAnnouncmentLangs[i]);
+                        }
+                    }
+                    foreach (var newMarketAnnouncmentLang in newMarketAnnouncmentLangs)
+                    {
+                        dbEntry.MarketAnnouncmentLangs.Add(newMarketAnnouncmentLang);
+                    }
+
+                    List<MarketAnnouncmentImage> oldMarketAnnouncmentImages = dbEntry.MarketAnnouncmentImages.ToList();
+                    List<MarketAnnouncmentImage> updatedMarketAnnouncmentImages = new List<MarketAnnouncmentImage>();
+                    List<MarketAnnouncmentImage> newMarketAnnouncmentImages = marketAnnouncment.MarketAnnouncmentImages.ToList();
+                    foreach (var oldMarketAnnouncmentImage in oldMarketAnnouncmentImages)
+                    {
+                        if (newMarketAnnouncmentImages.Any(nhai => nhai.MarketAnnouncmentImageId == oldMarketAnnouncmentImage.MarketAnnouncmentImageId))
+                        {
+                            updatedMarketAnnouncmentImages.Add(oldMarketAnnouncmentImage);
                         }
                         else
                         {
-                            context.MarketAnnouncmentImages.Add(marketAnnouncmentImages[i]);
+                            context.MarketAnnouncmentImages.Remove(oldMarketAnnouncmentImage);
                         }
+                    }
+                    for (int i = 0; i < updatedMarketAnnouncmentImages.Count; i++)
+                    {
+                        if (newMarketAnnouncmentImages[i].MarketAnnouncmentImageId == updatedMarketAnnouncmentImages[i].MarketAnnouncmentImageId)
+                        {
+                            updatedMarketAnnouncmentImages[i] = newMarketAnnouncmentImages[i];
+                            newMarketAnnouncmentImages.Remove(newMarketAnnouncmentImages[i]);
+                        }
+                    }
+                    foreach (var newMarketAnnouncmentImage in newMarketAnnouncmentImages)
+                    {
+                        dbEntry.MarketAnnouncmentImages.Add(newMarketAnnouncmentImage);
                     }
                 }
             }

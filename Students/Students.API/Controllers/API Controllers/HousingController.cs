@@ -36,7 +36,7 @@ namespace Students.API.APIControllers.Controllers
                 {
                     if (announcmentRepository.SaveHousingAnnouncment(announcment))
                     {
-                        Request.CreateResponse(HttpStatusCode.OK);
+                        return Request.CreateResponse(HttpStatusCode.OK);
                     }
                     return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
@@ -58,7 +58,7 @@ namespace Students.API.APIControllers.Controllers
                 {
                     if (commentRepository.SaveComment(comment))
                     {
-                        Request.CreateResponse(HttpStatusCode.OK);
+                        return Request.CreateResponse(HttpStatusCode.OK);
                     }
                     return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
@@ -78,7 +78,7 @@ namespace Students.API.APIControllers.Controllers
             {
                 if (announcmentRepository.DeleteHousingAnnouncment(announcmentId))
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
                 return Request.CreateResponse(HttpStatusCode.NotModified);
             }
@@ -93,7 +93,7 @@ namespace Students.API.APIControllers.Controllers
             {
                 if (commentRepository.DeleteComment(commentId, CommentType.Housing))
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
                 return Request.CreateResponse(HttpStatusCode.NotModified);
             }
@@ -110,7 +110,7 @@ namespace Students.API.APIControllers.Controllers
                 {
                     if (announcmentRepository.SaveHousingAnnouncment(announcment))
                     {
-                        Request.CreateResponse(HttpStatusCode.OK);
+                        return Request.CreateResponse(HttpStatusCode.OK);
                     }
                     return Request.CreateResponse(HttpStatusCode.NotModified);
                 }
@@ -132,7 +132,7 @@ namespace Students.API.APIControllers.Controllers
                 {
                     if (commentRepository.SaveComment(comment))
                     {
-                        Request.CreateResponse(HttpStatusCode.OK);
+                        return Request.CreateResponse(HttpStatusCode.OK);
                     }
                     return Request.CreateResponse(HttpStatusCode.NotModified);
                 }

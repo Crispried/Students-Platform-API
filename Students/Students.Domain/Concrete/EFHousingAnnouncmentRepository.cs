@@ -38,72 +38,70 @@ namespace Students.Domain.Concrete
 
         public bool SaveHousingAnnouncment(HousingAnnouncment housingAnnouncment)
         {
-            List<HousingAnnouncmentLang> housingAnnouncmentLangs = housingAnnouncment.HousingAnnouncmentLangs.ToList();
-            List<HousingAnnouncmentImage> housingAnnouncmentImages = housingAnnouncment.HousingAnnouncmentImages.ToList();
+
             if (housingAnnouncment.HousingAnnouncmentId == 0)
             {
-                foreach(var housingAnnouncmentLang in housingAnnouncmentLangs)
-                {
-                    housingAnnouncment.HousingAnnouncmentLangs.Add(housingAnnouncmentLang);
-                }
-                foreach(var housingAnnouncmentImage in housingAnnouncmentImages)
-                {
-                    housingAnnouncment.HousingAnnouncmentImages.Add(housingAnnouncmentImage);
-                }
                 context.HousingAnnouncments.Add(housingAnnouncment);
             }
             else
             {
+
                 HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncment.HousingAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.AuthorId = housingAnnouncment.AuthorId;
-                }
-                List<HousingAnnouncmentLang> dbLangEntries = new List<HousingAnnouncmentLang>();
-                string newTitle, newBulletin;
-                for (int i = 0; i < housingAnnouncmentLangs.Count; i++)
-                {
-                    newTitle = housingAnnouncmentLangs[i].Title;
-                    newBulletin = housingAnnouncmentLangs[i].Bulletin;
-                    dbLangEntries[i] = context.HousingAnnouncmentLangs.Find(housingAnnouncmentLangs[i].HousingAnnouncmentLangId);
-                    if(newTitle == null)
+                    List<HousingAnnouncmentLang> oldHousingAnnouncmentLangs = dbEntry.HousingAnnouncmentLangs.ToList();
+                    List<HousingAnnouncmentLang> updatedHousingAnnouncmentLangs = new List<HousingAnnouncmentLang>();
+                    List<HousingAnnouncmentLang> newHousingAnnouncmentLangs = housingAnnouncment.HousingAnnouncmentLangs.ToList();
+                    foreach (var oldHousingAnnouncmentLang in oldHousingAnnouncmentLangs)
                     {
-                        context.HousingAnnouncmentLangs.Remove(dbLangEntries[i]);
-                    }
-                    else
-                    {
-                        if (dbLangEntries[i] != null)
+                        if(newHousingAnnouncmentLangs.Any(nhal => nhal.LanguageId == oldHousingAnnouncmentLang.LanguageId))
                         {
-                            dbLangEntries[i].Title = newTitle;
-                            dbLangEntries[i].Bulletin = newBulletin;
+                            updatedHousingAnnouncmentLangs.Add(oldHousingAnnouncmentLang);                           
                         }
                         else
                         {
-                            context.HousingAnnouncmentLangs.Add(housingAnnouncmentLangs[i]);
+                            context.HousingAnnouncmentLangs.Remove(oldHousingAnnouncmentLang);
                         }
                     }
-                }
-                List<HousingAnnouncmentImage> dbImageEntries = new List<HousingAnnouncmentImage>();
-                string newUrl;
-                for (int i = 0; i < housingAnnouncmentImages.Count; i++)
-                {
-                    newUrl = housingAnnouncmentImages[i].Url;
-                    dbImageEntries[i] = context.HousingAnnouncmentImages.Find(housingAnnouncmentImages[i].HousingAnnouncmentImageId);
-                    if (newUrl == null)
+                    for (int i = 0; i < updatedHousingAnnouncmentLangs.Count; i++)
                     {
-                        context.HousingAnnouncmentImages.Remove(dbImageEntries[i]);
-                    }
-                    else
-                    {
-                        if (dbImageEntries[i] != null)
+                        if(newHousingAnnouncmentLangs[i].LanguageId == updatedHousingAnnouncmentLangs[i].LanguageId)
                         {
-                            dbImageEntries[i].Url = newUrl;
+                            updatedHousingAnnouncmentLangs[i] = newHousingAnnouncmentLangs[i];
+                            newHousingAnnouncmentLangs.Remove(newHousingAnnouncmentLangs[i]);                            
+                        }
+                    }
+                    foreach (var newHousingAnnouncmentLang in newHousingAnnouncmentLangs)
+                    {
+                        dbEntry.HousingAnnouncmentLangs.Add(newHousingAnnouncmentLang);
+                    }
+
+                    List<HousingAnnouncmentImage> oldHousingAnnouncmentImages = dbEntry.HousingAnnouncmentImages.ToList();
+                    List<HousingAnnouncmentImage> updatedHousingAnnouncmentImages = new List<HousingAnnouncmentImage>();
+                    List<HousingAnnouncmentImage> newHousingAnnouncmentImages = housingAnnouncment.HousingAnnouncmentImages.ToList();
+                    foreach (var oldHousingAnnouncmentImage in oldHousingAnnouncmentImages)
+                    {
+                        if (newHousingAnnouncmentImages.Any(nhai => nhai.HousingAnnouncmentImageId == oldHousingAnnouncmentImage.HousingAnnouncmentImageId))
+                        {                            
+                            updatedHousingAnnouncmentImages.Add(oldHousingAnnouncmentImage);
                         }
                         else
                         {
-                            context.HousingAnnouncmentImages.Add(housingAnnouncmentImages[i]);
+                            context.HousingAnnouncmentImages.Remove(oldHousingAnnouncmentImage);
                         }
                     }
+                    for (int i = 0; i < updatedHousingAnnouncmentImages.Count; i++)
+                    {
+                        if (newHousingAnnouncmentImages[i].HousingAnnouncmentImageId == updatedHousingAnnouncmentImages[i].HousingAnnouncmentImageId)
+                        {
+                            updatedHousingAnnouncmentImages[i] = newHousingAnnouncmentImages[i];
+                            newHousingAnnouncmentImages.Remove(newHousingAnnouncmentImages[i]);
+                        }
+                    }
+                    foreach (var newHousingAnnouncmentImage in newHousingAnnouncmentImages)
+                    {
+                        dbEntry.HousingAnnouncmentImages.Add(newHousingAnnouncmentImage);
+                    }                   
                 }
             }
             if (ContextWasSaved())

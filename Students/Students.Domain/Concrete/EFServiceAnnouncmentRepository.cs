@@ -56,52 +56,58 @@ namespace Students.Domain.Concrete
                 ServiceAnnouncment dbEntry = context.ServiceAnnouncments.Find(serviceAnnouncment.ServiceAnnouncmentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.AuthorId = serviceAnnouncment.AuthorId;
-                }
-                List<ServiceAnnouncmentLang> dbLangEntries = new List<ServiceAnnouncmentLang>();
-                string newTitle, newBulletin;
-                for (int i = 0; i < serviceAnnouncmentLangs.Count; i++)
-                {
-                    newTitle = serviceAnnouncmentLangs[i].Title;
-                    newBulletin = serviceAnnouncmentLangs[i].Bulletin;
-                    dbLangEntries[i] = context.ServiceAnnouncmentLangs.Find(serviceAnnouncmentLangs[i].ServiceAnnouncmentLangId);
-                    if (newTitle == null)
+                    List<ServiceAnnouncmentLang> oldServiceAnnouncmentLangs = dbEntry.ServiceAnnouncmentLangs.ToList();
+                    List<ServiceAnnouncmentLang> updatedServiceAnnouncmentLangs = new List<ServiceAnnouncmentLang>();
+                    List<ServiceAnnouncmentLang> newServiceAnnouncmentLangs = serviceAnnouncment.ServiceAnnouncmentLangs.ToList();
+                    foreach (var oldServiceAnnouncmentLang in oldServiceAnnouncmentLangs)
                     {
-                        context.ServiceAnnouncmentLangs.Remove(dbLangEntries[i]);
-                    }
-                    else
-                    {
-                        if (dbLangEntries[i] != null)
+                        if (newServiceAnnouncmentLangs.Any(nsal => nsal.LanguageId == oldServiceAnnouncmentLang.LanguageId))
                         {
-                            dbLangEntries[i].Title = newTitle;
-                            dbLangEntries[i].Bulletin = newBulletin;
+                            updatedServiceAnnouncmentLangs.Add(oldServiceAnnouncmentLang);
                         }
                         else
                         {
-                            context.ServiceAnnouncmentLangs.Add(serviceAnnouncmentLangs[i]);
+                            context.ServiceAnnouncmentLangs.Remove(oldServiceAnnouncmentLang);
                         }
                     }
-                }
-                List<ServiceAnnouncmentImage> dbImageEntries = new List<ServiceAnnouncmentImage>();
-                string newUrl;
-                for (int i = 0; i < serviceAnnouncmentImages.Count; i++)
-                {
-                    newUrl = serviceAnnouncmentImages[i].Url;
-                    dbImageEntries[i] = context.ServiceAnnouncmentImages.Find(serviceAnnouncmentImages[i].ServiceAnnouncmentImageId);
-                    if (newUrl == null)
+                    for (int i = 0; i < updatedServiceAnnouncmentLangs.Count; i++)
                     {
-                        context.ServiceAnnouncmentImages.Remove(dbImageEntries[i]);
-                    }
-                    else
-                    {
-                        if (dbImageEntries[i] != null)
+                        if (newServiceAnnouncmentLangs[i].LanguageId == updatedServiceAnnouncmentLangs[i].LanguageId)
                         {
-                            dbImageEntries[i].Url = newUrl;
+                            updatedServiceAnnouncmentLangs[i] = newServiceAnnouncmentLangs[i];
+                            newServiceAnnouncmentLangs.Remove(newServiceAnnouncmentLangs[i]);
+                        }
+                    }
+                    foreach (var newServiceAnnouncmentLang in newServiceAnnouncmentLangs)
+                    {
+                        dbEntry.ServiceAnnouncmentLangs.Add(newServiceAnnouncmentLang);
+                    }
+
+                    List<ServiceAnnouncmentImage> oldServiceAnnouncmentImages = dbEntry.ServiceAnnouncmentImages.ToList();
+                    List<ServiceAnnouncmentImage> updatedServiceAnnouncmentImages = new List<ServiceAnnouncmentImage>();
+                    List<ServiceAnnouncmentImage> newServiceAnnouncmentImages = serviceAnnouncment.ServiceAnnouncmentImages.ToList();
+                    foreach (var oldServiceAnnouncmentImage in oldServiceAnnouncmentImages)
+                    {
+                        if (newServiceAnnouncmentImages.Any(nsai => nsai.ServiceAnnouncmentImageId == oldServiceAnnouncmentImage.ServiceAnnouncmentImageId))
+                        {
+                            updatedServiceAnnouncmentImages.Add(oldServiceAnnouncmentImage);
                         }
                         else
                         {
-                            context.ServiceAnnouncmentImages.Add(serviceAnnouncmentImages[i]);
+                            context.ServiceAnnouncmentImages.Remove(oldServiceAnnouncmentImage);
                         }
+                    }
+                    for (int i = 0; i < updatedServiceAnnouncmentImages.Count; i++)
+                    {
+                        if (newServiceAnnouncmentImages[i].ServiceAnnouncmentImageId == updatedServiceAnnouncmentImages[i].ServiceAnnouncmentImageId)
+                        {
+                            updatedServiceAnnouncmentImages[i] = newServiceAnnouncmentImages[i];
+                            newServiceAnnouncmentImages.Remove(newServiceAnnouncmentImages[i]);
+                        }
+                    }
+                    foreach (var newServiceAnnouncmentImage in newServiceAnnouncmentImages)
+                    {
+                        dbEntry.ServiceAnnouncmentImages.Add(newServiceAnnouncmentImage);
                     }
                 }
             }

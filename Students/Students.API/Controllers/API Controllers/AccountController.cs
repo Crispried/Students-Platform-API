@@ -80,7 +80,7 @@ namespace Students.API.APIControllers.Controllers
             {
                 if (userRepository.DeleteUser(userId))
                 {
-                    Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
                 return Request.CreateResponse(HttpStatusCode.NotModified);
             }
