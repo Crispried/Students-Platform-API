@@ -105,6 +105,8 @@ namespace Students.Domain.Concrete
                 ServiceComment dbEntry = context.ServiceComments.Find(serviceComment.ServiceCommentId);
                 if (dbEntry != null)
                 {
+                    dbEntry.Body = serviceComment.Body;
+                    
                     List<ServiceCommentImage> oldServiceCommentImages = dbEntry.ServiceCommentImages.ToList();
                     List<ServiceCommentImage> updatedServiceCommentImages = new List<ServiceCommentImage>();
                     List<ServiceCommentImage> newServiceCommentImages = serviceComment.ServiceCommentImages.ToList();
@@ -156,6 +158,8 @@ namespace Students.Domain.Concrete
                 MarketComment dbEntry = context.MarketComments.Find(marketComment.MarketCommentId);
                 if (dbEntry != null)
                 {
+                    dbEntry.Body = marketComment.Body;
+
                     List<MarketCommentImage> oldMarketCommentImages = dbEntry.MarketCommentImages.ToList();
                     List<MarketCommentImage> updatedMarketCommentImages = new List<MarketCommentImage>();
                     List<MarketCommentImage> newMarketCommentImages = marketComment.MarketCommentImages.ToList();
@@ -207,6 +211,8 @@ namespace Students.Domain.Concrete
                 TravelComment dbEntry = context.TravelComments.Find(travelComment.TravelCommentId);
                 if (dbEntry != null)
                 {
+                    dbEntry.Body = travelComment.Body;
+
                     List<TravelCommentImage> oldTravelCommentImages = dbEntry.TravelCommentImages.ToList();
                     List<TravelCommentImage> updatedTravelCommentImages = new List<TravelCommentImage>();
                     List<TravelCommentImage> newTravelCommentImages = travelComment.TravelCommentImages.ToList();
@@ -258,6 +264,8 @@ namespace Students.Domain.Concrete
                 HousingComment dbEntry = context.HousingComments.Find(housingComment.HousingCommentId);
                 if (dbEntry != null)
                 {
+                    dbEntry.Body = housingComment.Body;
+
                     List<HousingCommentImage> oldHousingCommentImages = dbEntry.HousingCommentImages.ToList();
                     List<HousingCommentImage> updatedHousingCommentImages = new List<HousingCommentImage>();
                     List<HousingCommentImage> newHousingCommentImages = housingComment.HousingCommentImages.ToList();
