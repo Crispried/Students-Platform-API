@@ -48,8 +48,33 @@ namespace Students.Domain.Concrete
                 {
                     dbEntry.Title = privateMessage.Title;
                     dbEntry.Message = privateMessage.Message;
-                    dbEntry.AuthorId = privateMessage.AuthorId;
-                    dbEntry.RecieverId = privateMessage.RecieverId;
+
+                    List<PrivateMessageImage> oldPrivateMessageImages = dbEntry.PrivateMessageImages.ToList();
+                    List<PrivateMessageImage> updatedPrivateMessageImages = new List<PrivateMessageImage>();
+                    List<PrivateMessageImage> newPrivateMessageImages = privateMessage.PrivateMessageImages.ToList();
+                    foreach (var oldPrivateMessageImage in oldPrivateMessageImages)
+                    {
+                        if (newPrivateMessageImages.Any(npmi => npmi.PrivateMessageImageId == oldPrivateMessageImage.PrivateMessageImageId))
+                        {
+                            updatedPrivateMessageImages.Add(oldPrivateMessageImage);
+                        }
+                        else
+                        {
+                            context.PrivateMessageImages.Remove(oldPrivateMessageImage);
+                        }
+                    }
+                    for (int i = 0; i < updatedPrivateMessageImages.Count; i++)
+                    {
+                        if (newPrivateMessageImages[i].PrivateMessageImageId == updatedPrivateMessageImages[i].PrivateMessageImageId)
+                        {
+                            updatedPrivateMessageImages[i] = newPrivateMessageImages[i];
+                            newPrivateMessageImages.Remove(newPrivateMessageImages[i]);
+                        }
+                    }
+                    foreach (var newPrivateMessageImage in newPrivateMessageImages)
+                    {
+                        dbEntry.PrivateMessageImages.Add(newPrivateMessageImage);
+                    }
                 }
             }
             if (ContextWasSaved())

@@ -219,6 +219,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API Controllers\AccountController.cs" />
+    <Compile Include="Controllers\API Controllers\PrivateMessageController.cs" />
     <Compile Include="Controllers\GroupRoomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API Controllers\HousingController.cs" />

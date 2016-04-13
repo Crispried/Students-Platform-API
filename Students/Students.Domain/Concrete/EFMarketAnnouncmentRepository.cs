@@ -37,18 +37,8 @@ namespace Students.Domain.Concrete
 
         public bool SaveMarketAnnouncment(MarketAnnouncment marketAnnouncment)
         {
-            List<MarketAnnouncmentLang> marketAnnouncmentLangs = marketAnnouncment.MarketAnnouncmentLangs.ToList();
-            List<MarketAnnouncmentImage> marketAnnouncmentImages = marketAnnouncment.MarketAnnouncmentImages.ToList();
             if (marketAnnouncment.MarketAnnouncmentId == 0)
             {
-                foreach (var marketAnnouncmentLang in marketAnnouncmentLangs)
-                {
-                    marketAnnouncment.MarketAnnouncmentLangs.Add(marketAnnouncmentLang);
-                }
-                foreach (var marketAnnouncmentImage in marketAnnouncmentImages)
-                {
-                    marketAnnouncment.MarketAnnouncmentImages.Add(marketAnnouncmentImage);
-                }
                 context.MarketAnnouncments.Add(marketAnnouncment);
             }
             else

@@ -10,9 +10,11 @@ using Students.Domain.Entities;
 using Students.Domain.ViewModel;
 using Students.API.Infrastructure;
 using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
 
 namespace Students.API.APIControllers.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private IUserRepository userRepository;

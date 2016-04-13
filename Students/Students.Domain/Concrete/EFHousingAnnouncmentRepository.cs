@@ -38,7 +38,6 @@ namespace Students.Domain.Concrete
 
         public bool SaveHousingAnnouncment(HousingAnnouncment housingAnnouncment)
         {
-
             if (housingAnnouncment.HousingAnnouncmentId == 0)
             {
                 context.HousingAnnouncments.Add(housingAnnouncment);

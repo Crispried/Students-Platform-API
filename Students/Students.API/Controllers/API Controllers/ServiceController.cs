@@ -9,9 +9,11 @@ using Students.Domain.Entities;
 using Students.API.Infrastructure;
 using Students.Domain.ViewModel;
 using Newtonsoft.Json.Linq;
+using System.Web.Http.Cors;
 
 namespace Students.API.APIControllers.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ServiceController : ApiController
     {
         private IServiceAnnouncmentRepository announcmentRepository;

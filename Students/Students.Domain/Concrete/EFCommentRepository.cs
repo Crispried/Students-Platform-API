@@ -91,13 +91,8 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(ServiceComment serviceComment)
         {
-            List<ServiceCommentImage> serviceCommentImages = serviceComment.ServiceCommentImages.ToList();
             if (serviceComment.ServiceCommentId == 0)
             {
-                foreach (var serviceCommentImage in serviceCommentImages)
-                {
-                    serviceComment.ServiceCommentImages.Add(serviceCommentImage);
-                }
                 context.ServiceComments.Add(serviceComment);
             }
             else
@@ -144,13 +139,8 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(MarketComment marketComment)
         {
-            List<MarketCommentImage> marketCommentImages = marketComment.MarketCommentImages.ToList();
             if (marketComment.MarketCommentId == 0)
             {
-                foreach (var marketCommentImage in marketCommentImages)
-                {
-                    marketComment.MarketCommentImages.Add(marketCommentImage);
-                }
                 context.MarketComments.Add(marketComment);
             }
             else
@@ -197,13 +187,8 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(TravelComment travelComment)
         {
-            List<TravelCommentImage> travelCommentImages = travelComment.TravelCommentImages.ToList();
             if (travelComment.TravelCommentId == 0)
             {
-                foreach (var travelCommentImage in travelCommentImages)
-                {
-                    travelComment.TravelCommentImages.Add(travelCommentImage);
-                }
                 context.TravelComments.Add(travelComment);
             }
             else
@@ -250,14 +235,9 @@ namespace Students.Domain.Concrete
 
         public bool SaveComment(HousingComment housingComment)
         {
-            List<HousingCommentImage> housingCommentImages = housingComment.HousingCommentImages.ToList();
             if (housingComment.HousingCommentId == 0)
             {
                 context.HousingComments.Add(housingComment);
-                foreach (var housingCommentImage in housingCommentImages)
-                {
-                    housingComment.HousingCommentImages.Add(housingCommentImage);
-                }
             }
             else
             {

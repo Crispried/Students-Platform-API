@@ -37,18 +37,8 @@ namespace Students.Domain.Concrete
 
         public bool SaveServiceAnnouncment(ServiceAnnouncment serviceAnnouncment)
         {
-            List<ServiceAnnouncmentLang> serviceAnnouncmentLangs = serviceAnnouncment.ServiceAnnouncmentLangs.ToList();
-            List<ServiceAnnouncmentImage> serviceAnnouncmentImages = serviceAnnouncment.ServiceAnnouncmentImages.ToList();
             if (serviceAnnouncment.ServiceAnnouncmentId == 0)
             {
-                foreach (var serviceAnnouncmentLang in serviceAnnouncmentLangs)
-                {
-                    serviceAnnouncment.ServiceAnnouncmentLangs.Add(serviceAnnouncmentLang);
-                }
-                foreach (var serviceAnnouncmentImage in serviceAnnouncmentImages)
-                {
-                    serviceAnnouncment.ServiceAnnouncmentImages.Add(serviceAnnouncmentImage);
-                }
                 context.ServiceAnnouncments.Add(serviceAnnouncment);
             }
             else

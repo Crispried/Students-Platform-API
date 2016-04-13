@@ -37,18 +37,8 @@ namespace Students.Domain.Concrete
 
         public bool SaveTravelAnnouncment(TravelAnnouncment travelAnnouncment)
         {
-            List<TravelAnnouncmentLang> travelAnnouncmentLangs = travelAnnouncment.TravelAnnouncmentLangs.ToList();
-            List<TravelAnnouncmentImage> travelAnnouncmentImages = travelAnnouncment.TravelAnnouncmentImages.ToList();
             if (travelAnnouncment.TravelAnnouncmentId == 0)
             {
-                foreach (var travelAnnouncmentLang in travelAnnouncmentLangs)
-                {
-                    travelAnnouncment.TravelAnnouncmentLangs.Add(travelAnnouncmentLang);
-                }
-                foreach (var travelAnnouncmentImage in travelAnnouncmentImages)
-                {
-                    travelAnnouncment.TravelAnnouncmentImages.Add(travelAnnouncmentImage);
-                }
                 context.TravelAnnouncments.Add(travelAnnouncment);
             }
             else
