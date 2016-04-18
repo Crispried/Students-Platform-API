@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Students.Domain.ViewModel
 {
     public class HousingAnnouncmentLangVM
-    {
+    { 
         public int LanguageId { get; set; }
 
         public string Title { get; set; }

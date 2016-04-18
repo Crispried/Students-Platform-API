@@ -45,62 +45,36 @@ namespace Students.Domain.Concrete
             else
             {
 
-                HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncment.HousingAnnouncmentId);
+                HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(11);
                 if (dbEntry != null)
                 {
                     List<HousingAnnouncmentLang> oldHousingAnnouncmentLangs = dbEntry.HousingAnnouncmentLangs.ToList();
-                    List<HousingAnnouncmentLang> updatedHousingAnnouncmentLangs = new List<HousingAnnouncmentLang>();
                     List<HousingAnnouncmentLang> newHousingAnnouncmentLangs = housingAnnouncment.HousingAnnouncmentLangs.ToList();
+                    List<HousingAnnouncmentLang> updatedHousingAnnouncmentLangs = new List<HousingAnnouncmentLang>();
                     foreach (var oldHousingAnnouncmentLang in oldHousingAnnouncmentLangs)
                     {
-                        if(newHousingAnnouncmentLangs.Any(nhal => nhal.LanguageId == oldHousingAnnouncmentLang.LanguageId))
-                        {
-                            updatedHousingAnnouncmentLangs.Add(oldHousingAnnouncmentLang);                           
-                        }
-                        else
-                        {
-                            context.HousingAnnouncmentLangs.Remove(oldHousingAnnouncmentLang);
-                        }
+                        context.HousingAnnouncmentLangs.Remove(oldHousingAnnouncmentLang);
                     }
-                    for (int i = 0; i < updatedHousingAnnouncmentLangs.Count; i++)
-                    {
-                        if(newHousingAnnouncmentLangs[i].LanguageId == updatedHousingAnnouncmentLangs[i].LanguageId)
-                        {
-                            updatedHousingAnnouncmentLangs[i] = newHousingAnnouncmentLangs[i];
-                            newHousingAnnouncmentLangs.Remove(newHousingAnnouncmentLangs[i]);                            
-                        }
-                    }
+
                     foreach (var newHousingAnnouncmentLang in newHousingAnnouncmentLangs)
                     {
-                        dbEntry.HousingAnnouncmentLangs.Add(newHousingAnnouncmentLang);
+                        newHousingAnnouncmentLang.HousingAnnouncmentId = housingAnnouncment.HousingAnnouncmentId;
+                        context.HousingAnnouncmentLangs.Add(newHousingAnnouncmentLang);
                     }
 
                     List<HousingAnnouncmentImage> oldHousingAnnouncmentImages = dbEntry.HousingAnnouncmentImages.ToList();
-                    List<HousingAnnouncmentImage> updatedHousingAnnouncmentImages = new List<HousingAnnouncmentImage>();
                     List<HousingAnnouncmentImage> newHousingAnnouncmentImages = housingAnnouncment.HousingAnnouncmentImages.ToList();
+                    List<HousingAnnouncmentImage> updatedHousingAnnouncmentImages = new List<HousingAnnouncmentImage>();
                     foreach (var oldHousingAnnouncmentImage in oldHousingAnnouncmentImages)
                     {
-                        if (newHousingAnnouncmentImages.Any(nhai => nhai.HousingAnnouncmentImageId == oldHousingAnnouncmentImage.HousingAnnouncmentImageId))
-                        {                            
-                            updatedHousingAnnouncmentImages.Add(oldHousingAnnouncmentImage);
-                        }
-                        else
-                        {
-                            context.HousingAnnouncmentImages.Remove(oldHousingAnnouncmentImage);
-                        }
+                        context.HousingAnnouncmentImages.Remove(oldHousingAnnouncmentImage);
                     }
-                    for (int i = 0; i < updatedHousingAnnouncmentImages.Count; i++)
-                    {
-                        if (newHousingAnnouncmentImages[i].HousingAnnouncmentImageId == updatedHousingAnnouncmentImages[i].HousingAnnouncmentImageId)
-                        {
-                            updatedHousingAnnouncmentImages[i] = newHousingAnnouncmentImages[i];
-                            newHousingAnnouncmentImages.Remove(newHousingAnnouncmentImages[i]);
-                        }
-                    }
+
                     foreach (var newHousingAnnouncmentImage in newHousingAnnouncmentImages)
                     {
-                        dbEntry.HousingAnnouncmentImages.Add(newHousingAnnouncmentImage);
-                    }                   
+                        newHousingAnnouncmentImage.HousingAnnouncmentId = housingAnnouncment.HousingAnnouncmentId;
+                        context.HousingAnnouncmentImages.Add(newHousingAnnouncmentImage);
+                    }
                 }
             }
             if (ContextWasSaved())

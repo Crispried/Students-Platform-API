@@ -134,7 +134,6 @@ namespace Students.API.Infrastructure
             {
                 tempImageVM = new ImageVM()
                 {
-                    Id = image.HousingAnnouncmentImageId,
                     Url = image.Url
                 };
                 housingAnnouncmentVM.HousingAnnouncmentImagesVM.Add(tempImageVM);
@@ -176,7 +175,6 @@ namespace Students.API.Infrastructure
             {
                 tempImageVM = new ImageVM()
                 {
-                    Id = image.TravelAnnouncmentImageId,
                     Url = image.Url
                 };
                 travelAnnouncmentVM.TravelAnnouncmentImagesVM.Add(tempImageVM);
@@ -218,7 +216,6 @@ namespace Students.API.Infrastructure
             {
                 tempImageVM = new ImageVM()
                 {
-                    Id = image.MarketAnnouncmentImageId,
                     Url = image.Url
                 };
                 marketAnnouncmentVM.MarketAnnouncmentImagesVM.Add(tempImageVM);
@@ -260,7 +257,6 @@ namespace Students.API.Infrastructure
             {
                 tempImageVM = new ImageVM()
                 {
-                    Id = image.ServiceAnnouncmentImageId,
                     Url = image.Url
                 };
                 serviceAnnouncmentVM.ServiceAnnouncmentImagesVM.Add(tempImageVM);
@@ -296,7 +292,6 @@ namespace Students.API.Infrastructure
                 {
                     tempImageVM = new ImageVM()
                     {
-                        Id = image.HousingCommentImageId,
                         Url = image.Url
                     };
                     tempCommentVM.CommentImagesVM.Add(tempImageVM);

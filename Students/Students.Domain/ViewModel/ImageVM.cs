@@ -8,8 +8,6 @@ namespace Students.Domain.ViewModel
 {
     public class ImageVM
     {
-        public int Id { get; set; }
-
         public string Url { get; set; }
     }
 }
