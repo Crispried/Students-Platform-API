@@ -45,7 +45,7 @@ namespace Students.Domain.Concrete
             else
             {
 
-                HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(11);
+                HousingAnnouncment dbEntry = context.HousingAnnouncments.Find(housingAnnouncment.HousingAnnouncmentId);
                 if (dbEntry != null)
                 {
                     List<HousingAnnouncmentLang> oldHousingAnnouncmentLangs = dbEntry.HousingAnnouncmentLangs.ToList();
