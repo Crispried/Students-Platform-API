@@ -14,6 +14,7 @@ using Students.API.Infrastructure;
 namespace Students.API.APIControllers.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("api/housing")]
     public class HousingController : ApiController
     {
         private IHousingAnnouncmentRepository announcmentRepository;
@@ -156,20 +157,20 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
-        {
-            var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
-            if (announcmentId != 0)
-            {
-                object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
-                if (result != null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK, result);
-                }
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
-        }
+         public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
+         {
+             var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
+             if (announcmentId != 0)
+             {
+                 object result = EntitiesFactory.GetViewModel(announcmentRepository.GetAnnouncmentById(announcmentId), EntitiesTypes.HousingAnnouncment);
+                 if (result != null)
+                 {
+                     return Request.CreateResponse(HttpStatusCode.OK, result);
+                 }
+                 return Request.CreateResponse(HttpStatusCode.NotFound);
+             }
+             return Request.CreateResponse(HttpStatusCode.BadRequest);
+         }
 
         [HttpPost]
         public HttpResponseMessage GetComments([FromBody]JObject jsonData)
