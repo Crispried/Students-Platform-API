@@ -41,32 +41,39 @@ namespace Students.API.APIControllers.Controllers
 
             if (user == password)
             {
-                string url = "http://authorization-server.azurewebsites.net/oauth2/token";
-                var request = (HttpWebRequest)WebRequest.Create(url);
-
-                var postData = "username=" + user;
-                postData += "&password=" + password;
-                postData += "&grant_type=password";
-                postData += "&client_id=099153c2625149bc8ecb3e85e03f0022"; 
-
-                var data = Encoding.ASCII.GetBytes(postData);
-
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = data.Length;
-
-                using (var stream = request.GetRequestStream())
+                try
                 {
-                    stream.Write(data, 0, data.Length);
+                    string url = "http://authorization-server.azurewebsites.net/oauth2/token";
+                    var request = (HttpWebRequest)WebRequest.Create(url);
+
+                    var postData = "username=" + user;
+                    postData += "&password=" + password;
+                    postData += "&grant_type=password";
+                    postData += "&client_id=099153c2625149bc8ecb3e85e03f0022";
+
+                    var data = Encoding.ASCII.GetBytes(postData);
+
+                    request.Method = "POST";
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.ContentLength = data.Length;
+
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+
+                    var response = (HttpWebResponse)request.GetResponse();
+
+                    var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                    Token token = JsonConvert.DeserializeObject<Token>(responseString);
+
+                    return Request.CreateResponse(HttpStatusCode.OK, token.access_token);
                 }
-
-                var response = (HttpWebResponse)request.GetResponse();
-
-                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-                Token token = JsonConvert.DeserializeObject<Token>(responseString);
-
-                return Request.CreateResponse(HttpStatusCode.OK, token.access_token);
+                catch
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
             }
 
             return Request.CreateResponse(HttpStatusCode.Forbidden);
