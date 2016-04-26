@@ -15,6 +15,7 @@ namespace Students.API.APIControllers.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/housing")]
+    [Authorize]
     public class HousingController : ApiController
     {
         private IHousingAnnouncmentRepository announcmentRepository;
@@ -157,7 +158,7 @@ namespace Students.API.APIControllers.Controllers
         }
 
         [HttpPost]
-         public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
+        public HttpResponseMessage GetAnnouncment([FromBody]JObject jsonData)
          {
              var announcmentId = Convert.ToInt32(jsonData.GetValue("announcmentId"));
              if (announcmentId != 0)
