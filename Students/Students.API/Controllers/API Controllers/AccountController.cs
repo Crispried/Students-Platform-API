@@ -38,6 +38,7 @@ namespace Students.API.APIControllers.Controllers
         {
             var user = jsonData.GetValue("user").ToString();
             var password = jsonData.GetValue("password").ToString();
+            var audience = "099153c2625149bc8ecb3e85e03f0022";//should be Global
 
             if (user == password)
             {
@@ -49,7 +50,7 @@ namespace Students.API.APIControllers.Controllers
                     var postData = "username=" + user;
                     postData += "&password=" + password;
                     postData += "&grant_type=password";
-                    postData += "&client_id=099153c2625149bc8ecb3e85e03f0022";
+                    postData += "&client_id=" + audience;
 
                     var data = Encoding.ASCII.GetBytes(postData);
 
