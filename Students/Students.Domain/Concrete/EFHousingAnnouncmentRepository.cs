@@ -50,7 +50,6 @@ namespace Students.Domain.Concrete
                 {
                     List<HousingAnnouncmentLang> oldHousingAnnouncmentLangs = dbEntry.HousingAnnouncmentLangs.ToList();
                     List<HousingAnnouncmentLang> newHousingAnnouncmentLangs = housingAnnouncment.HousingAnnouncmentLangs.ToList();
-                    List<HousingAnnouncmentLang> updatedHousingAnnouncmentLangs = new List<HousingAnnouncmentLang>();
                     foreach (var oldHousingAnnouncmentLang in oldHousingAnnouncmentLangs)
                     {
                         context.HousingAnnouncmentLangs.Remove(oldHousingAnnouncmentLang);
@@ -64,7 +63,6 @@ namespace Students.Domain.Concrete
 
                     List<HousingAnnouncmentImage> oldHousingAnnouncmentImages = dbEntry.HousingAnnouncmentImages.ToList();
                     List<HousingAnnouncmentImage> newHousingAnnouncmentImages = housingAnnouncment.HousingAnnouncmentImages.ToList();
-                    List<HousingAnnouncmentImage> updatedHousingAnnouncmentImages = new List<HousingAnnouncmentImage>();
                     foreach (var oldHousingAnnouncmentImage in oldHousingAnnouncmentImages)
                     {
                         context.HousingAnnouncmentImages.Remove(oldHousingAnnouncmentImage);

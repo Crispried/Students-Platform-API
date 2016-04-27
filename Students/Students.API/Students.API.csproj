@@ -271,7 +271,9 @@
     <Compile Include="Helpers\BlobHelper.cs" />
     <Compile Include="Infrastructure\EntitiesFactory.cs" />
     <Compile Include="Infrastructure\EntitiesTypes.cs" />
+    <Compile Include="Infrastructure\JWT.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
+    <Compile Include="Infrastructure\RequestSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

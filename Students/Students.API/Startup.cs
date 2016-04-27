@@ -8,6 +8,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using System.Threading.Tasks;
+using Students.API.Infrastructure;
 
 [assembly: OwinStartup(typeof(Students.API.Startup))]
 
@@ -22,19 +23,15 @@ namespace Students.API
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            var issuer = "http://jwtauthzsrv.azurewebsites.net";
-            var audience = "099153c2625149bc8ecb3e85e03f0022";
-            var secret = TextEncodings.Base64Url.Decode("IxrAjDoa2FqElO7IhrSrUJELhUckePEPVpaePlS_Xaw");
-
             // Api controllers with an [Authorize] attribute will be validated with JWT
             app.UseJwtBearerAuthentication(
                 new JwtBearerAuthenticationOptions
                 {
                     AuthenticationMode = AuthenticationMode.Active,
-                    AllowedAudiences = new[] { audience },
+                    AllowedAudiences = new[] { JWT_Globals.Audience },
                     IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                     {
-                        new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
+                        new SymmetricKeyIssuerSecurityTokenProvider(JWT_Globals.AuthServerUrl, JWT_Globals.Secret)
                     },
                     Provider = new OAuthBearerAuthenticationProvider
                     {

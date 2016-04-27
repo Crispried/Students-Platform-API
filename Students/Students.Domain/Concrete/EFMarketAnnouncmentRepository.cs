@@ -47,57 +47,29 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     List<MarketAnnouncmentLang> oldMarketAnnouncmentLangs = dbEntry.MarketAnnouncmentLangs.ToList();
-                    List<MarketAnnouncmentLang> updatedMarketAnnouncmentLangs = new List<MarketAnnouncmentLang>();
                     List<MarketAnnouncmentLang> newMarketAnnouncmentLangs = marketAnnouncment.MarketAnnouncmentLangs.ToList();
                     foreach (var oldMarketAnnouncmentLang in oldMarketAnnouncmentLangs)
                     {
-                        if (newMarketAnnouncmentLangs.Any(nmal => nmal.LanguageId == oldMarketAnnouncmentLang.LanguageId))
-                        {
-                            updatedMarketAnnouncmentLangs.Add(oldMarketAnnouncmentLang);
-                        }
-                        else
-                        {
-                            context.MarketAnnouncmentLangs.Remove(oldMarketAnnouncmentLang);
-                        }
+                        context.MarketAnnouncmentLangs.Remove(oldMarketAnnouncmentLang);
                     }
-                    for (int i = 0; i < updatedMarketAnnouncmentLangs.Count; i++)
-                    {
-                        if (newMarketAnnouncmentLangs[i].LanguageId == updatedMarketAnnouncmentLangs[i].LanguageId)
-                        {
-                            updatedMarketAnnouncmentLangs[i] = newMarketAnnouncmentLangs[i];
-                            newMarketAnnouncmentLangs.Remove(newMarketAnnouncmentLangs[i]);
-                        }
-                    }
+
                     foreach (var newMarketAnnouncmentLang in newMarketAnnouncmentLangs)
                     {
-                        dbEntry.MarketAnnouncmentLangs.Add(newMarketAnnouncmentLang);
+                        newMarketAnnouncmentLang.MarketAnnouncmentId = marketAnnouncment.MarketAnnouncmentId;
+                        context.MarketAnnouncmentLangs.Add(newMarketAnnouncmentLang);
                     }
 
                     List<MarketAnnouncmentImage> oldMarketAnnouncmentImages = dbEntry.MarketAnnouncmentImages.ToList();
-                    List<MarketAnnouncmentImage> updatedMarketAnnouncmentImages = new List<MarketAnnouncmentImage>();
                     List<MarketAnnouncmentImage> newMarketAnnouncmentImages = marketAnnouncment.MarketAnnouncmentImages.ToList();
                     foreach (var oldMarketAnnouncmentImage in oldMarketAnnouncmentImages)
                     {
-                        if (newMarketAnnouncmentImages.Any(nhai => nhai.MarketAnnouncmentImageId == oldMarketAnnouncmentImage.MarketAnnouncmentImageId))
-                        {
-                            updatedMarketAnnouncmentImages.Add(oldMarketAnnouncmentImage);
-                        }
-                        else
-                        {
-                            context.MarketAnnouncmentImages.Remove(oldMarketAnnouncmentImage);
-                        }
+                        context.MarketAnnouncmentImages.Remove(oldMarketAnnouncmentImage);
                     }
-                    for (int i = 0; i < updatedMarketAnnouncmentImages.Count; i++)
-                    {
-                        if (newMarketAnnouncmentImages[i].MarketAnnouncmentImageId == updatedMarketAnnouncmentImages[i].MarketAnnouncmentImageId)
-                        {
-                            updatedMarketAnnouncmentImages[i] = newMarketAnnouncmentImages[i];
-                            newMarketAnnouncmentImages.Remove(newMarketAnnouncmentImages[i]);
-                        }
-                    }
+
                     foreach (var newMarketAnnouncmentImage in newMarketAnnouncmentImages)
                     {
-                        dbEntry.MarketAnnouncmentImages.Add(newMarketAnnouncmentImage);
+                        newMarketAnnouncmentImage.MarketAnnouncmentId = marketAnnouncment.MarketAnnouncmentId;
+                        context.MarketAnnouncmentImages.Add(newMarketAnnouncmentImage);
                     }
                 }
             }

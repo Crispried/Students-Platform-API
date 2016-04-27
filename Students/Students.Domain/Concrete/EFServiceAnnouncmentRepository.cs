@@ -47,57 +47,29 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     List<ServiceAnnouncmentLang> oldServiceAnnouncmentLangs = dbEntry.ServiceAnnouncmentLangs.ToList();
-                    List<ServiceAnnouncmentLang> updatedServiceAnnouncmentLangs = new List<ServiceAnnouncmentLang>();
                     List<ServiceAnnouncmentLang> newServiceAnnouncmentLangs = serviceAnnouncment.ServiceAnnouncmentLangs.ToList();
                     foreach (var oldServiceAnnouncmentLang in oldServiceAnnouncmentLangs)
                     {
-                        if (newServiceAnnouncmentLangs.Any(nsal => nsal.LanguageId == oldServiceAnnouncmentLang.LanguageId))
-                        {
-                            updatedServiceAnnouncmentLangs.Add(oldServiceAnnouncmentLang);
-                        }
-                        else
-                        {
-                            context.ServiceAnnouncmentLangs.Remove(oldServiceAnnouncmentLang);
-                        }
+                        context.ServiceAnnouncmentLangs.Remove(oldServiceAnnouncmentLang);
                     }
-                    for (int i = 0; i < updatedServiceAnnouncmentLangs.Count; i++)
-                    {
-                        if (newServiceAnnouncmentLangs[i].LanguageId == updatedServiceAnnouncmentLangs[i].LanguageId)
-                        {
-                            updatedServiceAnnouncmentLangs[i] = newServiceAnnouncmentLangs[i];
-                            newServiceAnnouncmentLangs.Remove(newServiceAnnouncmentLangs[i]);
-                        }
-                    }
+
                     foreach (var newServiceAnnouncmentLang in newServiceAnnouncmentLangs)
                     {
-                        dbEntry.ServiceAnnouncmentLangs.Add(newServiceAnnouncmentLang);
+                        newServiceAnnouncmentLang.ServiceAnnouncmentId = serviceAnnouncment.ServiceAnnouncmentId;
+                        context.ServiceAnnouncmentLangs.Add(newServiceAnnouncmentLang);
                     }
 
                     List<ServiceAnnouncmentImage> oldServiceAnnouncmentImages = dbEntry.ServiceAnnouncmentImages.ToList();
-                    List<ServiceAnnouncmentImage> updatedServiceAnnouncmentImages = new List<ServiceAnnouncmentImage>();
                     List<ServiceAnnouncmentImage> newServiceAnnouncmentImages = serviceAnnouncment.ServiceAnnouncmentImages.ToList();
                     foreach (var oldServiceAnnouncmentImage in oldServiceAnnouncmentImages)
                     {
-                        if (newServiceAnnouncmentImages.Any(nsai => nsai.ServiceAnnouncmentImageId == oldServiceAnnouncmentImage.ServiceAnnouncmentImageId))
-                        {
-                            updatedServiceAnnouncmentImages.Add(oldServiceAnnouncmentImage);
-                        }
-                        else
-                        {
-                            context.ServiceAnnouncmentImages.Remove(oldServiceAnnouncmentImage);
-                        }
+                        context.ServiceAnnouncmentImages.Remove(oldServiceAnnouncmentImage);
                     }
-                    for (int i = 0; i < updatedServiceAnnouncmentImages.Count; i++)
-                    {
-                        if (newServiceAnnouncmentImages[i].ServiceAnnouncmentImageId == updatedServiceAnnouncmentImages[i].ServiceAnnouncmentImageId)
-                        {
-                            updatedServiceAnnouncmentImages[i] = newServiceAnnouncmentImages[i];
-                            newServiceAnnouncmentImages.Remove(newServiceAnnouncmentImages[i]);
-                        }
-                    }
+
                     foreach (var newServiceAnnouncmentImage in newServiceAnnouncmentImages)
                     {
-                        dbEntry.ServiceAnnouncmentImages.Add(newServiceAnnouncmentImage);
+                        newServiceAnnouncmentImage.ServiceAnnouncmentId = serviceAnnouncment.ServiceAnnouncmentId;
+                        context.ServiceAnnouncmentImages.Add(newServiceAnnouncmentImage);
                     }
                 }
             }

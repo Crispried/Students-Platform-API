@@ -100,33 +100,17 @@ namespace Students.Domain.Concrete
                 ServiceComment dbEntry = context.ServiceComments.Find(serviceComment.ServiceCommentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Body = serviceComment.Body;
-                    
                     List<ServiceCommentImage> oldServiceCommentImages = dbEntry.ServiceCommentImages.ToList();
-                    List<ServiceCommentImage> updatedServiceCommentImages = new List<ServiceCommentImage>();
                     List<ServiceCommentImage> newServiceCommentImages = serviceComment.ServiceCommentImages.ToList();
                     foreach (var oldServiceCommentImage in oldServiceCommentImages)
                     {
-                        if (newServiceCommentImages.Any(nsci => nsci.ServiceCommentImageId == oldServiceCommentImage.ServiceCommentImageId))
-                        {
-                            updatedServiceCommentImages.Add(oldServiceCommentImage);
-                        }
-                        else
-                        {
-                            context.ServiceCommentImages.Remove(oldServiceCommentImage);
-                        }
+                        context.ServiceCommentImages.Remove(oldServiceCommentImage);
                     }
-                    for (int i = 0; i < updatedServiceCommentImages.Count; i++)
-                    {
-                        if (newServiceCommentImages[i].ServiceCommentImageId == updatedServiceCommentImages[i].ServiceCommentImageId)
-                        {
-                            updatedServiceCommentImages[i] = newServiceCommentImages[i];
-                            newServiceCommentImages.Remove(newServiceCommentImages[i]);
-                        }
-                    }
+
                     foreach (var newServiceCommentImage in newServiceCommentImages)
                     {
-                        dbEntry.ServiceCommentImages.Add(newServiceCommentImage);
+                        newServiceCommentImage.ServiceCommentId = serviceComment.ServiceCommentId;
+                        context.ServiceCommentImages.Add(newServiceCommentImage);
                     }
                 }                
             }
@@ -148,33 +132,17 @@ namespace Students.Domain.Concrete
                 MarketComment dbEntry = context.MarketComments.Find(marketComment.MarketCommentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Body = marketComment.Body;
-
                     List<MarketCommentImage> oldMarketCommentImages = dbEntry.MarketCommentImages.ToList();
-                    List<MarketCommentImage> updatedMarketCommentImages = new List<MarketCommentImage>();
                     List<MarketCommentImage> newMarketCommentImages = marketComment.MarketCommentImages.ToList();
                     foreach (var oldMarketCommentImage in oldMarketCommentImages)
                     {
-                        if (newMarketCommentImages.Any(nmci => nmci.MarketCommentImageId == oldMarketCommentImage.MarketCommentImageId))
-                        {
-                            updatedMarketCommentImages.Add(oldMarketCommentImage);
-                        }
-                        else
-                        {
-                            context.MarketCommentImages.Remove(oldMarketCommentImage);
-                        }
+                        context.MarketCommentImages.Remove(oldMarketCommentImage);
                     }
-                    for (int i = 0; i < updatedMarketCommentImages.Count; i++)
-                    {
-                        if (newMarketCommentImages[i].MarketCommentImageId == updatedMarketCommentImages[i].MarketCommentImageId)
-                        {
-                            updatedMarketCommentImages[i] = newMarketCommentImages[i];
-                            newMarketCommentImages.Remove(newMarketCommentImages[i]);
-                        }
-                    }
+
                     foreach (var newMarketCommentImage in newMarketCommentImages)
                     {
-                        dbEntry.MarketCommentImages.Add(newMarketCommentImage);
+                        newMarketCommentImage.MarketCommentId = marketComment.MarketCommentId;
+                        context.MarketCommentImages.Add(newMarketCommentImage);
                     }
                 }
             }
@@ -196,33 +164,17 @@ namespace Students.Domain.Concrete
                 TravelComment dbEntry = context.TravelComments.Find(travelComment.TravelCommentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Body = travelComment.Body;
-
                     List<TravelCommentImage> oldTravelCommentImages = dbEntry.TravelCommentImages.ToList();
-                    List<TravelCommentImage> updatedTravelCommentImages = new List<TravelCommentImage>();
                     List<TravelCommentImage> newTravelCommentImages = travelComment.TravelCommentImages.ToList();
                     foreach (var oldTravelCommentImage in oldTravelCommentImages)
                     {
-                        if (newTravelCommentImages.Any(ntci => ntci.TravelCommentImageId == oldTravelCommentImage.TravelCommentImageId))
-                        {
-                            updatedTravelCommentImages.Add(oldTravelCommentImage);
-                        }
-                        else
-                        {
-                            context.TravelCommentImages.Remove(oldTravelCommentImage);
-                        }
+                        context.TravelCommentImages.Remove(oldTravelCommentImage);
                     }
-                    for (int i = 0; i < updatedTravelCommentImages.Count; i++)
-                    {
-                        if (newTravelCommentImages[i].TravelCommentImageId == updatedTravelCommentImages[i].TravelCommentImageId)
-                        {
-                            updatedTravelCommentImages[i] = newTravelCommentImages[i];
-                            newTravelCommentImages.Remove(newTravelCommentImages[i]);
-                        }
-                    }
+
                     foreach (var newTravelCommentImage in newTravelCommentImages)
                     {
-                        dbEntry.TravelCommentImages.Add(newTravelCommentImage);
+                        newTravelCommentImage.TravelCommentId = travelComment.TravelCommentId;
+                        context.TravelCommentImages.Add(newTravelCommentImage);
                     }
                 }
             }
@@ -244,33 +196,17 @@ namespace Students.Domain.Concrete
                 HousingComment dbEntry = context.HousingComments.Find(housingComment.HousingCommentId);
                 if (dbEntry != null)
                 {
-                    dbEntry.Body = housingComment.Body;
-
                     List<HousingCommentImage> oldHousingCommentImages = dbEntry.HousingCommentImages.ToList();
-                    List<HousingCommentImage> updatedHousingCommentImages = new List<HousingCommentImage>();
                     List<HousingCommentImage> newHousingCommentImages = housingComment.HousingCommentImages.ToList();
                     foreach (var oldHousingCommentImage in oldHousingCommentImages)
                     {
-                        if (newHousingCommentImages.Any(nhci => nhci.HousingCommentImageId == oldHousingCommentImage.HousingCommentImageId))
-                        {
-                            updatedHousingCommentImages.Add(oldHousingCommentImage);
-                        }
-                        else
-                        {
-                            context.HousingCommentImages.Remove(oldHousingCommentImage);
-                        }
+                        context.HousingCommentImages.Remove(oldHousingCommentImage);
                     }
-                    for (int i = 0; i < updatedHousingCommentImages.Count; i++)
-                    {
-                        if (newHousingCommentImages[i].HousingCommentImageId == updatedHousingCommentImages[i].HousingCommentImageId)
-                        {
-                            updatedHousingCommentImages[i] = newHousingCommentImages[i];
-                            newHousingCommentImages.Remove(newHousingCommentImages[i]);
-                        }
-                    }
+
                     foreach (var newHousingCommentImage in newHousingCommentImages)
                     {
-                        dbEntry.HousingCommentImages.Add(newHousingCommentImage);
+                        newHousingCommentImage.HousingCommentId = housingComment.HousingCommentId;
+                        context.HousingCommentImages.Add(newHousingCommentImage);
                     }
                 }
             }

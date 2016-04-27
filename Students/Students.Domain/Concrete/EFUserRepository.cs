@@ -105,19 +105,19 @@ namespace Students.Domain.Concrete
 
         public User GetUserById(int id)
         {
-            User dbEntry = context.Users.Where(user => user.UserId == id).First();
+            User dbEntry = context.Users.Where(user => user.UserId == id).FirstOrDefault();
             return dbEntry;
         }
 
         public User GetUserByEmail(string email)
         {
-            User dbEntry = context.Users.Where(user => user.Email == email).First();
+            User dbEntry = context.Users.Where(user => user.Email == email).FirstOrDefault();
             return dbEntry;
         }
 
         public User GetUserByUserName(string userName)
         {
-            User dbEntry = context.Users.Where(user => user.UserName == userName).First();
+            User dbEntry = context.Users.Where(user => user.UserName == userName).FirstOrDefault();
             return dbEntry;
         }
 
@@ -194,7 +194,7 @@ namespace Students.Domain.Concrete
             return false;
         }
 
-        private static bool CheckPassword(User user, string oldPassword)
+        public bool CheckPassword(User user, string oldPassword)
         {
             if(user.Password == oldPassword)
             {

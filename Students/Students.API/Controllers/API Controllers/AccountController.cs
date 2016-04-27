@@ -17,13 +17,6 @@ using Newtonsoft.Json;
 
 namespace Students.API.APIControllers.Controllers
 {
-    public class Token
-    {
-        public string access_token { get; set; }
-        public string token_type { get; set; }
-        public int expires_in { get; set; }
-    }
-
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
@@ -36,48 +29,27 @@ namespace Students.API.APIControllers.Controllers
         [HttpPost]
         public HttpResponseMessage Login([FromBody]JObject jsonData)
         {
-            var user = jsonData.GetValue("user").ToString();
+            var username = jsonData.GetValue("username").ToString();
             var password = jsonData.GetValue("password").ToString();
-            var audience = "099153c2625149bc8ecb3e85e03f0022";//should be Global
-
-            if (user == password)
+            var user = userRepository.GetUserByUserName(username);
+            if (user != null)
             {
-                try
+                if(userRepository.CheckPassword(user, password))
                 {
-                    string url = "http://authorization-server.azurewebsites.net/oauth2/token";
-                    var request = (HttpWebRequest)WebRequest.Create(url);
-
-                    var postData = "username=" + user;
-                    postData += "&password=" + password;
-                    postData += "&grant_type=password";
-                    postData += "&client_id=" + audience;
-
-                    var data = Encoding.ASCII.GetBytes(postData);
-
-                    request.Method = "POST";
-                    request.ContentType = "application/x-www-form-urlencoded";
-                    request.ContentLength = data.Length;
-
-                    using (var stream = request.GetRequestStream())
+                    var role = user.Role;
+                    try
                     {
-                        stream.Write(data, 0, data.Length);
+                        var token = RequestSender.SendRequest(username, password, role);
+                        return Request.CreateResponse(HttpStatusCode.OK, token);
                     }
-
-                    var response = (HttpWebResponse)request.GetResponse();
-
-                    var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-                    Token token = JsonConvert.DeserializeObject<Token>(responseString);
-
-                    return Request.CreateResponse(HttpStatusCode.OK, token.access_token);
+                    catch
+                    {
+                        return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                    }
                 }
-                catch
-                {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
-                }
-            }
-
-            return Request.CreateResponse(HttpStatusCode.Forbidden);
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }          
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
 
         [HttpPost]

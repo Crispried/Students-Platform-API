@@ -14,7 +14,6 @@ using Students.API.Infrastructure;
 namespace Students.API.APIControllers.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("api/housing")]
     [Authorize]
     public class HousingController : ApiController
     {

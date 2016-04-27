@@ -98,7 +98,6 @@
     <Compile Include="Entities\TravelCommentImage.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\AuthorVM.cs" />
     <Compile Include="ViewModel\CommentVM.cs" />
     <Compile Include="ViewModel\HousingAnnouncmentLangVM.cs" />
     <Compile Include="ViewModel\HousingAnnouncmentVM.cs" />

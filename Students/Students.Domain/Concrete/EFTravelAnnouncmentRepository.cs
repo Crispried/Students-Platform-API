@@ -47,57 +47,29 @@ namespace Students.Domain.Concrete
                 if (dbEntry != null)
                 {
                     List<TravelAnnouncmentLang> oldTravelAnnouncmentLangs = dbEntry.TravelAnnouncmentLangs.ToList();
-                    List<TravelAnnouncmentLang> updatedTravelAnnouncmentLangs = new List<TravelAnnouncmentLang>();
                     List<TravelAnnouncmentLang> newTravelAnnouncmentLangs = travelAnnouncment.TravelAnnouncmentLangs.ToList();
                     foreach (var oldTravelAnnouncmentLang in oldTravelAnnouncmentLangs)
                     {
-                        if (newTravelAnnouncmentLangs.Any(ntal => ntal.LanguageId == oldTravelAnnouncmentLang.LanguageId))
-                        {
-                            updatedTravelAnnouncmentLangs.Add(oldTravelAnnouncmentLang);
-                        }
-                        else
-                        {
-                            context.TravelAnnouncmentLangs.Remove(oldTravelAnnouncmentLang);
-                        }
+                        context.TravelAnnouncmentLangs.Remove(oldTravelAnnouncmentLang);
                     }
-                    for (int i = 0; i < updatedTravelAnnouncmentLangs.Count; i++)
-                    {
-                        if (newTravelAnnouncmentLangs[i].LanguageId == updatedTravelAnnouncmentLangs[i].LanguageId)
-                        {
-                            updatedTravelAnnouncmentLangs[i] = newTravelAnnouncmentLangs[i];
-                            newTravelAnnouncmentLangs.Remove(newTravelAnnouncmentLangs[i]);
-                        }
-                    }
+
                     foreach (var newTravelAnnouncmentLang in newTravelAnnouncmentLangs)
                     {
-                        dbEntry.TravelAnnouncmentLangs.Add(newTravelAnnouncmentLang);
+                        newTravelAnnouncmentLang.TravelAnnouncmentId = travelAnnouncment.TravelAnnouncmentId;
+                        context.TravelAnnouncmentLangs.Add(newTravelAnnouncmentLang);
                     }
 
                     List<TravelAnnouncmentImage> oldTravelAnnouncmentImages = dbEntry.TravelAnnouncmentImages.ToList();
-                    List<TravelAnnouncmentImage> updatedTravelAnnouncmentImages = new List<TravelAnnouncmentImage>();
                     List<TravelAnnouncmentImage> newTravelAnnouncmentImages = travelAnnouncment.TravelAnnouncmentImages.ToList();
                     foreach (var oldTravelAnnouncmentImage in oldTravelAnnouncmentImages)
                     {
-                        if (newTravelAnnouncmentImages.Any(ntai => ntai.TravelAnnouncmentImageId == oldTravelAnnouncmentImage.TravelAnnouncmentImageId))
-                        {
-                            updatedTravelAnnouncmentImages.Add(oldTravelAnnouncmentImage);
-                        }
-                        else
-                        {
-                            context.TravelAnnouncmentImages.Remove(oldTravelAnnouncmentImage);
-                        }
+                        context.TravelAnnouncmentImages.Remove(oldTravelAnnouncmentImage);
                     }
-                    for (int i = 0; i < newTravelAnnouncmentImages.Count; i++)
-                    {
-                        if (newTravelAnnouncmentImages[i].TravelAnnouncmentImageId == newTravelAnnouncmentImages[i].TravelAnnouncmentImageId)
-                        {
-                            newTravelAnnouncmentImages[i] = newTravelAnnouncmentImages[i];
-                            newTravelAnnouncmentImages.Remove(newTravelAnnouncmentImages[i]);
-                        }
-                    }
+
                     foreach (var newTravelAnnouncmentImage in newTravelAnnouncmentImages)
                     {
-                        dbEntry.TravelAnnouncmentImages.Add(newTravelAnnouncmentImage);
+                        newTravelAnnouncmentImage.TravelAnnouncmentId = travelAnnouncment.TravelAnnouncmentId;
+                        context.TravelAnnouncmentImages.Add(newTravelAnnouncmentImage);
                     }
                 }
             }

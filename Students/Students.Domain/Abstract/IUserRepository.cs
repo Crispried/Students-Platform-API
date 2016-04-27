@@ -91,5 +91,13 @@ namespace Students.Domain.Abstract
         /// </summary>
         /// <param name="userId"></param>
         bool LeaveGroup(int userId);
+
+        /// <summary>
+        /// checks the real user's password with entered password
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        bool CheckPassword(User user, string password);
     }
 }
