@@ -14,7 +14,6 @@ using Students.API.Infrastructure;
 namespace Students.API.APIControllers.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [Authorize]
     public class HousingController : ApiController
     {
         private IHousingAnnouncmentRepository announcmentRepository;
@@ -27,6 +26,7 @@ namespace Students.API.APIControllers.Controllers
             this.commentRepository = commentRepository;
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage AddAnnouncment([FromBody]JObject jsonData)
         {
@@ -49,6 +49,7 @@ namespace Students.API.APIControllers.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage AddComment([FromBody]JObject jsonData)
         {
@@ -71,6 +72,7 @@ namespace Students.API.APIControllers.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage DeleteAnnouncment([FromBody]JObject jsonData)
         {
@@ -86,6 +88,7 @@ namespace Students.API.APIControllers.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage DeleteComment([FromBody]JObject jsonData)
         {
@@ -101,6 +104,7 @@ namespace Students.API.APIControllers.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage EditAnnouncment([FromBody]JObject jsonData)
         {
@@ -123,6 +127,7 @@ namespace Students.API.APIControllers.Controllers
             return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
+        [Authorize]
         [HttpPost]
         public HttpResponseMessage EditComment([FromBody]JObject jsonData)
         {
